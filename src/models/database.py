@@ -41,6 +41,7 @@ class Database:
             from src.models.client_model import Client
             from src.models.invoice_model import Invoice
             from src.models.payment_model import Payment
+            from src.models.item_model import Item
             
             # Check if the database exists and has the required schema
             self._check_and_update_schema()

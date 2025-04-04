@@ -26,7 +26,7 @@ class Payment(Base):
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
     
-    # Relationship
+    # Relationship - make sure this matches with the Invoice model
     invoice = relationship("Invoice", back_populates="payments")
     
     def __repr__(self):

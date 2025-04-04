@@ -2,10 +2,7 @@ import customtkinter as ctk
 import tkinter as tk
 from tkinter import messagebox
 import logging
-from datetime import datetime, timedelta
-import os
-import subprocess
-import platform
+from datetime import datetime
 
 class InvoiceView(ctk.CTkFrame):
     def __init__(self, parent, controller):
@@ -71,42 +68,52 @@ class InvoiceView(ctk.CTkFrame):
         # Use a regular Treeview (ttk) as CustomTkinter doesn't have a Treeview widget
         self.tree = tk.ttk.Treeview(
             treeview_frame, 
-            columns=("ID", "Number", "Client", "Issue Date", "Due Date", "Status", "Total"),
+            columns=("ID", "Number", "Date", "Customer", "Address", "Total"),
             show="headings",
             selectmode="browse"
         )
         
-        # Configure the treeview style to match CustomTkinter aesthetics as much as possible
+        # Configure the treeview style to match CustomTkinter aesthetics
         style = tk.ttk.Style()
-        style.configure("Treeview", 
-                        background="#2b2b2b", 
-                        foreground="white", 
-                        rowheight=25, 
-                        fieldbackground="#2b2b2b")
-        style.map('Treeview', 
-                 background=[('selected', '#347ab3')],
-                 foreground=[('selected', 'white')])
+        
+        if ctk.get_appearance_mode() == "Dark":
+            style.configure("Treeview", 
+                            background="#2b2b2b", 
+                            foreground="white", 
+                            rowheight=25, 
+                            fieldbackground="#2b2b2b")
+            style.map('Treeview', 
+                     background=[('selected', '#347ab3')],
+                     foreground=[('selected', 'white')])
+        else:
+            style.configure("Treeview", 
+                            background="#f0f0f0", 
+                            foreground="black", 
+                            rowheight=25, 
+                            fieldbackground="#f0f0f0")
+            style.map('Treeview', 
+                     background=[('selected', '#2874A6')],
+                     foreground=[('selected', 'white')])
         
         # Define column headings
-        self.tree.heading("ID", text="ID")
-        self.tree.heading("Number", text="Number")
-        self.tree.heading("Client", text="Client")
-        self.tree.heading("Issue Date", text="Issue Date")
-        self.tree.heading("Due Date", text="Due Date")
-        self.tree.heading("Status", text="Status")
-        self.tree.heading("Total", text="Total")
+        self.tree.heading("ID", text="ID", command=lambda: self._sort_by_column("ID", False))
+        self.tree.heading("Number", text="Invoice #", command=lambda: self._sort_by_column("Number", False))
+        self.tree.heading("Date", text="Date", command=lambda: self._sort_by_column("Date", False))
+        self.tree.heading("Customer", text="Customer", command=lambda: self._sort_by_column("Customer", False))
+        self.tree.heading("Address", text="Address", command=lambda: self._sort_by_column("Address", False))
+        self.tree.heading("Total", text="Total", command=lambda: self._sort_by_column("Total", False))
         
         # Configure column widths and alignment
-        self.tree.column("ID", width=50)
-        self.tree.column("Number", width=150)
-        self.tree.column("Client", width=150)
-        self.tree.column("Issue Date", width=120)
-        self.tree.column("Due Date", width=120)
-        self.tree.column("Status", width=100)
-        self.tree.column("Total", width=100)
+        self.tree.column("ID", width=50, anchor="center")
+        self.tree.column("Number", width=100, anchor="center")
+        self.tree.column("Date", width=100, anchor="center")
+        self.tree.column("Customer", width=200)
+        self.tree.column("Address", width=300)
+        self.tree.column("Total", width=100, anchor="e")
         
         # Bind select event
         self.tree.bind("<<TreeviewSelect>>", self._on_invoice_select)
+        self.tree.bind("<Double-1>", self._on_invoice_double_click)
         
         # Add scrollbar
         scrollbar = tk.ttk.Scrollbar(treeview_frame, orient="vertical", command=self.tree.yview)
@@ -148,6 +155,8 @@ class InvoiceView(ctk.CTkFrame):
         
         # Store invoices data
         self.invoices_data = []
+        self.sorted_column = None
+        self.sort_ascending = True
         
     def display_invoices(self, invoices_data):
         """Display the list of invoices in the treeview"""
@@ -166,11 +175,10 @@ class InvoiceView(ctk.CTkFrame):
                 values=(
                     invoice['id'],
                     invoice['invoice_number'],
-                    invoice['client_name'],
-                    invoice['issue_date'].strftime("%Y-%m-%d") if invoice['issue_date'] else "",
-                    invoice['due_date'].strftime("%Y-%m-%d") if invoice['due_date'] else "",
-                    invoice['status'].capitalize(),
-                    f"₱{invoice['total_amount']:.2f}"  # Change to peso
+                    invoice['date'],
+                    invoice['customer_name'],
+                    invoice['customer_address'] or "",
+                    f"₱{invoice['total_amount']:.2f}"
                 )
             )
             
@@ -190,8 +198,9 @@ class InvoiceView(ctk.CTkFrame):
         for invoice in self.invoices_data:
             if (search_text in str(invoice['id']).lower() or
                 search_text in invoice['invoice_number'].lower() or
-                search_text in invoice['client_name'].lower() or
-                search_text in invoice['status'].lower()):
+                search_text in invoice['date'].lower() or
+                search_text in invoice['customer_name'].lower() or
+                (invoice['customer_address'] and search_text in invoice['customer_address'].lower())):
                 
                 self.tree.insert(
                     "", 
@@ -199,13 +208,55 @@ class InvoiceView(ctk.CTkFrame):
                     values=(
                         invoice['id'],
                         invoice['invoice_number'],
-                        invoice['client_name'],
-                        invoice['issue_date'].strftime("%Y-%m-%d") if invoice['issue_date'] else "",
-                        invoice['due_date'].strftime("%Y-%m-%d") if invoice['due_date'] else "",
-                        invoice['status'].capitalize(),
-                        f"₱{invoice['total_amount']:.2f}"  # Change to peso
+                        invoice['date'],
+                        invoice['customer_name'],
+                        invoice['customer_address'] or "",
+                        f"₱{invoice['total_amount']:.2f}"
                     )
                 )
+    
+    def _sort_by_column(self, column, reset=True):
+        """Sort the tree data by column"""
+        if reset or self.sorted_column != column:
+            self.sort_ascending = True
+            self.sorted_column = column
+        else:
+            self.sort_ascending = not self.sort_ascending
+        
+        # Visual indicator of sort direction
+        for col in self.tree["columns"]:
+            heading_text = col.replace("#", "")
+            if col == column:
+                if self.sort_ascending:
+                    self.tree.heading(col, text=f"{heading_text} ↑")
+                else:
+                    self.tree.heading(col, text=f"{heading_text} ↓")
+            else:
+                self.tree.heading(col, text=heading_text)
+        
+        # Get all items with their values
+        items_with_values = [(self.tree.item(item, "values"), item) for item in self.tree.get_children("")]
+        
+        # Determine column index
+        column_indices = {col: idx for idx, col in enumerate(self.tree["columns"])}
+        col_idx = column_indices[column]
+        
+        # Special handling for Total (remove ₱ sign for sorting)
+        if column == "Total":
+            items_with_values.sort(
+                key=lambda x: float(x[0][col_idx].replace('₱', '')) if x[0][col_idx].replace('₱', '') else 0,
+                reverse=not self.sort_ascending
+            )
+        else:
+            # Sort items
+            items_with_values.sort(
+                key=lambda x: (x[0][col_idx] == "", x[0][col_idx]), 
+                reverse=not self.sort_ascending
+            )
+        
+        # Rearrange items in the tree
+        for idx, (values, item) in enumerate(items_with_values):
+            self.tree.move(item, "", idx)
                 
     def _on_invoice_select(self, event):
         """Handle invoice selection"""
@@ -217,6 +268,11 @@ class InvoiceView(ctk.CTkFrame):
         else:
             self.selected_invoice_id = None
             self._update_action_buttons()
+    
+    def _on_invoice_double_click(self, event):
+        """Handle double-click on an invoice"""
+        if self.selected_invoice_id:
+            self._show_view_invoice_dialog()
             
     def _update_action_buttons(self):
         """Update the state of action buttons based on invoice selection"""
@@ -231,7 +287,13 @@ class InvoiceView(ctk.CTkFrame):
             
     def _show_add_invoice_dialog(self):
         """Show dialog to add a new invoice"""
-        dialog = InvoiceDialog(self, "Add New Invoice", self.controller.get_clients())
+        # Generate a new invoice number
+        invoice_number = self.controller.generate_invoice_number()
+        
+        # Get clients for dropdown
+        clients = self.controller.get_clients()
+        
+        dialog = InvoiceDialog(self, "Add New Invoice", invoice_number, clients)
         dialog.grab_set()  # Make it modal
         self.wait_window(dialog)  # Wait until the dialog is closed
         
@@ -251,7 +313,10 @@ class InvoiceView(ctk.CTkFrame):
             self.show_error("Failed to load invoice data")
             return
             
-        dialog = InvoiceDialog(self, "Edit Invoice", self.controller.get_clients(), invoice_data, items_data)
+        # Get clients for dropdown
+        clients = self.controller.get_clients()
+            
+        dialog = InvoiceDialog(self, "Edit Invoice", invoice_data['invoice_number'], clients, invoice_data, items_data)
         dialog.grab_set()  # Make it modal
         self.wait_window(dialog)  # Wait until the dialog is closed
         
@@ -271,7 +336,10 @@ class InvoiceView(ctk.CTkFrame):
             self.show_error("Failed to load invoice data")
             return
             
-        dialog = InvoiceDialog(self, "View Invoice", self.controller.get_clients(), invoice_data, items_data, readonly=True)
+        # Get clients for dropdown (for display only)
+        clients = self.controller.get_clients()
+            
+        dialog = InvoiceDialog(self, "View Invoice", invoice_data['invoice_number'], clients, invoice_data, items_data, readonly=True)
         dialog.grab_set()  # Make it modal
         dialog.wait_window()  # Wait until the dialog is closed
             
@@ -299,13 +367,14 @@ class InvoiceView(ctk.CTkFrame):
 
 
 class InvoiceDialog(ctk.CTkToplevel):
-    def __init__(self, parent, title, clients, invoice_data=None, items_data=None, readonly=False):
+    def __init__(self, parent, title, invoice_number, clients, invoice_data=None, items_data=None, readonly=False):
         super().__init__(parent)
         self.title(title)
-        self.geometry("800x600")
+        self.geometry("800x650")  # Increased height to ensure button visibility
         self.resizable(False, False)
         
         # Set up variables
+        self.invoice_number = invoice_number
         self.clients = clients
         self.invoice_data = invoice_data or {}
         self.items_data = items_data or []
@@ -314,6 +383,9 @@ class InvoiceDialog(ctk.CTkToplevel):
         
         # Store line items
         self.line_items = []
+        
+        # Get items for dropdown
+        self.items = parent.controller.get_items()
         
         # Create UI
         self._create_widgets()
@@ -340,290 +412,185 @@ class InvoiceDialog(ctk.CTkToplevel):
         )
         title_label.pack(pady=(0, 20))
         
-        # Create tabs
-        self.tabs = ctk.CTkTabview(container)
-        self.tabs.pack(fill="both", expand=True, padx=10, pady=10)
+        # Create a scrollable frame to contain all content
+        main_content = ctk.CTkScrollableFrame(container)
+        main_content.pack(fill="both", expand=True, padx=0, pady=0)
         
-        # General tab
-        self.general_tab = self.tabs.add("General")
-        self._setup_general_tab()
+        # Invoice header frame
+        header_frame = ctk.CTkFrame(main_content)
+        header_frame.pack(fill="x", padx=10, pady=10)
         
-        # Line Items tab
-        self.items_tab = self.tabs.add("Line Items")
-        self._setup_line_items_tab()
-        
-        # Notes tab
-        self.notes_tab = self.tabs.add("Notes")
-        self._setup_notes_tab()
-        
-        # Button frame
-        button_frame = ctk.CTkFrame(container)
-        button_frame.pack(fill="x", pady=10)
-        
-        if not self.readonly:
-            save_button = ctk.CTkButton(button_frame, text="Save", command=self._save)
-            save_button.pack(side="left", padx=10, pady=10)
-        
-        cancel_button = ctk.CTkButton(
-            button_frame, 
-            text="Close" if self.readonly else "Cancel", 
-            command=self.destroy
-        )
-        cancel_button.pack(side="right", padx=10, pady=10)
-        
-    def _setup_general_tab(self):
-        """Set up the general tab"""
-        # General tab content
-        general_frame = ctk.CTkFrame(self.general_tab)
-        general_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        # Left side - Invoice number and date
+        left_frame = ctk.CTkFrame(header_frame)
+        left_frame.pack(side="left", fill="y", expand=True, padx=10)
         
         # Invoice number
-        invoice_number_label = ctk.CTkLabel(general_frame, text="Invoice Number:")
-        invoice_number_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
+        invoice_number_frame = ctk.CTkFrame(left_frame)
+        invoice_number_frame.pack(fill="x", pady=5)
+        ctk.CTkLabel(invoice_number_frame, text="Invoice #:").pack(side="left", padx=10)
         
-        self.invoice_number_var = ctk.StringVar(value=self.invoice_data.get('invoice_number', ''))
-        invoice_number_entry = ctk.CTkEntry(general_frame, textvariable=self.invoice_number_var, width=200)
-        invoice_number_entry.grid(row=0, column=1, padx=10, pady=10, sticky="w")
+        self.invoice_number_var = ctk.StringVar(value=self.invoice_number)
+        invoice_number_entry = ctk.CTkEntry(invoice_number_frame, textvariable=self.invoice_number_var, width=150)
+        invoice_number_entry.pack(side="left", padx=10)
         
         if self.readonly:
             invoice_number_entry.configure(state="disabled")
         
-        # Client dropdown
-        client_label = ctk.CTkLabel(general_frame, text="Client:")
-        client_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
+        # Date
+        date_frame = ctk.CTkFrame(left_frame)
+        date_frame.pack(fill="x", pady=5)
+        ctk.CTkLabel(date_frame, text="Date:").pack(side="left", padx=10)
         
-        client_values = [f"{client['name']} (ID: {client['id']})" for client in self.clients]
-        self.client_dropdown = ctk.CTkOptionMenu(general_frame, values=client_values)
-        self.client_dropdown.grid(row=1, column=1, padx=10, pady=10, sticky="w")
-        
-        if self.invoice_data.get('client_id'):
-            for client in self.clients:
-                if client['id'] == self.invoice_data['client_id']:
-                    self.client_dropdown.set(f"{client['name']} (ID: {client['id']})")
-                    break
+        # Use current date if it's a new invoice, otherwise use stored date
+        current_date = datetime.now().strftime("%Y-%m-%d")
+        self.date_var = ctk.StringVar(value=self.invoice_data.get('date', current_date))
+        date_entry = ctk.CTkEntry(date_frame, textvariable=self.date_var, width=150)
+        date_entry.pack(side="left", padx=10)
         
         if self.readonly:
-            self.client_dropdown.configure(state="disabled")
+            date_entry.configure(state="disabled")
         
-        # Issue date
-        issue_date_label = ctk.CTkLabel(general_frame, text="Issue Date:")
-        issue_date_label.grid(row=2, column=0, padx=10, pady=10, sticky="w")
+        # Right side - Customer info
+        right_frame = ctk.CTkFrame(header_frame)
+        right_frame.pack(side="right", fill="y", expand=True, padx=10)
         
-        issue_date = self.invoice_data.get('issue_date', datetime.now())
-        self.issue_year_var = ctk.StringVar(value=str(issue_date.year))
-        self.issue_month_var = ctk.StringVar(value=str(issue_date.month))
-        self.issue_day_var = ctk.StringVar(value=str(issue_date.day))
+        # Customer name (dropdown of clients or direct input)
+        customer_name_frame = ctk.CTkFrame(right_frame)
+        customer_name_frame.pack(fill="x", pady=5)
+        ctk.CTkLabel(customer_name_frame, text="Customer:").pack(side="left", padx=10)
         
-        issue_date_frame = ctk.CTkFrame(general_frame)
-        issue_date_frame.grid(row=2, column=1, padx=10, pady=10, sticky="w")
+        # Customer dropdown
+        client_names = [""] + [client['name'] for client in self.clients]
+        self.customer_var = ctk.StringVar()
         
-        issue_year_entry = ctk.CTkEntry(issue_date_frame, textvariable=self.issue_year_var, width=60)
-        issue_year_entry.pack(side="left", padx=5)
+        # Set the customer name if editing an existing invoice
+        if self.invoice_data.get('customer_name'):
+            self.customer_var.set(self.invoice_data.get('customer_name'))
         
-        issue_month_entry = ctk.CTkEntry(issue_date_frame, textvariable=self.issue_month_var, width=40)
-        issue_month_entry.pack(side="left", padx=5)
-        
-        issue_day_entry = ctk.CTkEntry(issue_date_frame, textvariable=self.issue_day_var, width=40)
-        issue_day_entry.pack(side="left", padx=5)
-        
-        if self.readonly:
-            issue_year_entry.configure(state="disabled")
-            issue_month_entry.configure(state="disabled")
-            issue_day_entry.configure(state="disabled")
-        
-        # Due date
-        due_date_label = ctk.CTkLabel(general_frame, text="Due Date:")
-        due_date_label.grid(row=3, column=0, padx=10, pady=10, sticky="w")
-        
-        due_date = self.invoice_data.get('due_date', datetime.now() + timedelta(days=30))
-        self.due_year_var = ctk.StringVar(value=str(due_date.year))
-        self.due_month_var = ctk.StringVar(value=str(due_date.month))
-        self.due_day_var = ctk.StringVar(value=str(due_date.day))
-        
-        due_date_frame = ctk.CTkFrame(general_frame)
-        due_date_frame.grid(row=3, column=1, padx=10, pady=10, sticky="w")
-        
-        due_year_entry = ctk.CTkEntry(due_date_frame, textvariable=self.due_year_var, width=60)
-        due_year_entry.pack(side="left", padx=5)
-        
-        due_month_entry = ctk.CTkEntry(due_date_frame, textvariable=self.due_month_var, width=40)
-        due_month_entry.pack(side="left", padx=5)
-        
-        due_day_entry = ctk.CTkEntry(due_date_frame, textvariable=self.due_day_var, width=40)
-        due_day_entry.pack(side="left", padx=5)
-        
-        if self.readonly:
-            due_year_entry.configure(state="disabled")
-            due_month_entry.configure(state="disabled")
-            due_day_entry.configure(state="disabled")
-        
-        # Status
-        status_label = ctk.CTkLabel(general_frame, text="Status:")
-        status_label.grid(row=4, column=0, padx=10, pady=10, sticky="w")
-        
-        self.status_var = ctk.StringVar(value=self.invoice_data.get('status', 'draft').capitalize())
-        status_dropdown = ctk.CTkOptionMenu(
-            general_frame, 
-            values=["Draft", "Sent", "Paid", "Partial", "Overdue", "Cancelled"],
-            variable=self.status_var
+        self.customer_dropdown = ctk.CTkComboBox(
+            customer_name_frame, 
+            values=client_names,
+            variable=self.customer_var,
+            width=250,
+            command=self._customer_selected
         )
-        status_dropdown.grid(row=4, column=1, padx=10, pady=10, sticky="w")
+        self.customer_dropdown.pack(side="left", padx=10)
         
         if self.readonly:
-            status_dropdown.configure(state="disabled")
+            self.customer_dropdown.configure(state="disabled")
         
-        # Subtotal
-        subtotal_label = ctk.CTkLabel(general_frame, text="Subtotal:")
-        subtotal_label.grid(row=5, column=0, padx=10, pady=10, sticky="w")
+        # Customer address
+        customer_address_frame = ctk.CTkFrame(right_frame)
+        customer_address_frame.pack(fill="x", pady=5)
+        ctk.CTkLabel(customer_address_frame, text="Address:").pack(side="left", padx=10)
         
-        self.subtotal_var = ctk.StringVar(value=f"₱{self.invoice_data.get('subtotal', 0.00):.2f}")
-        subtotal_entry = ctk.CTkEntry(general_frame, textvariable=self.subtotal_var, width=100)
-        subtotal_entry.grid(row=5, column=1, padx=10, pady=10, sticky="w")
+        self.address_text = ctk.CTkTextbox(customer_address_frame, height=60, width=250)
+        self.address_text.pack(side="left", padx=10)
         
-        if self.readonly:
-            subtotal_entry.configure(state="disabled")
-        
-        # Tax
-        tax_label = ctk.CTkLabel(general_frame, text="Tax:")
-        tax_label.grid(row=6, column=0, padx=10, pady=10, sticky="w")
-        
-        self.tax_var = ctk.StringVar(value=f"{self.invoice_data.get('tax_amount', 0.00):.2f}")
-        tax_entry = ctk.CTkEntry(general_frame, textvariable=self.tax_var, width=100)
-        tax_entry.grid(row=6, column=1, padx=10, pady=10, sticky="w")
+        # Set the address if editing an existing invoice
+        if self.invoice_data.get('customer_address'):
+            self.address_text.insert("1.0", self.invoice_data.get('customer_address'))
         
         if self.readonly:
-            tax_entry.configure(state="disabled")
+            self.address_text.configure(state="disabled")
         
-        # Discount
-        discount_label = ctk.CTkLabel(general_frame, text="Discount:")
-        discount_label.grid(row=7, column=0, padx=10, pady=10, sticky="w")
-        
-        self.discount_var = ctk.StringVar(value=f"{self.invoice_data.get('discount', 0.00):.2f}")
-        discount_entry = ctk.CTkEntry(general_frame, textvariable=self.discount_var, width=100)
-        discount_entry.grid(row=7, column=1, padx=10, pady=10, sticky="w")
-        
-        if self.readonly:
-            discount_entry.configure(state="disabled")
-        
-        # Total
-        total_label = ctk.CTkLabel(general_frame, text="Total:")
-        total_label.grid(row=8, column=0, padx=10, pady=10, sticky="w")
-        
-        self.total_var = ctk.StringVar(value=f"₱{self.invoice_data.get('total_amount', 0.00):.2f}")
-        total_entry = ctk.CTkEntry(general_frame, textvariable=self.total_var, width=100)
-        total_entry.grid(row=8, column=1, padx=10, pady=10, sticky="w")
-        
-        if self.readonly:
-            total_entry.configure(state="disabled")
-        
-        # Commission Rate
-        commission_rate_label = ctk.CTkLabel(general_frame, text="Commission Rate (%):")
-        commission_rate_label.grid(row=9, column=0, padx=10, pady=10, sticky="w")
-        
-        self.commission_rate_var = ctk.StringVar(value=f"{self.invoice_data.get('commission_rate', 0.00) * 100:.2f}")
-        commission_rate_entry = ctk.CTkEntry(general_frame, textvariable=self.commission_rate_var, width=100)
-        commission_rate_entry.grid(row=9, column=1, padx=10, pady=10, sticky="w")
-        
-        if self.readonly:
-            commission_rate_entry.configure(state="disabled")
-        
-        # Commission Amount
-        commission_amount_label = ctk.CTkLabel(general_frame, text="Commission Amount:")
-        commission_amount_label.grid(row=10, column=0, padx=10, pady=10, sticky="w")
-        
-        self.commission_amount_var = ctk.StringVar(value=f"₱{self.invoice_data.get('commission_amount', 0.00):.2f}")
-        commission_amount_entry = ctk.CTkEntry(general_frame, textvariable=self.commission_amount_var, width=100)
-        commission_amount_entry.grid(row=10, column=1, padx=10, pady=10, sticky="w")
-        
-        if self.readonly:
-            commission_amount_entry.configure(state="disabled")
-        
-    def _setup_line_items_tab(self):
-        """Set up the line items tab"""
-        # Line items tab content
-        items_frame = ctk.CTkFrame(self.items_tab)
+        # Line items section
+        items_frame = ctk.CTkFrame(main_content)
         items_frame.pack(fill="both", expand=True, padx=10, pady=10)
         
-        # Add line item button
-        if not self.readonly:
-            add_item_button = ctk.CTkButton(items_frame, text="Add Line Item", command=self._add_line_item)
-            add_item_button.pack(pady=10)
+        # Items header
+        items_header = ctk.CTkFrame(items_frame)
+        items_header.pack(fill="x", pady=5)
         
-        # Line items container
-        self.items_container = ctk.CTkFrame(items_frame)
-        self.items_container.pack(fill="both", expand=True, padx=10, pady=10)
+        ctk.CTkLabel(items_header, text="Line Items", font=ctk.CTkFont(size=16, weight="bold")).pack(side="left", padx=10)
+        
+        if not self.readonly:
+            add_item_button = ctk.CTkButton(
+                items_header, 
+                text="Add Item", 
+                command=self._add_line_item,
+                width=100
+            )
+            add_item_button.pack(side="right", padx=10)
+        
+        # Items list frame
+        items_list_frame = ctk.CTkFrame(items_frame)
+        items_list_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # Items header row
+        header_row = ctk.CTkFrame(items_list_frame)
+        header_row.pack(fill="x", pady=(0, 5))
+        
+        ctk.CTkLabel(header_row, text="Item Code", width=80).pack(side="left", padx=(5, 0))
+        ctk.CTkLabel(header_row, text="Description", width=200).pack(side="left", padx=5)
+        ctk.CTkLabel(header_row, text="Quantity", width=80).pack(side="left", padx=5)
+        ctk.CTkLabel(header_row, text="Price", width=80).pack(side="left", padx=5)
+        ctk.CTkLabel(header_row, text="Total", width=80).pack(side="left", padx=5)
+        
+        # Items container (scrollable frame would be better for many items)
+        self.items_container = ctk.CTkScrollableFrame(items_list_frame, height=200)
+        self.items_container.pack(fill="both", expand=True)
         
         # Add existing line items
         for item_data in self.items_data:
             self._add_line_item(item_data)
         
+        # If it's a new invoice with no items, add an empty item row
+        if not self.items_data and not self.readonly:
+            self._add_line_item()
+        
         # Totals section
-        totals_frame = ctk.CTkFrame(items_frame)
+        totals_frame = ctk.CTkFrame(main_content)
         totals_frame.pack(fill="x", padx=10, pady=10)
         
-        # Subtotal
-        items_subtotal_label = ctk.CTkLabel(totals_frame, text="Subtotal:")
-        items_subtotal_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
+        # Total amount
+        total_frame = ctk.CTkFrame(totals_frame)
+        total_frame.pack(side="right", padx=10)
         
-        self.items_subtotal_var = ctk.StringVar(value=f"₱{self.invoice_data.get('subtotal', 0.00):.2f}")
-        items_subtotal_entry = ctk.CTkEntry(totals_frame, textvariable=self.items_subtotal_var, width=100)
-        items_subtotal_entry.grid(row=0, column=1, padx=10, pady=10, sticky="w")
+        ctk.CTkLabel(total_frame, text="Total Amount:", font=ctk.CTkFont(weight="bold")).pack(side="left", padx=10)
         
-        if self.readonly:
-            items_subtotal_entry.configure(state="disabled")
+        self.total_var = ctk.StringVar(value=f"₱{self.invoice_data.get('total_amount', 0.0):.2f}")
+        total_label = ctk.CTkLabel(total_frame, textvariable=self.total_var, font=ctk.CTkFont(weight="bold"))
+        total_label.pack(side="left", padx=10)
         
-        # Tax
-        items_tax_label = ctk.CTkLabel(totals_frame, text="Tax:")
-        items_tax_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
+        # Button frame - moved outside of the scrollable area to always be visible
+        button_frame = ctk.CTkFrame(container)
+        button_frame.pack(fill="x", pady=10, side="bottom")
         
-        self.items_tax_var = ctk.StringVar(value=f"{self.invoice_data.get('tax_amount', 0.00):.2f}")
-        items_tax_entry = ctk.CTkEntry(totals_frame, textvariable=self.items_tax_var, width=100)
-        items_tax_entry.grid(row=1, column=1, padx=10, pady=10, sticky="w")
+        if not self.readonly:
+            save_button = ctk.CTkButton(
+                button_frame, 
+                text="Save Invoice", 
+                command=self._save,
+                font=ctk.CTkFont(size=16, weight="bold"),  # Larger font
+                height=40,  # Taller button
+                fg_color="#28a745",  # Green color
+                hover_color="#218838"  # Darker green on hover
+            )
+            save_button.pack(side="left", padx=20, pady=15, fill="x", expand=True)
         
-        if self.readonly:
-            items_tax_entry.configure(state="disabled")
+        cancel_button = ctk.CTkButton(
+            button_frame, 
+            text="Close" if self.readonly else "Cancel", 
+            command=self.destroy,
+            height=40  # Match save button height
+        )
+        cancel_button.pack(side="right", padx=20, pady=15, fill="x", expand=True)
+    
+    def _customer_selected(self, customer_name):
+        """Auto-populate customer address when a customer is selected"""
+        if not customer_name:
+            self.address_text.delete("1.0", "end")
+            return
         
-        # Discount
-        items_discount_label = ctk.CTkLabel(totals_frame, text="Discount:")
-        items_discount_label.grid(row=2, column=0, padx=10, pady=10, sticky="w")
-        
-        self.items_discount_var = ctk.StringVar(value=f"{self.invoice_data.get('discount', 0.00):.2f}")
-        items_discount_entry = ctk.CTkEntry(totals_frame, textvariable=self.items_discount_var, width=100)
-        items_discount_entry.grid(row=2, column=1, padx=10, pady=10, sticky="w")
-        
-        if self.readonly:
-            items_discount_entry.configure(state="disabled")
-        
-        # Total
-        items_total_label = ctk.CTkLabel(totals_frame, text="Total:")
-        items_total_label.grid(row=3, column=0, padx=10, pady=10, sticky="w")
-        
-        self.items_total_var = ctk.StringVar(value=f"₱{self.invoice_data.get('total_amount', 0.00):.2f}")
-        items_total_entry = ctk.CTkEntry(totals_frame, textvariable=self.items_total_var, width=100)
-        items_total_entry.grid(row=3, column=1, padx=10, pady=10, sticky="w")
-        
-        if self.readonly:
-            items_total_entry.configure(state="disabled")
-        
-    def _setup_notes_tab(self):
-        """Set up the notes tab"""
-        # Notes tab content
-        notes_frame = ctk.CTkFrame(self.notes_tab)
-        notes_frame.pack(fill="both", expand=True, padx=10, pady=10)
-        
-        # Notes field
-        notes_label = ctk.CTkLabel(notes_frame, text="Notes:")
-        notes_label.pack(anchor="w", padx=10, pady=(10, 0))
-        
-        self.notes_text = ctk.CTkTextbox(notes_frame, height=200)
-        self.notes_text.pack(fill="x", padx=10, pady=(0, 10))
-        
-        # Insert existing notes if any
-        if self.invoice_data.get('notes'):
-            self.notes_text.insert("1.0", self.invoice_data.get('notes'))
-        
-        if self.readonly:
-            self.notes_text.configure(state="disabled")
+        # Find customer in clients list
+        for client in self.clients:
+            if client['name'] == customer_name:
+                # Set the address
+                self.address_text.delete("1.0", "end")
+                if client['address']:
+                    self.address_text.insert("1.0", client['address'])
+                break
     
     def _add_line_item(self, item_data=None):
         """Add a line item row to the invoice items"""
@@ -631,27 +598,53 @@ class InvoiceDialog(ctk.CTkToplevel):
         item_frame = ctk.CTkFrame(self.items_container)
         item_frame.pack(fill="x", pady=2)
         
+        # Item Code selection (dropdown) - changed from Item ID to Item Code
+        # Store item ID internally, but display item code in dropdown
+        item_id_var = ctk.StringVar(value=str(item_data.get('item_id', '')) if item_data else '')
+        
+        # Create the dropdown values for items - using item_code for display
+        item_code_to_id = {item['item_code']: str(item['id']) for item in self.items}
+        id_to_item_code = {str(item['id']): item['item_code'] for item in self.items}
+        
+        item_codes = [""] + [item['item_code'] for item in self.items]
+        
+        # Create the dropdown with item codes instead of IDs
+        item_dropdown = ctk.CTkComboBox(
+            item_frame, 
+            values=item_codes, 
+            width=80,
+            command=lambda code: self._item_selected(item_code_to_id.get(code, ""), item_frame)
+        )
+        item_dropdown.pack(side="left", padx=(5, 0))
+        
+        # If we have item data, set the selected item code
+        if item_data and item_data.get('item_id'):
+            item_code = id_to_item_code.get(str(item_data.get('item_id')), "")
+            if item_code:
+                item_dropdown.set(item_code)
+        
         # Description
         description_var = ctk.StringVar(value=item_data.get('description', '') if item_data else '')
-        description_entry = ctk.CTkEntry(item_frame, textvariable=description_var, width=300)
-        description_entry.pack(side="left", padx=(10, 5))
+        description_entry = ctk.CTkEntry(item_frame, textvariable=description_var, width=200)
+        description_entry.pack(side="left", padx=5)
         
         # Quantity
-        quantity_var = ctk.StringVar(value=str(item_data.get('quantity', '1')) if item_data else '1')
+        quantity_var = ctk.StringVar(value=str(item_data.get('quantity', 1)) if item_data else '1')
         quantity_entry = ctk.CTkEntry(item_frame, textvariable=quantity_var, width=80)
         quantity_entry.pack(side="left", padx=5)
         
-        # Unit Price
-        unit_price_var = ctk.StringVar(value=str(item_data.get('unit_price', '0.00')) if item_data else '0.00')
-        unit_price_entry = ctk.CTkEntry(item_frame, textvariable=unit_price_var, width=100)
-        unit_price_entry.pack(side="left", padx=5)
+        # Price
+        price_var = ctk.StringVar(value=str(item_data.get('price', 0.0)) if item_data else '0.0')
+        price_entry = ctk.CTkEntry(item_frame, textvariable=price_var, width=80)
+        price_entry.pack(side="left", padx=5)
         
-        # Total (calculated automatically)
-        total_var = ctk.StringVar(value=f"₱{item_data.get('total', 0.00):.2f}" if item_data else "₱0.00")
-        total_label = ctk.CTkLabel(item_frame, textvariable=total_var, width=100)
+        # Total (calculated field)
+        total = float(item_data.get('quantity', 1)) * float(item_data.get('price', 0.0)) if item_data else 0.0
+        total_var = ctk.StringVar(value=f"₱{total:.2f}")
+        total_label = ctk.CTkLabel(item_frame, textvariable=total_var, width=80)
         total_label.pack(side="left", padx=5)
         
-        # Delete button if not readonly
+        # Delete button
         if not self.readonly:
             delete_button = ctk.CTkButton(
                 item_frame,
@@ -663,231 +656,169 @@ class InvoiceDialog(ctk.CTkToplevel):
                 command=lambda: self._delete_line_item(item_frame)
             )
             delete_button.pack(side="left", padx=5)
-            
-            # Set up event bindings to update calculations
-            def update_total(*args):
-                try:
-                    quantity = float(quantity_var.get()) if quantity_var.get() else 0
-                    unit_price = float(unit_price_var.get()) if unit_price_var.get() else 0
-                    item_total = quantity * unit_price
-                    total_var.set(f"₱{item_total:.2f}")
-                    self._update_invoice_totals()
-                except ValueError:
-                    total_var.set("₱0.00")
-            
-            quantity_var.trace_add("write", update_total)
-            unit_price_var.trace_add("write", update_total)
         
-        # If readonly, disable all entry fields
+        # If readonly, disable all inputs
         if self.readonly:
+            item_dropdown.configure(state="disabled")
             description_entry.configure(state="disabled")
             quantity_entry.configure(state="disabled")
-            unit_price_entry.configure(state="disabled")
+            price_entry.configure(state="disabled")
         
-        # Store the item data for later retrieval
+        # Add event handlers for updating total
+        def update_total(*args):
+            try:
+                qty = int(quantity_var.get()) if quantity_var.get() else 0
+                prc = float(price_var.get()) if price_var.get() else 0.0
+                total_var.set(f"₱{qty * prc:.2f}")
+                self._calculate_invoice_total()
+            except ValueError:
+                total_var.set("₱0.00")
+        
+        quantity_var.trace_add("write", update_total)
+        price_var.trace_add("write", update_total)
+        
+        # Store the line item data
         line_item = {
             'frame': item_frame,
+            'item_id_var': item_id_var,  # Store the ID internally
+            'item_dropdown': item_dropdown,  # But display the code in the UI
             'description_var': description_var,
             'description_entry': description_entry,
             'quantity_var': quantity_var,
             'quantity_entry': quantity_entry,
-            'unit_price_var': unit_price_var,
-            'unit_price_entry': unit_price_entry,
-            'total_var': total_var,
-            'total_label': total_label
+            'price_var': price_var,
+            'price_entry': price_entry,
+            'total_var': total_var
         }
         
         self.line_items.append(line_item)
-        
-        # Calculate initial total
-        if not self.readonly:
-            update_total()
-            
         return line_item
+    
+    def _item_selected(self, item_id, item_frame):
+        """Handle item selection from dropdown"""
+        if not item_id:
+            return
+            
+        # Find the line item that corresponds to this frame
+        for line_item in self.line_items:
+            if line_item['frame'] == item_frame:
+                # Store the selected item_id
+                line_item['item_id_var'].set(item_id)
+                
+                # Find the selected item in the items list
+                for item in self.items:
+                    if str(item['id']) == item_id:
+                        # Set the description and price
+                        line_item['description_var'].set(item['name'])
+                        line_item['price_var'].set(str(item['price']))
+                        
+                        # Update the total
+                        try:
+                            qty = int(line_item['quantity_var'].get()) if line_item['quantity_var'].get() else 0
+                            prc = float(line_item['price_var'].get()) if line_item['price_var'].get() else 0.0
+                            line_item['total_var'].set(f"₱{qty * prc:.2f}")
+                            self._calculate_invoice_total()
+                        except ValueError:
+                            line_item['total_var'].set("₱0.00")
+                        break
+                break
     
     def _delete_line_item(self, item_frame):
         """Delete a line item from the invoice"""
-        # Find and remove the line item from our tracking list
         for i, item in enumerate(self.line_items):
             if item['frame'] == item_frame:
                 self.line_items.pop(i)
                 break
-        
-        # Remove the widget
+                
         item_frame.destroy()
-        
-        # Update totals
-        self._update_invoice_totals()
+        self._calculate_invoice_total()
     
-    def _update_invoice_totals(self):
-        """Update all totals based on line items"""
-        # Calculate subtotal from line items
-        subtotal = 0.0
-        for item in self.line_items:
+    def _calculate_invoice_total(self):
+        """Calculate the total amount of the invoice"""
+        total = 0.0
+        
+        for line_item in self.line_items:
             try:
-                # Extract the numeric value from the total string (remove ₱ sign)
-                total_text = item['total_var'].get().replace('₱', '')
-                total = float(total_text) if total_text else 0
-                subtotal += total
+                # Extract the numeric value from the total
+                total_text = line_item['total_var'].get().replace('₱', '')
+                item_total = float(total_text) if total_text else 0.0
+                total += item_total
             except ValueError:
-                pass
-        
-        # Get tax and discount values
-        try:
-            tax = float(self.tax_var.get()) if self.tax_var.get() else 0.0
-        except ValueError:
-            tax = 0.0
-            
-        try:
-            discount = float(self.discount_var.get()) if self.discount_var.get() else 0.0
-        except ValueError:
-            discount = 0.0
-        
-        # Calculate total
-        total = subtotal + tax - discount
-        
-        # Update the commission amount based on the rate
-        try:
-            commission_rate = float(self.commission_rate_var.get()) / 100  # Convert percent to decimal
-            commission_amount = total * commission_rate
-        except ValueError:
-            commission_amount = 0.0
-        
-        # Update display values
-        self.subtotal_var.set(f"₱{subtotal:.2f}")
+                continue
+                
         self.total_var.set(f"₱{total:.2f}")
-        self.commission_amount_var.set(f"₱{commission_amount:.2f}")
-        
-        # Also update values in the items tab
-        self.items_subtotal_var.set(f"₱{subtotal:.2f}")
-        self.items_tax_var.set(f"₱{tax:.2f}")
-        self.items_discount_var.set(f"₱{discount:.2f}")
-        self.items_total_var.set(f"₱{total:.2f}")
     
     def _save(self):
         """Save the invoice data"""
         # Validate required fields
         errors = []
         
-        # Check for client selection
-        client_id = None
-        if self.client_dropdown.get():
-            try:
-                # Extract client ID from the dropdown text (format: "Client Name (ID: X)")
-                client_str = self.client_dropdown.get()
-                client_id = int(client_str.split("ID: ")[1].strip(")"))
-            except (IndexError, ValueError):
-                errors.append("Invalid client selection")
-        else:
-            errors.append("Client is required")
-        
-        # Check for line items
+        if not self.invoice_number_var.get():
+            errors.append("Invoice number is required")
+            
+        if not self.date_var.get():
+            errors.append("Date is required")
+            
+        if not self.customer_var.get():
+            errors.append("Customer name is required")
+            
         if not self.line_items:
             errors.append("At least one line item is required")
-        
-        # Validate dates
-        issue_date = None
-        due_date = None
-        
-        try:
-            issue_date = datetime(
-                int(self.issue_year_var.get()),
-                int(self.issue_month_var.get()),
-                int(self.issue_day_var.get())
-            )
-        except (ValueError, TypeError):
-            errors.append("Invalid issue date")
             
-        try:
-            due_date = datetime(
-                int(self.due_year_var.get()),
-                int(self.due_month_var.get()),
-                int(self.due_day_var.get())
-            )
-        except (ValueError, TypeError):
-            errors.append("Invalid due date")
+        # Check that all line items have item_id, description, quantity, and price
+        for i, item in enumerate(self.line_items):
+            if not item['item_id_var'].get():
+                errors.append(f"Item {i+1}: Item ID is required")
+                
+            if not item['description_var'].get():
+                errors.append(f"Item {i+1}: Description is required")
+                
+            try:
+                qty = int(item['quantity_var'].get())
+                if qty <= 0:
+                    errors.append(f"Item {i+1}: Quantity must be greater than zero")
+            except ValueError:
+                errors.append(f"Item {i+1}: Invalid quantity")
+                
+            try:
+                price = float(item['price_var'].get())
+                if price < 0:
+                    errors.append(f"Item {i+1}: Price cannot be negative")
+            except ValueError:
+                errors.append(f"Item {i+1}: Invalid price")
         
-        # Show errors if any
         if errors:
             messagebox.showerror("Validation Error", "\n".join(errors))
             return
-        
-        # Get invoice data
-        status_value = self.status_var.get().lower()
-        
-        try:
-            commission_rate = float(self.commission_rate_var.get()) / 100  # Convert percent to decimal
-        except ValueError:
-            commission_rate = 0
             
-        try:
-            tax_amount = float(self.tax_var.get())
-        except ValueError:
-            tax_amount = 0
-            
-        try:
-            discount = float(self.discount_var.get())
-        except ValueError:
-            discount = 0
-        
-        # Extract subtotal from displayed value (remove ₱ sign)
-        subtotal_text = self.subtotal_var.get().replace('₱', '')
-        try:
-            subtotal = float(subtotal_text)
-        except ValueError:
-            subtotal = 0
-        
-        # Extract total from displayed value (remove ₱ sign)
-        total_text = self.total_var.get().replace('₱', '')
-        try:
-            total_amount = float(total_text)
-        except ValueError:
-            total_amount = 0
-            
-        # Extract commission amount from displayed value (remove ₱ sign)
-        commission_text = self.commission_amount_var.get().replace('₱', '')
-        try:
-            commission_amount = float(commission_text)
-        except ValueError:
-            commission_amount = 0
-        
         # Prepare invoice data
         invoice_data = {
             'invoice_number': self.invoice_number_var.get(),
-            'client_id': client_id,
-            'issue_date': issue_date,
-            'due_date': due_date,
-            'status': status_value,
-            'subtotal': subtotal,
-            'tax_amount': tax_amount,
-            'discount': discount,
-            'total_amount': total_amount,
-            'commission_rate': commission_rate,
-            'commission_amount': commission_amount,
-            'notes': self.notes_text.get("1.0", "end-1c").strip()
+            'date': self.date_var.get(),
+            'customer_name': self.customer_var.get(),
+            'customer_address': self.address_text.get("1.0", "end-1c").strip(),
+            'total_amount': float(self.total_var.get().replace('₱', ''))
         }
         
         # Prepare line items data
         items_data = []
         for item in self.line_items:
             try:
-                quantity = float(item['quantity_var'].get()) if item['quantity_var'].get() else 0
-                unit_price = float(item['unit_price_var'].get()) if item['unit_price_var'].get() else 0
-                total = quantity * unit_price
+                item_id = int(item['item_id_var'].get())
+                description = item['description_var'].get()
+                quantity = int(item['quantity_var'].get())
+                price = float(item['price_var'].get())
                 
-                # Skip empty items
-                if not item['description_var'].get().strip():
-                    continue
-                    
                 items_data.append({
-                    'description': item['description_var'].get().strip(),
+                    'item_id': item_id,
+                    'description': description,
                     'quantity': quantity,
-                    'unit_price': unit_price,
-                    'total': total
+                    'price': price
                 })
             except ValueError:
-                pass
-        
+                # Skip invalid items (they should've been caught above)
+                continue
+                
         # Set the result
         self.result = {
             'invoice': invoice_data,

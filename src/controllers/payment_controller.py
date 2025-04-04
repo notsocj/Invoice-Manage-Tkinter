@@ -3,7 +3,7 @@ import threading
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import text
 from src.models.payment_model import Payment, PaymentMethod
-from src.models.invoice_model import Invoice, InvoiceStatus
+from src.models.invoice_model import Invoice
 from src.views.payment_view import PaymentView
 
 class PaymentController:
@@ -45,21 +45,22 @@ class PaymentController:
         """Get all unpaid or partially paid invoices for the dropdown"""
         try:
             session = self.db.get_session()
-            invoices = session.query(Invoice).filter(
-                Invoice.status.in_([InvoiceStatus.SENT, InvoiceStatus.PARTIAL, InvoiceStatus.OVERDUE])
-            ).order_by(Invoice.issue_date.desc()).all()
+            invoices = session.query(Invoice).all()
             
             invoices_data = []
             for inv in invoices:
+                # Get all payments for this invoice
+                payments = session.query(Payment).filter(Payment.invoice_id == inv.id).all()
+                total_paid = sum(payment.amount for payment in payments)
+                
                 # Calculate the remaining amount to be paid
-                total_paid = sum(payment.amount for payment in inv.payments)
                 remaining = inv.total_amount - total_paid
                 
                 if remaining > 0:
                     invoices_data.append({
                         'id': inv.id,
                         'invoice_number': inv.invoice_number,
-                        'client_name': inv.client.name,
+                        'customer_name': inv.customer_name,
                         'total_amount': inv.total_amount,
                         'remaining_amount': remaining
                     })
@@ -90,14 +91,8 @@ class PaymentController:
             new_payment = Payment(**payment_data)
             session.add(new_payment)
             
-            # Update invoice status
-            total_paid = sum(payment.amount for payment in invoice.payments) + payment_data['amount']
-            
-            if total_paid >= invoice.total_amount:
-                invoice.status = InvoiceStatus.PAID
-            elif total_paid > 0:
-                invoice.status = InvoiceStatus.PARTIAL
-            
+            # Since we don't have a status field in the invoice model anymore,
+            # we'll just make sure the total_amount is updated if needed
             session.commit()
             payment_id = new_payment.id
             session.close()
@@ -123,37 +118,13 @@ class PaymentController:
                 self.logger.warning(f"Payment with ID {payment_id} not found")
                 return False, "Payment not found"
             
-            # Store the original amount and invoice_id for comparison
-            original_amount = payment.amount
+            # Store the original invoice_id for comparison
             original_invoice_id = payment.invoice_id
             new_invoice_id = payment_data.get('invoice_id', original_invoice_id)
             
             # Update payment attributes
             for key, value in payment_data.items():
                 setattr(payment, key, value)
-            
-            # If the invoice changed or amount changed, update both invoices' statuses
-            if original_invoice_id != new_invoice_id or original_amount != payment_data['amount']:
-                # Update status for original invoice
-                if original_invoice_id != new_invoice_id:
-                    original_invoice = session.query(Invoice).filter(Invoice.id == original_invoice_id).first()
-                    if original_invoice:
-                        orig_total_paid = sum(p.amount for p in original_invoice.payments if p.id != payment_id)
-                        if orig_total_paid >= original_invoice.total_amount:
-                            original_invoice.status = InvoiceStatus.PAID
-                        elif orig_total_paid > 0:
-                            original_invoice.status = InvoiceStatus.PARTIAL
-                        else:
-                            original_invoice.status = InvoiceStatus.SENT
-                
-                # Update status for new invoice
-                new_invoice = session.query(Invoice).filter(Invoice.id == new_invoice_id).first()
-                if new_invoice:
-                    new_total_paid = sum(p.amount for p in new_invoice.payments if p.id != payment_id) + payment_data['amount']
-                    if new_total_paid >= new_invoice.total_amount:
-                        new_invoice.status = InvoiceStatus.PAID
-                    elif new_total_paid > 0:
-                        new_invoice.status = InvoiceStatus.PARTIAL
             
             session.commit()
             session.close()
@@ -179,29 +150,8 @@ class PaymentController:
                 self.logger.warning(f"Payment with ID {payment_id} not found")
                 return False, "Payment not found"
             
-            # Get the invoice before deleting the payment
-            invoice_id = payment.invoice_id
-            invoice = session.query(Invoice).filter(Invoice.id == invoice_id).first()
-            
             # Delete the payment
             session.delete(payment)
-            
-            # Update the invoice status if we have an invoice
-            if invoice:
-                remaining_payments = session.query(Payment).filter(
-                    Payment.invoice_id == invoice_id,
-                    Payment.id != payment_id
-                ).all()
-                
-                total_paid = sum(p.amount for p in remaining_payments)
-                
-                if total_paid >= invoice.total_amount:
-                    invoice.status = InvoiceStatus.PAID
-                elif total_paid > 0:
-                    invoice.status = InvoiceStatus.PARTIAL
-                else:
-                    invoice.status = InvoiceStatus.SENT
-            
             session.commit()
             session.close()
             
@@ -230,6 +180,33 @@ class PaymentController:
         except SQLAlchemyError as e:
             self.logger.error(f"Error fetching payment: {str(e)}")
             return None
+    
+    def get_invoice_payment_status(self, invoice_id):
+        """Determine the payment status of an invoice based on payments received"""
+        try:
+            session = self.db.get_session()
+            invoice = session.query(Invoice).filter(Invoice.id == invoice_id).first()
+            
+            if not invoice:
+                session.close()
+                return "unknown"
+                
+            payments = session.query(Payment).filter(Payment.invoice_id == invoice_id).all()
+            total_paid = sum(payment.amount for payment in payments)
+            
+            if total_paid >= invoice.total_amount:
+                status = "paid"
+            elif total_paid > 0:
+                status = "partial"
+            else:
+                status = "unpaid"
+                
+            session.close()
+            return status
+            
+        except SQLAlchemyError as e:
+            self.logger.error(f"Error getting invoice payment status: {str(e)}")
+            return "unknown"
     
     def get_payment_methods(self):
         """Get all available payment methods"""

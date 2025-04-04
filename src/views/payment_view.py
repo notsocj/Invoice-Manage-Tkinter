@@ -490,8 +490,7 @@ class PaymentDialog(ctk.CTkToplevel):
         ctk.CTkLabel(method_frame, text="Payment Method:").pack(anchor="w", padx=10, pady=(10, 0))
         
         # Get payment methods from the controller
-        from src.controllers.payment_controller import PaymentMethod
-        payment_methods = [method.value.replace('_', ' ').title() for method in PaymentMethod]
+        payment_methods = [method['name'] for method in self.parent.controller.get_payment_methods()]
         
         self.method_var = ctk.StringVar()
         self.method_dropdown = ctk.CTkComboBox(
@@ -507,7 +506,7 @@ class PaymentDialog(ctk.CTkToplevel):
             method = self.payment_data.get('payment_method').replace('_', ' ').title()
             self.method_dropdown.set(method)
         else:
-            self.method_dropdown.set(payment_methods[0])  # Default to first method
+            self.method_dropdown.set(payment_methods[0] if payment_methods else "Cash")  # Default to first method
             
         # Reference Number
         reference_frame = ctk.CTkFrame(form_frame)
