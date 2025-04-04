@@ -172,8 +172,8 @@ class PaymentView(ctk.CTkFrame):
             # Format date
             payment_date = payment['payment_date'].strftime('%Y-%m-%d') if payment['payment_date'] else ""
             
-            # Format amount
-            amount = f"${payment['amount']:.2f}"
+            # Format amount with peso symbol
+            amount = f"₱{payment['amount']:.2f}"
             
             # Format payment method
             method = payment['payment_method'].replace('_', ' ').title()
@@ -223,8 +223,8 @@ class PaymentView(ctk.CTkFrame):
             # Format date
             payment_date = payment['payment_date'].strftime('%Y-%m-%d') if payment['payment_date'] else ""
             
-            # Format amount
-            amount = f"${payment['amount']:.2f}"
+            # Format amount with peso symbol
+            amount = f"₱{payment['amount']:.2f}"
             
             # Format payment method
             method = payment['payment_method'].replace('_', ' ').title()
@@ -397,8 +397,8 @@ class PaymentDialog(ctk.CTkToplevel):
         # Create invoice dropdown
         invoice_options = []
         for invoice in self.invoices:
-            # Format: INV-123456 - Client Name ($Amount)
-            option = f"{invoice['invoice_number']} - {invoice['client_name']} (${invoice['remaining_amount']:.2f})"
+            # Format: INV-123456 - Client Name (₱Amount)
+            option = f"{invoice['invoice_number']} - {invoice['client_name']} (₱{invoice['remaining_amount']:.2f})"
             invoice_options.append(option)
         
         self.invoice_var = ctk.StringVar()

@@ -265,17 +265,17 @@ class InvoiceController:
                 data.append([
                     item.description,
                     str(item.quantity),
-                    f"${item.unit_price:.2f}",
-                    f"${item.total:.2f}"
+                    f"₱{item.unit_price:.2f}",
+                    f"₱{item.total:.2f}"
                 ])
             
             # Add totals
-            data.append(["", "", "Subtotal:", f"${invoice.subtotal:.2f}"])
+            data.append(["", "", "Subtotal:", f"₱{invoice.subtotal:.2f}"])
             if invoice.tax_amount > 0:
-                data.append(["", "", "Tax:", f"${invoice.tax_amount:.2f}"])
+                data.append(["", "", "Tax:", f"₱{invoice.tax_amount:.2f}"])
             if invoice.discount > 0:
-                data.append(["", "", "Discount:", f"${invoice.discount:.2f}"])
-            data.append(["", "", "TOTAL:", f"${invoice.total_amount:.2f}"])
+                data.append(["", "", "Discount:", f"₱{invoice.discount:.2f}"])
+            data.append(["", "", "TOTAL:", f"₱{invoice.total_amount:.2f}"])
             
             table = Table(data, colWidths=[300, 70, 70, 70])
             table.setStyle(TableStyle([

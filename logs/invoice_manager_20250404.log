@@ -109,3 +109,200 @@
 2025-04-04 19:06:55,605 - invoice_manager - INFO - Loading clients
 2025-04-04 19:06:55,883 - invoice_manager - INFO - Showing dashboard
 2025-04-04 19:07:03,926 - invoice_manager - INFO - Application closed
+2025-04-04 19:15:04,032 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-04 19:15:04,033 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-04 19:15:04,033 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-04 19:15:04,044 - invoice_manager - INFO - Database initialized successfully
+2025-04-04 19:15:04,123 - invoice_manager - INFO - Starting main application loop
+2025-04-04 19:15:04,156 - invoice_manager - INFO - Showing dashboard
+2025-04-04 19:15:07,215 - invoice_manager - INFO - Showing dashboard
+2025-04-04 19:15:07,697 - invoice_manager - INFO - Showing clients view
+2025-04-04 19:15:07,755 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 19:15:07,766 - invoice_manager - ERROR - Error fetching clients: (sqlite3.OperationalError) no such column: clients.payment_terms
+[SQL: SELECT count(*) AS count_1 
+FROM (SELECT clients.id AS clients_id, clients.name AS clients_name, clients.company AS clients_company, clients.email AS clients_email, clients.phone AS clients_phone, clients.address AS clients_address, clients.city AS clients_city, clients.state AS clients_state, clients.postal_code AS clients_postal_code, clients.country AS clients_country, clients.payment_terms AS clients_payment_terms, clients.credit_limit AS clients_credit_limit, clients.notes AS clients_notes, clients.is_active AS clients_is_active, clients.created_at AS clients_created_at, clients.updated_at AS clients_updated_at 
+FROM clients) AS anon_1]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-04-04 19:15:10,285 - invoice_manager - INFO - Showing invoices view
+2025-04-04 19:15:10,305 - invoice_manager - INFO - Loading invoices
+2025-04-04 19:15:10,778 - invoice_manager - INFO - Showing clients view
+2025-04-04 19:15:10,833 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 19:15:10,834 - invoice_manager - ERROR - Error fetching clients: (sqlite3.OperationalError) no such column: clients.payment_terms
+[SQL: SELECT count(*) AS count_1 
+FROM (SELECT clients.id AS clients_id, clients.name AS clients_name, clients.company AS clients_company, clients.email AS clients_email, clients.phone AS clients_phone, clients.address AS clients_address, clients.city AS clients_city, clients.state AS clients_state, clients.postal_code AS clients_postal_code, clients.country AS clients_country, clients.payment_terms AS clients_payment_terms, clients.credit_limit AS clients_credit_limit, clients.notes AS clients_notes, clients.is_active AS clients_is_active, clients.created_at AS clients_created_at, clients.updated_at AS clients_updated_at 
+FROM clients) AS anon_1]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-04-04 19:15:14,667 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 19:15:14,670 - invoice_manager - ERROR - Error fetching clients: (sqlite3.OperationalError) no such column: clients.payment_terms
+[SQL: SELECT count(*) AS count_1 
+FROM (SELECT clients.id AS clients_id, clients.name AS clients_name, clients.company AS clients_company, clients.email AS clients_email, clients.phone AS clients_phone, clients.address AS clients_address, clients.city AS clients_city, clients.state AS clients_state, clients.postal_code AS clients_postal_code, clients.country AS clients_country, clients.payment_terms AS clients_payment_terms, clients.credit_limit AS clients_credit_limit, clients.notes AS clients_notes, clients.is_active AS clients_is_active, clients.created_at AS clients_created_at, clients.updated_at AS clients_updated_at 
+FROM clients) AS anon_1]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-04-04 19:15:33,740 - invoice_manager - INFO - Adding new client: testing
+2025-04-04 19:15:33,742 - invoice_manager - ERROR - Error adding client: (sqlite3.OperationalError) table clients has no column named payment_terms
+[SQL: INSERT INTO clients (name, company, email, phone, address, city, state, postal_code, country, payment_terms, credit_limit, notes, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING id, created_at, updated_at]
+[parameters: ('testing', 'for testing company', 'testing@gmail.com', '095776732123', '', '', '', '', '', 30, 0.0, '', 1)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-04-04 19:16:59,956 - invoice_manager - INFO - Showing clients view
+2025-04-04 19:17:00,012 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 19:17:00,065 - invoice_manager - ERROR - Error fetching clients: (sqlite3.OperationalError) no such column: clients.payment_terms
+[SQL: SELECT count(*) AS count_1 
+FROM (SELECT clients.id AS clients_id, clients.name AS clients_name, clients.company AS clients_company, clients.email AS clients_email, clients.phone AS clients_phone, clients.address AS clients_address, clients.city AS clients_city, clients.state AS clients_state, clients.postal_code AS clients_postal_code, clients.country AS clients_country, clients.payment_terms AS clients_payment_terms, clients.credit_limit AS clients_credit_limit, clients.notes AS clients_notes, clients.is_active AS clients_is_active, clients.created_at AS clients_created_at, clients.updated_at AS clients_updated_at 
+FROM clients) AS anon_1]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-04-04 19:25:43,850 - invoice_manager - INFO - Application closed
+2025-04-04 19:25:50,262 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-04 19:25:50,263 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-04 19:25:50,263 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-04 19:25:50,271 - invoice_manager - INFO - Checking database schema for updates
+2025-04-04 19:25:50,273 - invoice_manager - INFO - Adding mobile column to clients table
+2025-04-04 19:25:50,283 - invoice_manager - INFO - Adding payment_terms column to clients table
+2025-04-04 19:25:50,287 - invoice_manager - INFO - Adding credit_limit column to clients table
+2025-04-04 19:25:50,293 - invoice_manager - INFO - Database initialized successfully
+2025-04-04 19:25:50,363 - invoice_manager - INFO - Starting main application loop
+2025-04-04 19:25:50,398 - invoice_manager - INFO - Showing dashboard
+2025-04-04 19:25:52,223 - invoice_manager - INFO - Showing clients view
+2025-04-04 19:25:52,283 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 19:25:52,300 - invoice_manager - INFO - Showing 0 to 0 of 0 customers
+2025-04-04 19:26:13,703 - invoice_manager - INFO - Adding new client: testing
+2025-04-04 19:26:13,714 - invoice_manager - INFO - Client added successfully with ID: 1
+2025-04-04 19:26:13,714 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 19:26:13,723 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 19:26:16,027 - invoice_manager - INFO - Showing invoices view
+2025-04-04 19:26:16,047 - invoice_manager - INFO - Loading invoices
+2025-04-04 19:26:16,820 - invoice_manager - INFO - Showing clients view
+2025-04-04 19:26:16,876 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 19:26:16,888 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 19:26:25,485 - invoice_manager - INFO - Showing invoices view
+2025-04-04 19:26:25,503 - invoice_manager - INFO - Loading invoices
+2025-04-04 19:26:25,931 - invoice_manager - INFO - Showing clients view
+2025-04-04 19:26:25,982 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 19:26:25,988 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 19:26:58,862 - invoice_manager - INFO - Loading clients page 1, per_page 100, search 'testing'
+2025-04-04 19:27:02,619 - invoice_manager - INFO - Loading clients page 1, per_page 10, search 'testing'
+2025-04-04 19:27:05,616 - invoice_manager - INFO - Loading clients page 1, per_page 10, search 'testing'
+2025-04-04 19:27:05,763 - invoice_manager - INFO - Loading clients page 1, per_page 10, search 'testing'
+2025-04-04 19:27:05,921 - invoice_manager - INFO - Loading clients page 1, per_page 10, search 'testing'
+2025-04-04 19:27:06,064 - invoice_manager - INFO - Loading clients page 1, per_page 10, search 'testing'
+2025-04-04 19:27:06,207 - invoice_manager - INFO - Loading clients page 1, per_page 10, search 'testing'
+2025-04-04 19:27:28,191 - invoice_manager - INFO - Showing clients view
+2025-04-04 19:27:28,253 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 19:27:28,259 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 19:27:28,744 - invoice_manager - INFO - Showing invoices view
+2025-04-04 19:27:28,764 - invoice_manager - INFO - Loading invoices
+2025-04-04 19:27:30,411 - invoice_manager - INFO - Showing payments view
+2025-04-04 19:27:30,456 - invoice_manager - INFO - Loading payments
+2025-04-04 19:27:32,862 - invoice_manager - INFO - Showing clients view
+2025-04-04 19:27:32,915 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 19:27:32,921 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 19:27:33,463 - invoice_manager - INFO - Showing invoices view
+2025-04-04 19:27:33,484 - invoice_manager - INFO - Loading invoices
+2025-04-04 19:27:34,044 - invoice_manager - INFO - Showing payments view
+2025-04-04 19:27:34,091 - invoice_manager - INFO - Loading payments
+2025-04-04 19:27:34,748 - invoice_manager - INFO - Showing clients view
+2025-04-04 19:27:34,803 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 19:27:34,809 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 19:27:35,246 - invoice_manager - INFO - Showing invoices view
+2025-04-04 19:27:35,265 - invoice_manager - INFO - Loading invoices
+2025-04-04 19:27:35,586 - invoice_manager - INFO - Showing payments view
+2025-04-04 19:27:35,631 - invoice_manager - INFO - Loading payments
+2025-04-04 19:27:36,018 - invoice_manager - INFO - Showing clients view
+2025-04-04 19:27:36,070 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 19:27:36,076 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 19:27:36,464 - invoice_manager - INFO - Showing invoices view
+2025-04-04 19:27:36,482 - invoice_manager - INFO - Loading invoices
+2025-04-04 19:27:36,811 - invoice_manager - INFO - Showing payments view
+2025-04-04 19:27:36,856 - invoice_manager - INFO - Loading payments
+2025-04-04 19:27:37,281 - invoice_manager - INFO - Showing clients view
+2025-04-04 19:27:37,338 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 19:27:37,344 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 19:27:37,549 - invoice_manager - INFO - Showing invoices view
+2025-04-04 19:27:37,568 - invoice_manager - INFO - Loading invoices
+2025-04-04 19:27:37,847 - invoice_manager - INFO - Showing payments view
+2025-04-04 19:27:37,891 - invoice_manager - INFO - Loading payments
+2025-04-04 19:27:38,984 - invoice_manager - INFO - Showing reports view
+2025-04-04 19:27:45,990 - invoice_manager - INFO - Showing dashboard
+2025-04-04 19:27:48,105 - invoice_manager - INFO - Showing clients view
+2025-04-04 19:27:48,158 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 19:27:48,164 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 19:27:49,957 - invoice_manager - INFO - Showing clients view
+2025-04-04 19:27:50,034 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 19:27:50,043 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 19:27:53,140 - invoice_manager - INFO - Showing invoices view
+2025-04-04 19:27:53,159 - invoice_manager - INFO - Loading invoices
+2025-04-04 20:00:48,080 - invoice_manager - INFO - Application closed
+2025-04-04 20:01:14,897 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-04 20:01:14,897 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-04 20:01:14,898 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-04 20:01:14,909 - invoice_manager - INFO - Checking database schema for updates
+2025-04-04 20:01:14,921 - invoice_manager - INFO - Database initialized successfully
+2025-04-04 20:01:15,000 - invoice_manager - INFO - Starting main application loop
+2025-04-04 20:01:15,031 - invoice_manager - INFO - Showing dashboard
+2025-04-04 20:01:19,660 - invoice_manager - INFO - Showing clients view
+2025-04-04 20:01:19,719 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 20:01:19,737 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 20:01:23,379 - invoice_manager - INFO - Showing invoices view
+2025-04-04 20:01:23,397 - invoice_manager - INFO - Loading invoices
+2025-04-04 20:01:24,731 - invoice_manager - INFO - Showing payments view
+2025-04-04 20:01:24,778 - invoice_manager - INFO - Loading payments
+2025-04-04 20:01:25,679 - invoice_manager - INFO - Showing items view
+2025-04-04 20:01:25,741 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-04 20:01:25,749 - invoice_manager - INFO - Showing 0 to 0 of 0 items
+2025-04-04 20:01:43,611 - invoice_manager - INFO - Adding new item: testing for the item
+2025-04-04 20:01:43,650 - invoice_manager - INFO - Item added successfully with ID: 1, Code: TKW-001
+2025-04-04 20:01:43,650 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-04 20:01:43,657 - invoice_manager - INFO - Showing 1 to 1 of 1 items
+2025-04-04 20:01:47,123 - invoice_manager - INFO - Deleting item with ID: 1
+2025-04-04 20:01:47,133 - invoice_manager - INFO - Item deleted successfully: 1
+2025-04-04 20:01:47,133 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-04 20:01:47,150 - invoice_manager - INFO - Showing 0 to 0 of 0 items
+2025-04-04 20:05:16,156 - invoice_manager - INFO - Application closed
+2025-04-04 20:05:23,856 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-04 20:05:23,856 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-04 20:05:23,857 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-04 20:05:23,866 - invoice_manager - INFO - Checking database schema for updates
+2025-04-04 20:05:23,869 - invoice_manager - INFO - Database initialized successfully
+2025-04-04 20:05:23,939 - invoice_manager - INFO - Starting main application loop
+2025-04-04 20:05:23,973 - invoice_manager - INFO - Showing dashboard
+2025-04-04 20:05:27,254 - invoice_manager - INFO - Showing clients view
+2025-04-04 20:05:27,315 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 20:05:27,332 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 20:05:28,477 - invoice_manager - INFO - Showing invoices view
+2025-04-04 20:05:28,495 - invoice_manager - INFO - Loading invoices
+2025-04-04 20:05:29,063 - invoice_manager - INFO - Showing payments view
+2025-04-04 20:05:29,198 - invoice_manager - INFO - Loading payments
+2025-04-04 20:05:30,731 - invoice_manager - INFO - Showing items view
+2025-04-04 20:05:30,786 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-04 20:05:30,793 - invoice_manager - INFO - Showing 0 to 0 of 0 items
+2025-04-04 20:05:43,385 - invoice_manager - INFO - Adding new item: item testing
+2025-04-04 20:05:43,425 - invoice_manager - INFO - Item added successfully with ID: 1, Code: TKW-001
+2025-04-04 20:05:43,425 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-04 20:05:43,433 - invoice_manager - INFO - Showing 1 to 1 of 1 items
+2025-04-04 20:05:47,459 - invoice_manager - INFO - Showing clients view
+2025-04-04 20:05:47,513 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 20:05:47,519 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 20:05:48,305 - invoice_manager - INFO - Showing payments view
+2025-04-04 20:05:48,349 - invoice_manager - INFO - Loading payments
+2025-04-04 20:05:48,726 - invoice_manager - INFO - Showing items view
+2025-04-04 20:05:48,783 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-04 20:05:48,789 - invoice_manager - INFO - Showing 1 to 1 of 1 items
+2025-04-04 20:05:50,423 - invoice_manager - INFO - Showing clients view
+2025-04-04 20:05:50,475 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 20:05:50,480 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 20:05:52,225 - invoice_manager - INFO - Showing items view
+2025-04-04 20:05:52,279 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-04 20:05:52,287 - invoice_manager - INFO - Showing 1 to 1 of 1 items
+2025-04-04 20:05:57,232 - invoice_manager - INFO - Changed appearance mode to Light
+2025-04-04 20:07:26,845 - invoice_manager - INFO - Showing dashboard
+2025-04-04 20:08:05,220 - invoice_manager - INFO - Showing invoices view
+2025-04-04 20:08:05,238 - invoice_manager - INFO - Loading invoices
+2025-04-04 20:08:07,434 - invoice_manager - INFO - Showing clients view
+2025-04-04 20:08:07,487 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 20:08:07,494 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 20:08:08,158 - invoice_manager - INFO - Showing invoices view
+2025-04-04 20:08:08,177 - invoice_manager - INFO - Loading invoices
+2025-04-04 20:08:11,888 - invoice_manager - INFO - Showing clients view
+2025-04-04 20:08:11,941 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-04 20:08:11,946 - invoice_manager - INFO - Showing 1 to 1 of 1 customers
+2025-04-04 20:08:12,302 - invoice_manager - INFO - Showing invoices view
+2025-04-04 20:08:12,319 - invoice_manager - INFO - Loading invoices

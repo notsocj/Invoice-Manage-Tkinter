@@ -170,7 +170,7 @@ class InvoiceView(ctk.CTkFrame):
                     invoice['issue_date'].strftime("%Y-%m-%d") if invoice['issue_date'] else "",
                     invoice['due_date'].strftime("%Y-%m-%d") if invoice['due_date'] else "",
                     invoice['status'].capitalize(),
-                    f"${invoice['total_amount']:.2f}"
+                    f"₱{invoice['total_amount']:.2f}"  # Change to peso
                 )
             )
             
@@ -203,7 +203,7 @@ class InvoiceView(ctk.CTkFrame):
                         invoice['issue_date'].strftime("%Y-%m-%d") if invoice['issue_date'] else "",
                         invoice['due_date'].strftime("%Y-%m-%d") if invoice['due_date'] else "",
                         invoice['status'].capitalize(),
-                        f"${invoice['total_amount']:.2f}"
+                        f"₱{invoice['total_amount']:.2f}"  # Change to peso
                     )
                 )
                 
@@ -476,7 +476,7 @@ class InvoiceDialog(ctk.CTkToplevel):
         subtotal_label = ctk.CTkLabel(general_frame, text="Subtotal:")
         subtotal_label.grid(row=5, column=0, padx=10, pady=10, sticky="w")
         
-        self.subtotal_var = ctk.StringVar(value=f"${self.invoice_data.get('subtotal', 0.00):.2f}")
+        self.subtotal_var = ctk.StringVar(value=f"₱{self.invoice_data.get('subtotal', 0.00):.2f}")
         subtotal_entry = ctk.CTkEntry(general_frame, textvariable=self.subtotal_var, width=100)
         subtotal_entry.grid(row=5, column=1, padx=10, pady=10, sticky="w")
         
@@ -509,7 +509,7 @@ class InvoiceDialog(ctk.CTkToplevel):
         total_label = ctk.CTkLabel(general_frame, text="Total:")
         total_label.grid(row=8, column=0, padx=10, pady=10, sticky="w")
         
-        self.total_var = ctk.StringVar(value=f"${self.invoice_data.get('total_amount', 0.00):.2f}")
+        self.total_var = ctk.StringVar(value=f"₱{self.invoice_data.get('total_amount', 0.00):.2f}")
         total_entry = ctk.CTkEntry(general_frame, textvariable=self.total_var, width=100)
         total_entry.grid(row=8, column=1, padx=10, pady=10, sticky="w")
         
@@ -531,7 +531,7 @@ class InvoiceDialog(ctk.CTkToplevel):
         commission_amount_label = ctk.CTkLabel(general_frame, text="Commission Amount:")
         commission_amount_label.grid(row=10, column=0, padx=10, pady=10, sticky="w")
         
-        self.commission_amount_var = ctk.StringVar(value=f"${self.invoice_data.get('commission_amount', 0.00):.2f}")
+        self.commission_amount_var = ctk.StringVar(value=f"₱{self.invoice_data.get('commission_amount', 0.00):.2f}")
         commission_amount_entry = ctk.CTkEntry(general_frame, textvariable=self.commission_amount_var, width=100)
         commission_amount_entry.grid(row=10, column=1, padx=10, pady=10, sticky="w")
         
@@ -565,7 +565,7 @@ class InvoiceDialog(ctk.CTkToplevel):
         items_subtotal_label = ctk.CTkLabel(totals_frame, text="Subtotal:")
         items_subtotal_label.grid(row=0, column=0, padx=10, pady=10, sticky="w")
         
-        self.items_subtotal_var = ctk.StringVar(value=f"${self.invoice_data.get('subtotal', 0.00):.2f}")
+        self.items_subtotal_var = ctk.StringVar(value=f"₱{self.invoice_data.get('subtotal', 0.00):.2f}")
         items_subtotal_entry = ctk.CTkEntry(totals_frame, textvariable=self.items_subtotal_var, width=100)
         items_subtotal_entry.grid(row=0, column=1, padx=10, pady=10, sticky="w")
         
@@ -598,7 +598,7 @@ class InvoiceDialog(ctk.CTkToplevel):
         items_total_label = ctk.CTkLabel(totals_frame, text="Total:")
         items_total_label.grid(row=3, column=0, padx=10, pady=10, sticky="w")
         
-        self.items_total_var = ctk.StringVar(value=f"${self.invoice_data.get('total_amount', 0.00):.2f}")
+        self.items_total_var = ctk.StringVar(value=f"₱{self.invoice_data.get('total_amount', 0.00):.2f}")
         items_total_entry = ctk.CTkEntry(totals_frame, textvariable=self.items_total_var, width=100)
         items_total_entry.grid(row=3, column=1, padx=10, pady=10, sticky="w")
         
@@ -647,7 +647,7 @@ class InvoiceDialog(ctk.CTkToplevel):
         unit_price_entry.pack(side="left", padx=5)
         
         # Total (calculated automatically)
-        total_var = ctk.StringVar(value=f"${item_data.get('total', 0.00):.2f}" if item_data else "$0.00")
+        total_var = ctk.StringVar(value=f"₱{item_data.get('total', 0.00):.2f}" if item_data else "₱0.00")
         total_label = ctk.CTkLabel(item_frame, textvariable=total_var, width=100)
         total_label.pack(side="left", padx=5)
         
@@ -670,10 +670,10 @@ class InvoiceDialog(ctk.CTkToplevel):
                     quantity = float(quantity_var.get()) if quantity_var.get() else 0
                     unit_price = float(unit_price_var.get()) if unit_price_var.get() else 0
                     item_total = quantity * unit_price
-                    total_var.set(f"${item_total:.2f}")
+                    total_var.set(f"₱{item_total:.2f}")
                     self._update_invoice_totals()
                 except ValueError:
-                    total_var.set("$0.00")
+                    total_var.set("₱0.00")
             
             quantity_var.trace_add("write", update_total)
             unit_price_var.trace_add("write", update_total)
@@ -725,8 +725,8 @@ class InvoiceDialog(ctk.CTkToplevel):
         subtotal = 0.0
         for item in self.line_items:
             try:
-                # Extract the numeric value from the total string (remove $ sign)
-                total_text = item['total_var'].get().replace('$', '')
+                # Extract the numeric value from the total string (remove ₱ sign)
+                total_text = item['total_var'].get().replace('₱', '')
                 total = float(total_text) if total_text else 0
                 subtotal += total
             except ValueError:
@@ -754,15 +754,15 @@ class InvoiceDialog(ctk.CTkToplevel):
             commission_amount = 0.0
         
         # Update display values
-        self.subtotal_var.set(f"${subtotal:.2f}")
-        self.total_var.set(f"${total:.2f}")
-        self.commission_amount_var.set(f"${commission_amount:.2f}")
+        self.subtotal_var.set(f"₱{subtotal:.2f}")
+        self.total_var.set(f"₱{total:.2f}")
+        self.commission_amount_var.set(f"₱{commission_amount:.2f}")
         
         # Also update values in the items tab
-        self.items_subtotal_var.set(f"${subtotal:.2f}")
-        self.items_tax_var.set(f"${tax:.2f}")
-        self.items_discount_var.set(f"${discount:.2f}")
-        self.items_total_var.set(f"${total:.2f}")
+        self.items_subtotal_var.set(f"₱{subtotal:.2f}")
+        self.items_tax_var.set(f"₱{tax:.2f}")
+        self.items_discount_var.set(f"₱{discount:.2f}")
+        self.items_total_var.set(f"₱{total:.2f}")
     
     def _save(self):
         """Save the invoice data"""
@@ -830,22 +830,22 @@ class InvoiceDialog(ctk.CTkToplevel):
         except ValueError:
             discount = 0
         
-        # Extract subtotal from displayed value (remove $ sign)
-        subtotal_text = self.subtotal_var.get().replace('$', '')
+        # Extract subtotal from displayed value (remove ₱ sign)
+        subtotal_text = self.subtotal_var.get().replace('₱', '')
         try:
             subtotal = float(subtotal_text)
         except ValueError:
             subtotal = 0
         
-        # Extract total from displayed value (remove $ sign)
-        total_text = self.total_var.get().replace('$', '')
+        # Extract total from displayed value (remove ₱ sign)
+        total_text = self.total_var.get().replace('₱', '')
         try:
             total_amount = float(total_text)
         except ValueError:
             total_amount = 0
             
-        # Extract commission amount from displayed value (remove $ sign)
-        commission_text = self.commission_amount_var.get().replace('$', '')
+        # Extract commission amount from displayed value (remove ₱ sign)
+        commission_text = self.commission_amount_var.get().replace('₱', '')
         try:
             commission_amount = float(commission_text)
         except ValueError:

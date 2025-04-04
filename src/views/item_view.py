@@ -2,16 +2,17 @@ import customtkinter as ctk
 import tkinter as tk
 from tkinter import messagebox
 import logging
+from datetime import datetime
 
-class ClientView(ctk.CTkFrame):
+class ItemView(ctk.CTkFrame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
         self.logger = logging.getLogger('invoice_manager')
         self.pack(fill="both", expand=True)
         
-        # Store currently selected client ID
-        self.selected_client_id = None
+        # Store currently selected item ID
+        self.selected_item_id = None
         
         # Pagination settings
         self.current_page = 1
@@ -23,22 +24,22 @@ class ClientView(ctk.CTkFrame):
         self._create_widgets()
         
     def _create_widgets(self):
-        """Create all UI elements for the client view"""
+        """Create all UI elements for the item view"""
         # Title and button frame
         title_frame = ctk.CTkFrame(self)
         title_frame.pack(fill="x", padx=10, pady=10)
         
         title_label = ctk.CTkLabel(
             title_frame, 
-            text="Customer Management", 
+            text="Item Management", 
             font=ctk.CTkFont(size=24, weight="bold")
         )
         title_label.pack(side="left", padx=10, pady=10)
         
         add_button = ctk.CTkButton(
             title_frame, 
-            text="Add New Customer", 
-            command=self._show_add_client_dialog,
+            text="Add New Item", 
+            command=self._show_add_item_dialog,
             hover_color=("gray70", "gray30")
         )
         add_button.pack(side="right", padx=10, pady=10)
@@ -46,7 +47,7 @@ class ClientView(ctk.CTkFrame):
         refresh_button = ctk.CTkButton(
             title_frame, 
             text="Refresh", 
-            command=self._refresh_clients,
+            command=self._refresh_items,
             hover_color=("gray70", "gray30")
         )
         refresh_button.pack(side="right", padx=10, pady=10)
@@ -59,12 +60,12 @@ class ClientView(ctk.CTkFrame):
         search_label.pack(side="left", padx=10, pady=10)
         
         self.search_var = ctk.StringVar()
-        self.search_var.trace("w", lambda name, index, mode: self._filter_clients())
+        self.search_var.trace("w", lambda name, index, mode: self._handle_search())
         search_entry = ctk.CTkEntry(search_frame, textvariable=self.search_var, width=300)
         search_entry.pack(side="left", padx=10, pady=10)
         
         # Page size selector
-        page_size_label = ctk.CTkLabel(search_frame, text="Records per page:")
+        page_size_label = ctk.CTkLabel(search_frame, text="Items per page:")
         page_size_label.pack(side="right", padx=10, pady=10)
         
         self.page_size_var = ctk.StringVar(value=str(self.per_page))
@@ -77,24 +78,23 @@ class ClientView(ctk.CTkFrame):
         )
         page_size_menu.pack(side="right", padx=5, pady=10)
         
-        # Client list frame
+        # Items list frame
         list_frame = ctk.CTkFrame(self)
         list_frame.pack(fill="both", expand=True, padx=10, pady=10)
         
-        # Treeview for clients
-        # Create a frame for the treeview and scrollbar
+        # Treeview for items
         treeview_frame = ctk.CTkFrame(list_frame)
         treeview_frame.pack(fill="both", expand=True, padx=10, pady=10)
         
-        # Modified Treeview for clients - simplified columns
+        # Use a regular Treeview (ttk) as CustomTkinter doesn't have a Treeview widget
         self.tree = tk.ttk.Treeview(
             treeview_frame, 
-            columns=("ID", "Name", "Mobile", "Address", "Status"),
+            columns=("ID", "Item Code", "Name", "Price", "Date Added"),
             show="headings",
             selectmode="browse"
         )
         
-        # Configure the treeview style to match CustomTkinter aesthetics as much as possible
+        # Configure the treeview style to match CustomTkinter aesthetics
         style = tk.ttk.Style()
         
         # Adjust style based on appearance mode
@@ -119,21 +119,21 @@ class ClientView(ctk.CTkFrame):
         
         # Define column headings
         self.tree.heading("ID", text="ID", command=lambda: self._sort_by_column("ID", False))
+        self.tree.heading("Item Code", text="Item Code", command=lambda: self._sort_by_column("Item Code", False))
         self.tree.heading("Name", text="Name", command=lambda: self._sort_by_column("Name", False))
-        self.tree.heading("Mobile", text="Mobile", command=lambda: self._sort_by_column("Mobile", False))
-        self.tree.heading("Address", text="Address", command=lambda: self._sort_by_column("Address", False))
-        self.tree.heading("Status", text="Status", command=lambda: self._sort_by_column("Status", False))
+        self.tree.heading("Price", text="Price", command=lambda: self._sort_by_column("Price", False))
+        self.tree.heading("Date Added", text="Date Added", command=lambda: self._sort_by_column("Date Added", False))
         
         # Configure column widths and alignment
         self.tree.column("ID", width=50, anchor="center")
-        self.tree.column("Name", width=200)
-        self.tree.column("Mobile", width=150)
-        self.tree.column("Address", width=300)
-        self.tree.column("Status", width=80, anchor="center")
+        self.tree.column("Item Code", width=100, anchor="center")
+        self.tree.column("Name", width=300)
+        self.tree.column("Price", width=100, anchor="e")
+        self.tree.column("Date Added", width=150, anchor="center")
         
         # Bind select event
-        self.tree.bind("<<TreeviewSelect>>", self._on_client_select)
-        self.tree.bind("<Double-1>", self._on_client_double_click)
+        self.tree.bind("<<TreeviewSelect>>", self._on_item_select)
+        self.tree.bind("<Double-1>", self._on_item_double_click)
         
         # Add scrollbar
         scrollbar = tk.ttk.Scrollbar(treeview_frame, orient="vertical", command=self.tree.yview)
@@ -192,51 +192,51 @@ class ClientView(ctk.CTkFrame):
         )
         goto_button.pack(side="right", padx=5, pady=10)
         
-        # Action buttons for the selected client
+        # Action buttons for the selected item
         action_frame = ctk.CTkFrame(self)
         action_frame.pack(fill="x", padx=10, pady=10)
         
         self.view_button = ctk.CTkButton(
             action_frame, 
-            text="View Customer", 
+            text="View Item", 
             state="disabled", 
-            command=self._show_view_client_dialog,
+            command=self._show_view_item_dialog,
             hover_color=("gray70", "gray30")
         )
         self.view_button.pack(side="left", padx=10, pady=10)
         
         self.edit_button = ctk.CTkButton(
             action_frame, 
-            text="Edit Customer", 
+            text="Edit Item", 
             state="disabled", 
-            command=self._show_edit_client_dialog,
+            command=self._show_edit_item_dialog,
             hover_color=("gray70", "gray30")
         )
         self.edit_button.pack(side="left", padx=10, pady=10)
         
         self.delete_button = ctk.CTkButton(
             action_frame, 
-            text="Delete Customer", 
+            text="Delete Item", 
             state="disabled",
             fg_color="red",
             hover_color="darkred",
-            command=self._confirm_delete_client
+            command=self._confirm_delete_item
         )
         self.delete_button.pack(side="right", padx=10, pady=10)
         
-        # Store clients data
-        self.clients_data = []
+        # Store items data
+        self.items_data = []
         self.sorted_column = None
         self.sort_ascending = True
         
-    def display_clients(self, clients_data, pagination_info=None):
-        """Display the list of clients in the treeview"""
+    def display_items(self, items_data, pagination_info=None):
+        """Display the list of items in the treeview"""
         # Clear existing items
         for item in self.tree.get_children():
             self.tree.delete(item)
         
         # Store the full data for later use
-        self.clients_data = clients_data
+        self.items_data = items_data
         
         # Update pagination information
         if pagination_info:
@@ -246,63 +246,39 @@ class ClientView(ctk.CTkFrame):
             self.total_pages = pagination_info['total_pages']
             self._update_pagination_controls()
         
-        # Add clients to the treeview
-        for client in clients_data:
-            status = "Active" if client['is_active'] else "Inactive"
+        # Add items to the treeview
+        for item in items_data:
+            # Format date
+            date_added = item['date_added'].strftime('%Y-%m-%d') if item['date_added'] else ""
+            
+            # Format price with peso symbol
+            price = f"₱{item['price']:.2f}"
             
             self.tree.insert(
                 "", 
                 "end", 
                 values=(
-                    client['id'],
-                    client['name'],
-                    client['mobile'] or "",
-                    client['address'] or "",
-                    status
+                    item['id'],
+                    item['item_code'],
+                    item['name'],
+                    price,
+                    date_added
                 )
             )
             
         # Reset selection
-        self.selected_client_id = None
+        self.selected_item_id = None
         self._update_action_buttons()
         
         # Update status message
-        start_record = (self.current_page - 1) * self.per_page + 1 if self.clients_data else 0
-        end_record = start_record + len(self.clients_data) - 1 if self.clients_data else 0
+        start_record = (self.current_page - 1) * self.per_page + 1 if self.items_data else 0
+        end_record = start_record + len(self.items_data) - 1 if self.items_data else 0
         
-        message = f"Showing {start_record} to {end_record} of {self.total_count} customers"
+        message = f"Showing {start_record} to {end_record} of {self.total_count} items"
         if self.search_var.get():
             message += f" (filtered by '{self.search_var.get()}')"
         
         self.logger.info(message)
-        
-    def _filter_clients(self):
-        """Filter clients based on search text"""
-        search_text = self.search_var.get().lower()
-        
-        # Clear existing items
-        for item in self.tree.get_children():
-            self.tree.delete(item)
-        
-        # Add filtered clients to the treeview
-        for client in self.clients_data:
-            if (search_text in str(client['id']).lower() or
-                search_text in client['name'].lower() or
-                search_text in (client['mobile'] or "").lower() or
-                search_text in (client['address'] or "").lower()):
-                
-                status = "Active" if client['is_active'] else "Inactive"
-                self.tree.insert(
-                    "", 
-                    "end", 
-                    values=(
-                        client['id'],
-                        client['name'],
-                        client['mobile'] or "",
-                        client['address'] or "",
-                        status
-                    )
-                )
         
     def _update_pagination_controls(self):
         """Update pagination controls based on current state"""
@@ -329,7 +305,7 @@ class ClientView(ctk.CTkFrame):
         """Go to the previous page"""
         if self.current_page > 1:
             self.current_page -= 1
-            self.controller.load_clients(
+            self.controller.load_items(
                 page=self.current_page, 
                 per_page=self.per_page,
                 search_text=self.search_var.get()
@@ -339,7 +315,7 @@ class ClientView(ctk.CTkFrame):
         """Go to the next page"""
         if self.current_page < self.total_pages:
             self.current_page += 1
-            self.controller.load_clients(
+            self.controller.load_items(
                 page=self.current_page, 
                 per_page=self.per_page,
                 search_text=self.search_var.get()
@@ -351,7 +327,7 @@ class ClientView(ctk.CTkFrame):
             page = int(self.jump_to_page_var.get())
             if 1 <= page <= self.total_pages:
                 self.current_page = page
-                self.controller.load_clients(
+                self.controller.load_items(
                     page=self.current_page, 
                     per_page=self.per_page,
                     search_text=self.search_var.get()
@@ -368,7 +344,7 @@ class ClientView(ctk.CTkFrame):
         try:
             self.per_page = int(size)
             self.current_page = 1  # Reset to first page
-            self.controller.load_clients(
+            self.controller.load_items(
                 page=self.current_page, 
                 per_page=self.per_page,
                 search_text=self.search_var.get()
@@ -376,9 +352,24 @@ class ClientView(ctk.CTkFrame):
         except ValueError:
             self.show_error("Invalid page size")
     
-    def _refresh_clients(self):
-        """Refresh the client list"""
-        self.controller.load_clients(
+    def _handle_search(self):
+        """Handle search input with debounce"""
+        self.after_cancel(getattr(self, '_search_after_id', None))
+        self._search_after_id = self.after(300, self._perform_search)
+    
+    def _perform_search(self):
+        """Perform the actual search"""
+        search_text = self.search_var.get()
+        self.current_page = 1  # Reset to first page
+        self.controller.load_items(
+            page=self.current_page, 
+            per_page=self.per_page,
+            search_text=search_text
+        )
+    
+    def _refresh_items(self):
+        """Refresh the item list"""
+        self.controller.load_items(
             page=self.current_page, 
             per_page=self.per_page,
             search_text=self.search_var.get()
@@ -410,32 +401,42 @@ class ClientView(ctk.CTkFrame):
         column_indices = {col: idx for idx, col in enumerate(self.tree["columns"])}
         col_idx = column_indices[column]
         
-        # Sort items
-        items_with_values.sort(key=lambda x: (x[0][col_idx] == "", x[0][col_idx]), reverse=not self.sort_ascending)
+        # Special handling for price (remove ₱ sign for sorting)
+        if column == "Price":
+            items_with_values.sort(
+                key=lambda x: float(x[0][col_idx].replace('₱', '')) if x[0][col_idx].replace('₱', '') else 0,
+                reverse=not self.sort_ascending
+            )
+        else:
+            # Sort items
+            items_with_values.sort(
+                key=lambda x: (x[0][col_idx] == "", x[0][col_idx]), 
+                reverse=not self.sort_ascending
+            )
         
         # Rearrange items in the tree
         for idx, (values, item) in enumerate(items_with_values):
             self.tree.move(item, "", idx)
         
-    def _on_client_select(self, event):
-        """Handle client selection"""
+    def _on_item_select(self, event):
+        """Handle item selection"""
         selected_items = self.tree.selection()
         if selected_items:
             item = selected_items[0]
-            self.selected_client_id = int(self.tree.item(item, "values")[0])
+            self.selected_item_id = int(self.tree.item(item, "values")[0])
             self._update_action_buttons()
         else:
-            self.selected_client_id = None
+            self.selected_item_id = None
             self._update_action_buttons()
     
-    def _on_client_double_click(self, event):
-        """Handle double-click on a client (view details)"""
-        if self.selected_client_id:
-            self._show_view_client_dialog()
+    def _on_item_double_click(self, event):
+        """Handle double-click on an item (view details)"""
+        if self.selected_item_id:
+            self._show_view_item_dialog()
             
     def _update_action_buttons(self):
-        """Update the state of action buttons based on client selection"""
-        if self.selected_client_id:
+        """Update the state of action buttons based on item selection"""
+        if self.selected_item_id:
             self.view_button.configure(state="normal")
             self.edit_button.configure(state="normal")
             self.delete_button.configure(state="normal")
@@ -444,65 +445,69 @@ class ClientView(ctk.CTkFrame):
             self.edit_button.configure(state="disabled")
             self.delete_button.configure(state="disabled")
             
-    def _show_add_client_dialog(self):
-        """Show dialog to add a new client"""
-        dialog = ClientDialog(self, "Add New Customer")
+    def _show_add_item_dialog(self):
+        """Show dialog to add a new item"""
+        # Generate a new item code
+        item_code = self.controller.generate_item_code()
+        item_data = {'item_code': item_code}
+        
+        dialog = ItemDialog(self, "Add New Item", item_data)
         dialog.grab_set()  # Make it modal
         self.wait_window(dialog)  # Wait until the dialog is closed
         
         if dialog.result:
             # Process the form data
-            success, result = self.controller.add_client(dialog.result)
+            success, result = self.controller.add_item(dialog.result)
             if success:
-                self.show_info(f"Customer added successfully with ID: {result}")
+                self.show_info(f"Item added successfully with code: {result}")
             else:
-                self.show_error(f"Failed to add customer: {result}")
+                self.show_error(f"Failed to add item: {result}")
                 
-    def _show_edit_client_dialog(self):
-        """Show dialog to edit an existing client"""
-        # Get the client data
-        client_data = self.controller.get_client(self.selected_client_id)
-        if not client_data:
-            self.show_error("Failed to load customer data")
+    def _show_edit_item_dialog(self):
+        """Show dialog to edit an existing item"""
+        # Get the item data
+        item_data = self.controller.get_item(self.selected_item_id)
+        if not item_data:
+            self.show_error("Failed to load item data")
             return
             
-        dialog = ClientDialog(self, "Edit Customer", client_data)
+        dialog = ItemDialog(self, "Edit Item", item_data)
         dialog.grab_set()  # Make it modal
         self.wait_window(dialog)  # Wait until the dialog is closed
         
         if dialog.result:
             # Process the form data
-            success, result = self.controller.update_client(self.selected_client_id, dialog.result)
+            success, result = self.controller.update_item(self.selected_item_id, dialog.result)
             if success:
-                self.show_info(f"Customer updated successfully")
+                self.show_info(f"Item updated successfully")
             else:
-                self.show_error(f"Failed to update customer: {result}")
+                self.show_error(f"Failed to update item: {result}")
                 
-    def _show_view_client_dialog(self):
-        """Show dialog to view client details"""
-        # Get the client data
-        client_data = self.controller.get_client(self.selected_client_id)
-        if not client_data:
-            self.show_error("Failed to load customer data")
+    def _show_view_item_dialog(self):
+        """Show dialog to view item details"""
+        # Get the item data
+        item_data = self.controller.get_item(self.selected_item_id)
+        if not item_data:
+            self.show_error("Failed to load item data")
             return
             
-        dialog = ClientDialog(self, "View Customer", client_data, readonly=True)
+        dialog = ItemDialog(self, "View Item", item_data, readonly=True)
         dialog.grab_set()  # Make it modal
         dialog.wait_window()  # Wait until the dialog is closed
             
-    def _confirm_delete_client(self):
-        """Show confirmation dialog before deleting a client"""
-        if not self.selected_client_id:
+    def _confirm_delete_item(self):
+        """Show confirmation dialog before deleting an item"""
+        if not self.selected_item_id:
             return
             
         # Show confirmation dialog
         if messagebox.askyesno("Confirm Delete", 
-                              "Are you sure you want to delete this customer?\nThis action cannot be undone."):
-            success, result = self.controller.delete_client(self.selected_client_id)
+                              "Are you sure you want to delete this item?\nThis action cannot be undone."):
+            success, result = self.controller.delete_item(self.selected_item_id)
             if success:
-                self.show_info("Customer deleted successfully")
+                self.show_info("Item deleted successfully")
             else:
-                self.show_error(f"Failed to delete customer: {result}")
+                self.show_error(f"Failed to delete item: {result}")
     
     def show_error(self, message):
         """Show error message"""
@@ -513,15 +518,15 @@ class ClientView(ctk.CTkFrame):
         messagebox.showinfo("Information", message)
 
 
-class ClientDialog(ctk.CTkToplevel):
-    def __init__(self, parent, title, client_data=None, readonly=False):
+class ItemDialog(ctk.CTkToplevel):
+    def __init__(self, parent, title, item_data=None, readonly=False):
         super().__init__(parent)
         self.title(title)
-        self.geometry("600x400")
+        self.geometry("500x350")
         self.resizable(False, False)
         
         # Set up variables
-        self.client_data = client_data or {}
+        self.item_data = item_data or {}
         self.readonly = readonly
         self.result = None
         
@@ -537,74 +542,75 @@ class ClientDialog(ctk.CTkToplevel):
         self.geometry(f"+{x}+{y}")
         
     def _create_widgets(self):
-        """Create all UI elements for the client dialog"""
+        """Create all UI elements for the item dialog"""
         # Main container
-        container_frame = ctk.CTkFrame(self)
-        container_frame.pack(fill="both", expand=True, padx=20, pady=20)
+        container = ctk.CTkFrame(self)
+        container.pack(fill="both", expand=True, padx=20, pady=20)
         
         # Form title
         title_label = ctk.CTkLabel(
-            container_frame, 
+            container, 
             text=self.title(), 
             font=ctk.CTkFont(size=20, weight="bold")
         )
         title_label.pack(pady=(0, 20))
         
-        # Create simple form - no tabs needed for simplified fields
-        form = ctk.CTkFrame(container_frame)
+        # Create form fields
+        form = ctk.CTkFrame(container)
         form.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # Item Code
+        code_label = ctk.CTkLabel(form, text="Item Code:")
+        code_label.grid(row=0, column=0, padx=10, pady=(10, 5), sticky="w")
+        
+        self.item_code_var = ctk.StringVar(value=self.item_data.get('item_code', ''))
+        item_code_entry = ctk.CTkEntry(form, textvariable=self.item_code_var, width=150)
+        item_code_entry.grid(row=0, column=1, padx=10, pady=(10, 5), sticky="w")
+        
+        if self.readonly or 'item_code' in self.item_data:
+            item_code_entry.configure(state="disabled")
         
         # Name (required)
         name_label = ctk.CTkLabel(form, text="Name:*")
-        name_label.grid(row=0, column=0, padx=10, pady=(10, 5), sticky="w")
+        name_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
         
-        self.name_var = ctk.StringVar(value=self.client_data.get('name', ''))
-        name_entry = ctk.CTkEntry(form, textvariable=self.name_var, width=400)
-        name_entry.grid(row=0, column=1, padx=10, pady=(10, 5), sticky="w")
+        self.name_var = ctk.StringVar(value=self.item_data.get('name', ''))
+        name_entry = ctk.CTkEntry(form, textvariable=self.name_var, width=300)
+        name_entry.grid(row=1, column=1, padx=10, pady=10, sticky="w")
         
         if self.readonly:
             name_entry.configure(state="disabled")
         
-        # Mobile phone
-        mobile_label = ctk.CTkLabel(form, text="Mobile:")
-        mobile_label.grid(row=1, column=0, padx=10, pady=5, sticky="w")
+        # Price
+        price_label = ctk.CTkLabel(form, text="Price:*")
+        price_label.grid(row=2, column=0, padx=10, pady=10, sticky="w")
         
-        self.mobile_var = ctk.StringVar(value=self.client_data.get('mobile', ''))
-        mobile_entry = ctk.CTkEntry(form, textvariable=self.mobile_var, width=200)
-        mobile_entry.grid(row=1, column=1, padx=10, pady=5, sticky="w")
+        # Create a price frame with a ₱ sign label and entry
+        price_frame = ctk.CTkFrame(form)
+        price_frame.grid(row=2, column=1, padx=10, pady=10, sticky="w")
+        
+        peso_label = ctk.CTkLabel(price_frame, text="₱")
+        peso_label.pack(side="left", padx=(0, 2))
+        
+        self.price_var = ctk.StringVar(value=f"{self.item_data.get('price', 0.0):.2f}")
+        price_entry = ctk.CTkEntry(price_frame, textvariable=self.price_var, width=100)
+        price_entry.pack(side="left")
         
         if self.readonly:
-            mobile_entry.configure(state="disabled")
+            price_entry.configure(state="disabled")
         
-        # Address - using a text box for multiline address
-        address_label = ctk.CTkLabel(form, text="Address:")
-        address_label.grid(row=2, column=0, padx=10, pady=5, sticky="nw")
+        # Date Added
+        date_added_label = ctk.CTkLabel(form, text="Date Added:")
+        date_added_label.grid(row=3, column=0, padx=10, pady=10, sticky="w")
         
-        self.address_text = ctk.CTkTextbox(form, height=80, width=400)
-        self.address_text.grid(row=2, column=1, padx=10, pady=5, sticky="w")
+        date_added = self.item_data.get('date_added', datetime.now())
+        date_str = date_added.strftime('%Y-%m-%d') if date_added else "Not specified"
         
-        # Insert existing address if any
-        if self.client_data.get('address'):
-            self.address_text.insert("1.0", self.client_data.get('address'))
-            
-        if self.readonly:
-            self.address_text.configure(state="disabled")
-        
-        # Status (Active/Inactive) - uses a checkbox
-        status_label = ctk.CTkLabel(form, text="Status:")
-        status_label.grid(row=3, column=0, padx=10, pady=5, sticky="w")
-        
-        self.is_active_var = ctk.BooleanVar(value=self.client_data.get('is_active', True))
-        status_checkbox = ctk.CTkCheckBox(
-            form, 
-            text="Active", 
-            variable=self.is_active_var,
-            state="disabled" if self.readonly else "normal"
-        )
-        status_checkbox.grid(row=3, column=1, padx=10, pady=5, sticky="w")
+        date_added_field = ctk.CTkLabel(form, text=date_str)
+        date_added_field.grid(row=3, column=1, padx=10, pady=10, sticky="w")
         
         # Button frame
-        button_frame = ctk.CTkFrame(container_frame)
+        button_frame = ctk.CTkFrame(container)
         button_frame.pack(fill="x", pady=10)
         
         if not self.readonly:
@@ -633,21 +639,14 @@ class ClientDialog(ctk.CTkToplevel):
         
         # Collect data from form fields
         self.result = {
+            'item_code': self.item_code_var.get().strip(),
             'name': self.name_var.get().strip(),
-            'mobile': self.mobile_var.get().strip(),
-            'address': self.address_text.get("1.0", "end-1c").strip(),
-            'is_active': self.is_active_var.get(),
-            # Preserve other fields if they exist in the original data
-            'company': self.client_data.get('company', ''),
-            'email': self.client_data.get('email', ''),
-            'city': self.client_data.get('city', ''),
-            'state': self.client_data.get('state', ''),
-            'postal_code': self.client_data.get('postal_code', ''),
-            'country': self.client_data.get('country', ''),
-            'payment_terms': self.client_data.get('payment_terms', 30),
-            'credit_limit': self.client_data.get('credit_limit', 0.0),
-            'notes': self.client_data.get('notes', '')
+            'price': float(self.price_var.get()) if self.price_var.get() else 0.0
         }
+        
+        # If this is an edit, preserve the existing date_added
+        if 'date_added' in self.item_data:
+            self.result['date_added'] = self.item_data['date_added']
         
         # Close the dialog
         self.destroy()
@@ -658,18 +657,14 @@ class ClientDialog(ctk.CTkToplevel):
         
         # Validate required fields
         if not self.name_var.get().strip():
-            errors.append("Name is required")
+            errors.append("Item name is required")
         
-        # Validate mobile number if provided
-        mobile = self.mobile_var.get().strip()
-        if mobile and not self._is_valid_phone(mobile):
-            errors.append("Invalid mobile number format")
+        # Validate price
+        try:
+            price = float(self.price_var.get()) if self.price_var.get() else 0.0
+            if price < 0:
+                errors.append("Price cannot be negative")
+        except ValueError:
+            errors.append("Price must be a valid number")
         
         return errors
-    
-    def _is_valid_phone(self, phone):
-        """Validate phone number format (basic validation)"""
-        import re
-        # Allow digits, spaces, dashes, plus, and parentheses
-        pattern = r'^[0-9\s\(\)\-\+]{7,20}$'
-        return re.match(pattern, phone) is not None
