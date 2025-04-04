@@ -1,0 +1,31 @@
+{
+    "database": {
+        "type": "sqlite",
+        "path": "invoice_manager.db",
+        "host": "localhost",
+        "port": 3306,
+        "name": "invoice_manager",
+        "user": "root",
+        "password": ""
+    },
+    "appearance": {
+        "theme": "blue",
+        "mode": "system"
+    },
+    "business": {
+        "name": "Your Business",
+        "address": "",
+        "city": "",
+        "state": "",
+        "zip": "",
+        "phone": "",
+        "email": "",
+        "website": "",
+        "logo": ""
+    },
+    "invoice": {
+        "due_days": 30,
+        "tax_rate": 0.0,
+        "default_commission_rate": 0.0
+    }
+}

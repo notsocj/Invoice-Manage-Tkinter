@@ -1,0 +1,111 @@
+2025-04-04 11:00:44,563 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-04 11:00:44,569 - invoice_manager - INFO - Configuration saved to C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-04 11:00:44,571 - invoice_manager - INFO - Default configuration created at C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-04 11:00:44,571 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-04 11:00:44,654 - invoice_manager - INFO - Database initialized successfully
+2025-04-04 11:00:45,851 - invoice_manager - INFO - Starting main application loop
+2025-04-04 11:00:45,907 - invoice_manager - INFO - Showing dashboard
+2025-04-04 11:00:49,129 - invoice_manager - INFO - Showing dashboard
+2025-04-04 11:00:49,821 - invoice_manager - INFO - Showing clients view
+2025-04-04 11:00:49,868 - invoice_manager - INFO - Loading clients
+2025-04-04 11:00:52,445 - invoice_manager - INFO - Showing clients view
+2025-04-04 11:00:52,482 - invoice_manager - INFO - Loading clients
+2025-04-04 11:00:53,454 - invoice_manager - INFO - Showing invoices view
+2025-04-04 11:00:53,495 - invoice_manager - INFO - Loading invoices
+2025-04-04 11:00:54,424 - invoice_manager - INFO - Showing payments view
+2025-04-04 11:00:54,548 - invoice_manager - INFO - Loading payments
+2025-04-04 11:00:55,085 - invoice_manager - INFO - Showing reports view
+2025-04-04 11:01:04,655 - invoice_manager - INFO - Showing payments view
+2025-04-04 11:01:04,743 - invoice_manager - INFO - Loading payments
+2025-04-04 11:01:05,310 - invoice_manager - INFO - Showing invoices view
+2025-04-04 11:01:05,348 - invoice_manager - INFO - Loading invoices
+2025-04-04 11:01:06,397 - invoice_manager - INFO - Showing clients view
+2025-04-04 11:01:06,439 - invoice_manager - INFO - Loading clients
+2025-04-04 11:01:19,608 - invoice_manager - INFO - Changed appearance mode to Light
+2025-04-04 11:01:22,584 - invoice_manager - INFO - Changed appearance mode to Dark
+2025-04-04 11:01:25,262 - invoice_manager - INFO - Changed appearance mode to System
+2025-04-04 11:02:04,614 - invoice_manager - INFO - Showing dashboard
+2025-04-04 11:02:08,018 - invoice_manager - INFO - Showing clients view
+2025-04-04 11:02:08,053 - invoice_manager - INFO - Loading clients
+2025-04-04 11:02:09,001 - invoice_manager - INFO - Showing dashboard
+2025-04-04 11:02:10,090 - invoice_manager - INFO - Showing clients view
+2025-04-04 11:02:10,133 - invoice_manager - INFO - Loading clients
+2025-04-04 11:02:11,255 - invoice_manager - INFO - Showing invoices view
+2025-04-04 11:02:11,291 - invoice_manager - INFO - Loading invoices
+2025-04-04 11:02:12,266 - invoice_manager - INFO - Showing clients view
+2025-04-04 11:02:12,309 - invoice_manager - INFO - Loading clients
+2025-04-04 11:02:13,322 - invoice_manager - INFO - Showing payments view
+2025-04-04 11:02:13,410 - invoice_manager - INFO - Loading payments
+2025-04-04 11:02:14,014 - invoice_manager - INFO - Showing clients view
+2025-04-04 11:02:14,042 - invoice_manager - INFO - Loading clients
+2025-04-04 11:02:22,339 - invoice_manager - INFO - Showing payments view
+2025-04-04 11:02:22,441 - invoice_manager - INFO - Loading payments
+2025-04-04 11:02:27,832 - invoice_manager - INFO - Showing clients view
+2025-04-04 11:02:27,866 - invoice_manager - INFO - Loading clients
+2025-04-04 11:12:24,934 - invoice_manager - INFO - Showing payments view
+2025-04-04 11:12:25,059 - invoice_manager - INFO - Loading payments
+2025-04-04 11:12:25,631 - invoice_manager - INFO - Showing invoices view
+2025-04-04 11:12:25,668 - invoice_manager - INFO - Loading invoices
+2025-04-04 11:12:26,176 - invoice_manager - INFO - Showing clients view
+2025-04-04 11:12:26,222 - invoice_manager - INFO - Loading clients
+2025-04-04 11:12:26,738 - invoice_manager - INFO - Showing dashboard
+2025-04-04 11:12:27,981 - invoice_manager - INFO - Showing clients view
+2025-04-04 11:12:28,038 - invoice_manager - INFO - Loading clients
+2025-04-04 11:12:28,593 - invoice_manager - INFO - Showing invoices view
+2025-04-04 11:12:28,632 - invoice_manager - INFO - Loading invoices
+2025-04-04 11:12:28,976 - invoice_manager - INFO - Showing dashboard
+2025-04-04 11:12:29,356 - invoice_manager - INFO - Showing clients view
+2025-04-04 11:12:29,409 - invoice_manager - INFO - Loading clients
+2025-04-04 11:12:29,915 - invoice_manager - INFO - Showing invoices view
+2025-04-04 11:12:29,950 - invoice_manager - INFO - Loading invoices
+2025-04-04 11:12:40,861 - invoice_manager - INFO - Showing invoices view
+2025-04-04 11:12:40,895 - invoice_manager - INFO - Loading invoices
+2025-04-04 15:48:05,209 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-04 15:48:05,210 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-04 15:48:05,210 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-04 15:48:05,242 - invoice_manager - INFO - Database initialized successfully
+2025-04-04 15:48:05,818 - invoice_manager - INFO - Starting main application loop
+2025-04-04 15:48:05,858 - invoice_manager - INFO - Showing dashboard
+2025-04-04 15:48:11,052 - invoice_manager - INFO - Showing payments view
+2025-04-04 15:48:11,124 - invoice_manager - INFO - Loading payments
+2025-04-04 15:48:20,320 - invoice_manager - INFO - Showing payments view
+2025-04-04 15:48:20,384 - invoice_manager - INFO - Loading payments
+2025-04-04 15:48:21,424 - invoice_manager - INFO - Showing invoices view
+2025-04-04 15:48:21,443 - invoice_manager - INFO - Loading invoices
+2025-04-04 15:48:22,832 - invoice_manager - INFO - Showing clients view
+2025-04-04 15:48:22,852 - invoice_manager - INFO - Loading clients
+2025-04-04 15:49:34,216 - invoice_manager - INFO - Loading clients
+2025-04-04 15:49:34,445 - invoice_manager - INFO - Loading clients
+2025-04-04 15:49:34,603 - invoice_manager - INFO - Loading clients
+2025-04-04 15:49:34,773 - invoice_manager - INFO - Loading clients
+2025-04-04 15:49:34,931 - invoice_manager - INFO - Loading clients
+2025-04-04 15:49:35,103 - invoice_manager - INFO - Loading clients
+2025-04-04 15:49:35,288 - invoice_manager - INFO - Loading clients
+2025-04-04 15:49:47,450 - invoice_manager - INFO - Changed appearance mode to Light
+2025-04-04 15:49:52,284 - invoice_manager - INFO - Changed appearance mode to Dark
+2025-04-04 15:49:58,126 - invoice_manager - INFO - Application closed
+2025-04-04 19:06:41,157 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-04 19:06:41,158 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-04 19:06:41,159 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-04 19:06:41,188 - invoice_manager - INFO - Database initialized successfully
+2025-04-04 19:06:41,353 - invoice_manager - INFO - Starting main application loop
+2025-04-04 19:06:41,395 - invoice_manager - INFO - Showing dashboard
+2025-04-04 19:06:43,140 - invoice_manager - INFO - Showing dashboard
+2025-04-04 19:06:43,684 - invoice_manager - INFO - Showing clients view
+2025-04-04 19:06:43,709 - invoice_manager - INFO - Loading clients
+2025-04-04 19:06:44,977 - invoice_manager - INFO - Showing invoices view
+2025-04-04 19:06:44,999 - invoice_manager - INFO - Loading invoices
+2025-04-04 19:06:45,893 - invoice_manager - INFO - Showing payments view
+2025-04-04 19:06:45,949 - invoice_manager - INFO - Loading payments
+2025-04-04 19:06:46,935 - invoice_manager - INFO - Showing reports view
+2025-04-04 19:06:48,124 - invoice_manager - INFO - Showing payments view
+2025-04-04 19:06:48,189 - invoice_manager - INFO - Loading payments
+2025-04-04 19:06:48,543 - invoice_manager - INFO - Showing reports view
+2025-04-04 19:06:54,996 - invoice_manager - INFO - Showing payments view
+2025-04-04 19:06:55,054 - invoice_manager - INFO - Loading payments
+2025-04-04 19:06:55,272 - invoice_manager - INFO - Showing invoices view
+2025-04-04 19:06:55,293 - invoice_manager - INFO - Loading invoices
+2025-04-04 19:06:55,586 - invoice_manager - INFO - Showing clients view
+2025-04-04 19:06:55,605 - invoice_manager - INFO - Loading clients
+2025-04-04 19:06:55,883 - invoice_manager - INFO - Showing dashboard
+2025-04-04 19:07:03,926 - invoice_manager - INFO - Application closed
