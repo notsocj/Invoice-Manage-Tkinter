@@ -459,8 +459,8 @@ class InvoiceDialog(ctk.CTkToplevel):
         customer_name_frame.pack(fill="x", pady=5)
         ctk.CTkLabel(customer_name_frame, text="Customer:").pack(side="left", padx=10)
         
-        # Customer dropdown
-        client_names = [""] + [client['name'] for client in self.clients]
+        # Customer dropdown with sorted names
+        client_names = [""] + sorted([client['name'] for client in self.clients])
         self.customer_var = ctk.StringVar()
         
         # Set the customer name if editing an existing invoice
@@ -475,6 +475,9 @@ class InvoiceDialog(ctk.CTkToplevel):
             command=self._customer_selected
         )
         self.customer_dropdown.pack(side="left", padx=10)
+        
+        # Add search as you type functionality
+        self.customer_dropdown.bind("<KeyRelease>", self._filter_customer_dropdown)
         
         if self.readonly:
             self.customer_dropdown.configure(state="disabled")
@@ -591,6 +594,34 @@ class InvoiceDialog(ctk.CTkToplevel):
                 if client['address']:
                     self.address_text.insert("1.0", client['address'])
                 break
+    
+    def _filter_customer_dropdown(self, event):
+        """Filter customer dropdown options based on typed text"""
+        typed_text = self.customer_dropdown.get().lower()
+        
+        # Don't filter on navigation keys, only on actual text input
+        if event.keysym in ('Up', 'Down', 'Left', 'Right', 'Home', 'End', 
+                          'BackSpace', 'Delete', 'Escape', 'Tab'):
+            return
+        
+        # Find matching client names
+        if typed_text:
+            matches = [name for name in sorted([client['name'] for client in self.clients]) 
+                      if typed_text in name.lower()]
+            
+            # If matches found, update dropdown with matching values
+            if matches:
+                self.customer_dropdown.configure(values=[""] + matches)
+                
+                # Don't auto-select - just show the matching options
+                # Keep the typed text in the entry
+                self.customer_dropdown.set(typed_text)
+            else:
+                # If no matches, keep typed text but show all options
+                self.customer_dropdown.configure(values=[""] + sorted([client['name'] for client in self.clients]))
+        else:
+            # Reset to all options if text field is empty
+            self.customer_dropdown.configure(values=[""] + sorted([client['name'] for client in self.clients]))
     
     def _add_line_item(self, item_data=None):
         """Add a line item row to the invoice items"""

@@ -522,7 +522,7 @@ class ItemDialog(ctk.CTkToplevel):
     def __init__(self, parent, title, item_data=None, readonly=False):
         super().__init__(parent)
         self.title(title)
-        self.geometry("500x350")
+        self.geometry("500x380")  # Slightly increased height for better spacing
         self.resizable(False, False)
         
         # Set up variables
@@ -609,25 +609,31 @@ class ItemDialog(ctk.CTkToplevel):
         date_added_field = ctk.CTkLabel(form, text=date_str)
         date_added_field.grid(row=3, column=1, padx=10, pady=10, sticky="w")
         
-        # Button frame
+        # Button frame - improved layout
         button_frame = ctk.CTkFrame(container)
-        button_frame.pack(fill="x", pady=10)
+        button_frame.pack(fill="x", pady=(20, 10))  # Increased padding
         
         if not self.readonly:
             save_button = ctk.CTkButton(
                 button_frame, 
-                text="Save", 
+                text="Save Item", 
                 command=self._save,
                 font=ctk.CTkFont(size=14, weight="bold"),
+                height=40,  # Taller button
+                fg_color="#28a745",  # Green color
+                hover_color="#218838",  # Darker green on hover
+                width=200  # Wider button
             )
-            save_button.pack(side="left", padx=10, pady=10)
+            save_button.pack(side="left", padx=20, pady=10, fill="x", expand=True)
         
         cancel_button = ctk.CTkButton(
             button_frame, 
             text="Close" if self.readonly else "Cancel", 
-            command=self.destroy
+            command=self.destroy,
+            height=40,  # Match save button height
+            width=200 if not self.readonly else 400  # Wider button
         )
-        cancel_button.pack(side="right", padx=10, pady=10)
+        cancel_button.pack(side="right", padx=20, pady=10, fill="x", expand=True)
     
     def _save(self):
         """Save the form data"""
