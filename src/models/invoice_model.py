@@ -12,6 +12,8 @@ class Invoice(Base):
     customer_name = Column(String(100), nullable=False)
     customer_address = Column(Text)
     total_amount = Column(Float, default=0.0)
+    mode_of_payment = Column(String(50))  # Added field to match database schema
+    payment_status = Column(String(20), default='pending')  # Added with default value
     
     # Relationships
     items = relationship("InvoiceItem", back_populates="invoice", cascade="all, delete-orphan")
@@ -32,7 +34,9 @@ class Invoice(Base):
             'date': self.date,
             'customer_name': self.customer_name,
             'customer_address': self.customer_address,
-            'total_amount': self.total_amount
+            'total_amount': self.total_amount,
+            'mode_of_payment': self.mode_of_payment,
+            'payment_status': self.payment_status
         }
 
 class InvoiceItem(Base):

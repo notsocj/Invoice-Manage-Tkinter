@@ -450,6 +450,25 @@ class InvoiceDialog(ctk.CTkToplevel):
         if self.readonly:
             date_entry.configure(state="disabled")
         
+        # Mode of Payment dropdown
+        payment_mode_frame = ctk.CTkFrame(left_frame)
+        payment_mode_frame.pack(fill="x", pady=5)
+        ctk.CTkLabel(payment_mode_frame, text="Payment Mode:").pack(side="left", padx=10)
+        
+        # Updated payment modes to the specified options
+        payment_modes = ["Gcash", "Bank Transfer", "Cash on Delivery"]
+        self.payment_mode_var = ctk.StringVar(value=self.invoice_data.get('mode_of_payment', 'Bank Transfer'))
+        payment_mode_dropdown = ctk.CTkComboBox(
+            payment_mode_frame,
+            values=payment_modes,
+            variable=self.payment_mode_var,
+            width=150
+        )
+        payment_mode_dropdown.pack(side="left", padx=10)
+        
+        if self.readonly:
+            payment_mode_dropdown.configure(state="disabled")
+        
         # Right side - Customer info
         right_frame = ctk.CTkFrame(header_frame)
         right_frame.pack(side="right", fill="y", expand=True, padx=10)
@@ -828,7 +847,9 @@ class InvoiceDialog(ctk.CTkToplevel):
             'date': self.date_var.get(),
             'customer_name': self.customer_var.get(),
             'customer_address': self.address_text.get("1.0", "end-1c").strip(),
-            'total_amount': float(self.total_var.get().replace('₱', ''))
+            'total_amount': float(self.total_var.get().replace('₱', '')),
+            'mode_of_payment': self.payment_mode_var.get(),  # Add mode of payment to the saved data
+            'payment_status': 'pending'  # Set default payment status to pending
         }
         
         # Prepare line items data

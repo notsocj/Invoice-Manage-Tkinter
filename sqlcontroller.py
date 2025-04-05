@@ -8,17 +8,25 @@ try:
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
-    # Check the fields of the invoices and invoice_items tables
-    tables_to_check = ["invoices", "invoice_items"]
-    for table_name in tables_to_check:
-        print(f"\nTable: {table_name}")
-        cursor.execute(f"PRAGMA table_info({table_name});")
-        columns = cursor.fetchall()
-        
-        if not columns:
-            print(f"Table {table_name} does not exist in the database.")
-            continue
-        
+    # Add the payment_status field to the invoices table
+    try:
+        cursor.execute("ALTER TABLE invoices ADD COLUMN payment_status TEXT;")
+        print("Successfully added 'payment_status' field to the 'invoices' table.")
+    except sqlite3.OperationalError as e:
+        if "duplicate column name" in str(e):
+            print("The 'payment_status' field already exists in the 'invoices' table.")
+        else:
+            print(f"Error while adding 'payment_status' field: {e}")
+            raise
+
+    # Verify the updated structure of the invoices table
+    print("\nUpdated structure of the 'invoices' table:")
+    cursor.execute("PRAGMA table_info(invoices);")
+    columns = cursor.fetchall()
+
+    if not columns:
+        print("Table 'invoices' does not exist in the database.")
+    else:
         print("Fields:")
         for column in columns:
             col_name = column[1]  # Column name
@@ -35,8 +43,11 @@ try:
     for table in tables:
         print(table[0])
 
-    # Close the connection
+    # Commit the changes and close the connection
+    conn.commit()
     conn.close()
 
 except sqlite3.Error as e:
     print(f"An error occurred: {e}")
+    if conn:
+        conn.close()

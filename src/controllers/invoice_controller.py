@@ -89,6 +89,10 @@ class InvoiceController:
         """Add a new invoice to the database"""
         self.logger.info(f"Adding new invoice for customer: {invoice_data['customer_name']}")
         
+        # Ensure payment_status is set to pending if not provided
+        if 'payment_status' not in invoice_data:
+            invoice_data['payment_status'] = 'pending'
+        
         try:
             session = self.db.get_session()
             

@@ -812,3 +812,4 @@ FROM invoices ORDER BY invoices.created_at DESC]
 2025-04-04 23:10:40,142 - invoice_manager - INFO - Showing dashboard
 2025-04-04 23:10:43,241 - invoice_manager - INFO - Showing invoices view
 2025-04-04 23:10:43,267 - invoice_manager - INFO - Loading invoices
+2025-04-04 23:14:53,622 - invoice_manager - INFO - Application closed

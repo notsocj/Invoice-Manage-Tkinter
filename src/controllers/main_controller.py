@@ -5,6 +5,7 @@ from src.controllers.client_controller import ClientController
 from src.controllers.invoice_controller import InvoiceController
 from src.controllers.payment_controller import PaymentController
 from src.controllers.item_controller import ItemController
+from src.controllers.print_controller import PrintController
 
 class MainController:
     def __init__(self, db):
@@ -28,6 +29,7 @@ class MainController:
         self.invoice_controller = InvoiceController(self.db, self.view)
         self.payment_controller = PaymentController(self.db, self.view)
         self.item_controller = ItemController(self.db, self.view)
+        self.print_controller = PrintController(self.db, self.view)
         
     def run(self):
         """Start the main application loop"""

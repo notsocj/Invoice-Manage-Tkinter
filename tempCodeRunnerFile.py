@@ -13,10 +13,6 @@ def main():
     logger = logging.getLogger('invoice_manager')
     logger.info("Starting Invoice Manager application")
     
-    # Create 'temp' directory if it doesn't exist
-    temp_dir = os.path.join(os.getcwd(), 'temp')
-    os.makedirs(temp_dir, exist_ok=True)
-    
     # Load configuration
     config = ConfigManager()
     

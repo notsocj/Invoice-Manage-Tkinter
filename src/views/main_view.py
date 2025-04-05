@@ -26,7 +26,7 @@ class MainView:
         # Create sidebar frame
         self.sidebar = ctk.CTkFrame(self.root, width=200, corner_radius=0)
         self.sidebar.grid(row=0, column=0, sticky="nsew")
-        self.sidebar.grid_rowconfigure(7, weight=1)  # Push everything up
+        self.sidebar.grid_rowconfigure(8, weight=1)  # Increased row number to accommodate new button
         
         # App logo/title
         self.logo_label = ctk.CTkLabel(self.sidebar, text="Invoice Manager", font=ctk.CTkFont(size=20, weight="bold"))
@@ -45,23 +45,26 @@ class MainView:
         self.payments_button = ctk.CTkButton(self.sidebar, text="Payments", command=self.show_payments)
         self.payments_button.grid(row=4, column=0, padx=20, pady=10)
         
-        # Add the new Items button
         self.items_button = ctk.CTkButton(self.sidebar, text="Items", command=self.show_items)
         self.items_button.grid(row=5, column=0, padx=20, pady=10)
         
+        # Add new Print Invoices button
+        self.print_invoices_button = ctk.CTkButton(self.sidebar, text="Print Invoices", command=self.show_print_invoices)
+        self.print_invoices_button.grid(row=6, column=0, padx=20, pady=10)
+        
         self.reports_button = ctk.CTkButton(self.sidebar, text="Reports", command=self.show_reports)
-        self.reports_button.grid(row=6, column=0, padx=20, pady=10)
+        self.reports_button.grid(row=7, column=0, padx=20, pady=10)
         
         # Appearance mode selector at the bottom
         self.appearance_label = ctk.CTkLabel(self.sidebar, text="Appearance Mode:")
-        self.appearance_label.grid(row=8, column=0, padx=20, pady=(10, 0))
+        self.appearance_label.grid(row=9, column=0, padx=20, pady=(10, 0))
         
         self.appearance_menu = ctk.CTkOptionMenu(
             self.sidebar, 
             values=["System", "Light", "Dark"],
             command=self.change_appearance_mode
         )
-        self.appearance_menu.grid(row=9, column=0, padx=20, pady=(5, 20))
+        self.appearance_menu.grid(row=10, column=0, padx=20, pady=(5, 20))
         
     def create_main_content_area(self):
         """Create the main content area"""
@@ -108,6 +111,12 @@ class MainView:
         self.clear_main_frame()
         self.logger.info("Showing items view")
         self.controller.item_controller.load_view(self.main_frame)
+    
+    def show_print_invoices(self):
+        """Show the print invoices view"""
+        self.clear_main_frame()
+        self.logger.info("Showing print invoices view")
+        self.controller.print_controller.load_view(self.main_frame)
     
     def show_reports(self):
         self.clear_main_frame()
