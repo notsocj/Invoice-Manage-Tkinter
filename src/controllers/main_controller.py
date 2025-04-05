@@ -6,6 +6,7 @@ from src.controllers.invoice_controller import InvoiceController
 from src.controllers.payment_controller import PaymentController
 from src.controllers.item_controller import ItemController
 from src.controllers.print_controller import PrintController
+from src.controllers.dashboard_controller import DashboardController
 
 class MainController:
     def __init__(self, db):
@@ -25,6 +26,7 @@ class MainController:
         self.view = MainView(self.root, self)
         
         # Initialize sub-controllers
+        self.dashboard_controller = DashboardController(self.db, self.view)
         self.client_controller = ClientController(self.db, self.view)
         self.invoice_controller = InvoiceController(self.db, self.view)
         self.payment_controller = PaymentController(self.db, self.view)

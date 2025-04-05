@@ -1,0 +1,384 @@
+2025-04-06 00:06:11,339 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-06 00:06:11,339 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-06 00:06:11,340 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-06 00:06:11,350 - invoice_manager - INFO - Checking database schema for updates
+2025-04-06 00:06:11,352 - invoice_manager - INFO - Database initialized successfully
+2025-04-06 00:06:11,429 - invoice_manager - INFO - Starting main application loop
+2025-04-06 00:06:11,467 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:06:11,486 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:06:11,487 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:06:14,382 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:06:14,384 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:06:14,552 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:06:14,553 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:06:23,812 - invoice_manager - INFO - Showing items view
+2025-04-06 00:06:23,866 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-06 00:06:23,875 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-06 00:06:24,389 - invoice_manager - INFO - Showing payments view
+2025-04-06 00:06:24,505 - invoice_manager - INFO - Loading payments
+2025-04-06 00:06:24,507 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-06 00:06:25,251 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:06:25,269 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:06:26,273 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:06:26,291 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:06:27,151 - invoice_manager - INFO - Showing payments view
+2025-04-06 00:06:27,268 - invoice_manager - INFO - Loading payments
+2025-04-06 00:06:27,269 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-06 00:06:30,515 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:06:30,535 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:06:32,508 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:06:32,575 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:06:32,588 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:06:33,583 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:06:33,598 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:06:33,598 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:07:39,957 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:07:40,014 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:07:40,020 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:07:41,031 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:07:41,050 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:07:51,071 - invoice_manager - INFO - Adding new invoice for customer: testing4
+2025-04-06 00:07:51,081 - invoice_manager - INFO - Invoice added successfully with ID: 7
+2025-04-06 00:07:51,081 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:07:52,811 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:07:52,825 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:07:52,826 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:07:54,842 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:07:54,843 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:07:55,176 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:07:55,177 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:07:55,344 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:07:55,345 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:08:07,763 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:08:07,765 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:11:38,729 - invoice_manager - INFO - Application closed
+2025-04-06 00:11:40,262 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-06 00:11:40,264 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-06 00:11:40,265 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-06 00:11:40,277 - invoice_manager - INFO - Checking database schema for updates
+2025-04-06 00:11:40,282 - invoice_manager - INFO - Database initialized successfully
+2025-04-06 00:11:40,364 - invoice_manager - INFO - Starting main application loop
+2025-04-06 00:11:40,390 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:11:40,408 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:11:40,409 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:11:42,025 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:11:42,027 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:12:55,896 - invoice_manager - INFO - Application closed
+2025-04-06 00:12:59,504 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-06 00:12:59,505 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-06 00:12:59,505 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-06 00:12:59,514 - invoice_manager - INFO - Checking database schema for updates
+2025-04-06 00:12:59,517 - invoice_manager - INFO - Database initialized successfully
+2025-04-06 00:12:59,600 - invoice_manager - INFO - Starting main application loop
+2025-04-06 00:12:59,632 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:12:59,658 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:12:59,659 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:13:07,053 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:13:07,054 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:13:20,989 - invoice_manager - INFO - Application closed
+2025-04-06 00:13:57,787 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-06 00:13:57,787 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-06 00:13:57,787 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-06 00:13:57,795 - invoice_manager - INFO - Checking database schema for updates
+2025-04-06 00:13:57,798 - invoice_manager - INFO - Database initialized successfully
+2025-04-06 00:13:57,867 - invoice_manager - INFO - Starting main application loop
+2025-04-06 00:13:57,907 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:13:57,930 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:13:57,931 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:14:09,748 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:14:09,749 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:14:10,703 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:14:10,705 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:14:18,287 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:14:18,306 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:17:11,132 - invoice_manager - INFO - Adding new invoice for customer: testing customer for long
+2025-04-06 00:17:11,146 - invoice_manager - INFO - Invoice added successfully with ID: 8
+2025-04-06 00:17:11,146 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:17:55,442 - invoice_manager - INFO - Updating invoice with ID: 8
+2025-04-06 00:17:55,453 - invoice_manager - INFO - Invoice updated successfully: 8
+2025-04-06 00:17:55,453 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:17:59,763 - invoice_manager - INFO - Showing print invoices view
+2025-04-06 00:17:59,799 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-06 00:17:59,803 - invoice_manager - INFO - Displaying 5 invoices for printing
+2025-04-06 00:18:01,863 - invoice_manager - INFO - Showing print invoices view
+2025-04-06 00:18:01,905 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-06 00:18:01,909 - invoice_manager - INFO - Displaying 5 invoices for printing
+2025-04-06 00:18:34,568 - invoice_manager - INFO - Loading invoices for printing with filter: today
+2025-04-06 00:18:34,574 - invoice_manager - INFO - Displaying 2 invoices for printing
+2025-04-06 00:18:45,518 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:18:45,536 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:18:52,148 - invoice_manager - INFO - Showing print invoices view
+2025-04-06 00:18:52,182 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-06 00:18:52,185 - invoice_manager - INFO - Displaying 5 invoices for printing
+2025-04-06 00:19:03,070 - invoice_manager - INFO - Printing invoice with ID: 7
+2025-04-06 00:19:03,092 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_004_20250406_001903.pdf
+2025-04-06 00:19:03,092 - invoice_manager - INFO - Printing PDF using os.startfile: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_004_20250406_001903.pdf
+2025-04-06 00:19:03,122 - invoice_manager - ERROR - Error in direct printing: [WinError 1155] No application is associated with the specified file for this operation: 'C:\\Users\\Cj\\AppData\\Local\\Temp\\invoice_manager\\invoice_INV_004_20250406_001903.pdf'
+2025-04-06 00:19:03,161 - invoice_manager - INFO - Opened PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_004_20250406_001903.pdf
+2025-04-06 00:19:03,162 - invoice_manager - INFO - Opened PDF after print error: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_004_20250406_001903.pdf
+2025-04-06 00:19:45,167 - invoice_manager - INFO - Batch printing 5 invoices as one document
+2025-04-06 00:19:45,198 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250406_001945.pdf
+2025-04-06 00:19:45,209 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_002_20250406_001945.pdf
+2025-04-06 00:19:45,222 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_003_20250406_001945.pdf
+2025-04-06 00:19:45,234 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_004_20250406_001945.pdf
+2025-04-06 00:19:45,245 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_005_20250406_001945.pdf
+2025-04-06 00:19:45,313 - invoice_manager - INFO - Successfully merged 5 PDFs into: C:\Users\Cj\AppData\Local\Temp\invoice_manager\batch_invoices_20250406_001945.pdf
+2025-04-06 00:19:45,314 - invoice_manager - INFO - Printing PDF using os.startfile: C:\Users\Cj\AppData\Local\Temp\invoice_manager\batch_invoices_20250406_001945.pdf
+2025-04-06 00:19:45,322 - invoice_manager - ERROR - Error in direct printing: [WinError 1155] No application is associated with the specified file for this operation: 'C:\\Users\\Cj\\AppData\\Local\\Temp\\invoice_manager\\batch_invoices_20250406_001945.pdf'
+2025-04-06 00:19:45,345 - invoice_manager - INFO - Opened PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\batch_invoices_20250406_001945.pdf
+2025-04-06 00:19:45,345 - invoice_manager - INFO - Opened PDF after print error: C:\Users\Cj\AppData\Local\Temp\invoice_manager\batch_invoices_20250406_001945.pdf
+2025-04-06 00:20:32,165 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-06 00:20:32,170 - invoice_manager - INFO - Displaying 5 invoices for printing
+2025-04-06 00:21:04,881 - invoice_manager - INFO - Showing items view
+2025-04-06 00:21:04,937 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-06 00:21:04,946 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-06 00:21:14,058 - invoice_manager - INFO - Loading items page 1, per_page 10, search ''
+2025-04-06 00:21:14,069 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-06 00:21:16,233 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-06 00:21:16,247 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-06 00:21:17,067 - invoice_manager - INFO - Loading items page 1, per_page 50, search ''
+2025-04-06 00:21:17,081 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-06 00:21:18,229 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-06 00:21:18,242 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-06 00:21:57,158 - invoice_manager - INFO - Adding new item: testing 4
+2025-04-06 00:21:57,168 - invoice_manager - INFO - Item added successfully with ID: 4, Code: TKW-004
+2025-04-06 00:21:57,168 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-06 00:21:57,174 - invoice_manager - INFO - Showing 1 to 4 of 4 items
+2025-04-06 00:22:03,675 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:22:03,693 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:22:18,906 - invoice_manager - INFO - Showing items view
+2025-04-06 00:22:18,956 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-06 00:22:18,962 - invoice_manager - INFO - Showing 1 to 4 of 4 items
+2025-04-06 00:22:26,630 - invoice_manager - INFO - Updating item with ID: 4
+2025-04-06 00:22:26,634 - invoice_manager - INFO - Item updated successfully: 4
+2025-04-06 00:22:26,634 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-06 00:22:26,646 - invoice_manager - INFO - Showing 1 to 4 of 4 items
+2025-04-06 00:22:32,095 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:22:32,159 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:22:32,172 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:23:01,010 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:23:01,026 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:23:01,027 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:23:11,906 - invoice_manager - INFO - Showing payments view
+2025-04-06 00:23:12,025 - invoice_manager - INFO - Loading payments
+2025-04-06 00:23:12,027 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-06 00:23:27,087 - invoice_manager - INFO - Showing payments view
+2025-04-06 00:23:27,206 - invoice_manager - INFO - Loading payments
+2025-04-06 00:23:27,207 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-06 00:23:39,490 - invoice_manager - INFO - Showing payments view
+2025-04-06 00:23:39,617 - invoice_manager - INFO - Loading payments
+2025-04-06 00:23:39,618 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-06 00:23:47,557 - invoice_manager - INFO - Loading invoices with status filter: Pending
+2025-04-06 00:23:50,131 - invoice_manager - INFO - Loading invoices with status filter: Completed
+2025-04-06 00:23:51,399 - invoice_manager - INFO - Loading invoices with status filter: Cancelled
+2025-04-06 00:23:54,358 - invoice_manager - INFO - Loading invoices with status filter: Pending
+2025-04-06 00:23:56,309 - invoice_manager - INFO - Loading invoices with status filter: Pending
+2025-04-06 00:24:08,885 - invoice_manager - INFO - Updating payment status for invoice 8 to completed
+2025-04-06 00:24:08,896 - invoice_manager - INFO - Payment status updated for invoice 8
+2025-04-06 00:24:08,896 - invoice_manager - INFO - Loading invoices with status filter: Pending
+2025-04-06 00:24:13,095 - invoice_manager - INFO - Loading invoices with status filter: All
+2025-04-06 00:24:15,509 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:24:15,523 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:24:15,524 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:24:49,202 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:24:49,221 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:24:55,823 - invoice_manager - INFO - Changed appearance mode to Light
+2025-04-06 00:25:01,135 - invoice_manager - INFO - Changed appearance mode to Dark
+2025-04-06 00:26:44,227 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:26:44,244 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:26:44,244 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:26:46,690 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:26:46,751 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:26:46,757 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:26:47,134 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:26:47,153 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:26:47,481 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:26:47,534 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:26:47,539 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:26:47,921 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:26:47,936 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:26:47,936 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:26:49,420 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:26:49,473 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:26:49,478 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:26:49,896 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:26:49,914 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:26:50,442 - invoice_manager - INFO - Showing payments view
+2025-04-06 00:26:50,557 - invoice_manager - INFO - Loading payments
+2025-04-06 00:26:50,558 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-06 00:26:50,922 - invoice_manager - INFO - Showing items view
+2025-04-06 00:26:50,979 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-06 00:26:50,985 - invoice_manager - INFO - Showing 1 to 4 of 4 items
+2025-04-06 00:26:51,353 - invoice_manager - INFO - Showing print invoices view
+2025-04-06 00:26:51,389 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-06 00:26:51,392 - invoice_manager - INFO - Displaying 5 invoices for printing
+2025-04-06 00:26:51,766 - invoice_manager - INFO - Showing reports view
+2025-04-06 00:28:54,220 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:28:54,239 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:28:55,291 - invoice_manager - INFO - Showing payments view
+2025-04-06 00:28:55,417 - invoice_manager - INFO - Loading payments
+2025-04-06 00:28:55,419 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-06 00:28:56,468 - invoice_manager - INFO - Showing items view
+2025-04-06 00:28:56,526 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-06 00:28:56,532 - invoice_manager - INFO - Showing 1 to 4 of 4 items
+2025-04-06 00:28:57,815 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:28:57,834 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:28:58,816 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:28:58,882 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:28:58,891 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:28:59,775 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:28:59,794 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:31:03,598 - invoice_manager - INFO - Application closed
+2025-04-06 00:31:05,269 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-06 00:31:05,269 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-06 00:31:05,269 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-06 00:31:05,277 - invoice_manager - INFO - Checking database schema for updates
+2025-04-06 00:31:05,281 - invoice_manager - INFO - Database initialized successfully
+2025-04-06 00:31:05,357 - invoice_manager - INFO - Starting main application loop
+2025-04-06 00:31:05,395 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:31:05,416 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:31:05,417 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:31:07,036 - invoice_manager - INFO - Showing reports view
+2025-04-06 00:31:44,271 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:31:44,324 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:31:44,333 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:31:44,792 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:31:44,811 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:32:10,952 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:32:10,971 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:33:48,520 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:33:48,538 - invoice_manager - INFO - Loading invoices
+2025-04-06 00:38:34,586 - invoice_manager - INFO - Application closed
+2025-04-06 00:38:36,238 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-06 00:38:36,239 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-06 00:38:36,239 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-06 00:38:36,248 - invoice_manager - INFO - Checking database schema for updates
+2025-04-06 00:38:36,251 - invoice_manager - INFO - Database initialized successfully
+2025-04-06 00:38:36,325 - invoice_manager - INFO - Starting main application loop
+2025-04-06 00:38:36,357 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:38:36,379 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:38:36,380 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:38:38,904 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:38:38,918 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:38:38,918 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:38:40,492 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:38:40,546 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:38:40,554 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:38:44,645 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:38:44,691 - invoice_manager - INFO - Loading invoices with date filter: None
+2025-04-06 00:38:45,395 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:38:45,451 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:38:45,458 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:38:48,007 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:38:48,055 - invoice_manager - INFO - Loading invoices with date filter: None
+2025-04-06 00:38:48,861 - invoice_manager - INFO - Showing payments view
+2025-04-06 00:38:48,982 - invoice_manager - INFO - Loading payments
+2025-04-06 00:38:48,984 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-06 00:38:49,848 - invoice_manager - INFO - Showing items view
+2025-04-06 00:38:49,906 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-06 00:38:49,917 - invoice_manager - INFO - Showing 1 to 4 of 4 items
+2025-04-06 00:38:50,492 - invoice_manager - INFO - Showing print invoices view
+2025-04-06 00:38:50,529 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-06 00:38:50,532 - invoice_manager - INFO - Displaying 5 invoices for printing
+2025-04-06 00:38:51,371 - invoice_manager - INFO - Showing reports view
+2025-04-06 00:38:52,020 - invoice_manager - INFO - Showing print invoices view
+2025-04-06 00:38:52,056 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-06 00:38:52,059 - invoice_manager - INFO - Displaying 5 invoices for printing
+2025-04-06 00:38:52,509 - invoice_manager - INFO - Showing items view
+2025-04-06 00:38:52,566 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-06 00:38:52,571 - invoice_manager - INFO - Showing 1 to 4 of 4 items
+2025-04-06 00:38:52,953 - invoice_manager - INFO - Showing payments view
+2025-04-06 00:38:53,075 - invoice_manager - INFO - Loading payments
+2025-04-06 00:38:53,076 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-06 00:38:53,297 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:38:53,348 - invoice_manager - INFO - Loading invoices with date filter: None
+2025-04-06 00:38:53,664 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:38:53,719 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:38:53,727 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:38:53,981 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:38:53,995 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:38:53,995 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:38:55,662 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:38:55,716 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:38:55,722 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:38:57,833 - invoice_manager - INFO - Showing items view
+2025-04-06 00:38:57,888 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-06 00:38:57,899 - invoice_manager - INFO - Showing 1 to 4 of 4 items
+2025-04-06 00:38:58,343 - invoice_manager - INFO - Showing payments view
+2025-04-06 00:38:58,466 - invoice_manager - INFO - Loading payments
+2025-04-06 00:38:58,467 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-06 00:38:58,781 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:38:58,829 - invoice_manager - INFO - Loading invoices with date filter: None
+2025-04-06 00:38:59,312 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:38:59,367 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:38:59,373 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:39:00,460 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:39:00,475 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:39:00,475 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:39:01,245 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:39:01,300 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:39:01,306 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:39:02,075 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:39:02,124 - invoice_manager - INFO - Loading invoices with date filter: None
+2025-04-06 00:39:02,637 - invoice_manager - INFO - Showing payments view
+2025-04-06 00:39:02,839 - invoice_manager - INFO - Loading payments
+2025-04-06 00:39:02,840 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-06 00:39:03,337 - invoice_manager - INFO - Showing items view
+2025-04-06 00:39:03,390 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-06 00:39:03,395 - invoice_manager - INFO - Showing 1 to 4 of 4 items
+2025-04-06 00:39:04,225 - invoice_manager - INFO - Showing print invoices view
+2025-04-06 00:39:04,261 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-06 00:39:04,264 - invoice_manager - INFO - Displaying 5 invoices for printing
+2025-04-06 00:39:04,977 - invoice_manager - INFO - Showing reports view
+2025-04-06 00:39:05,605 - invoice_manager - INFO - Showing print invoices view
+2025-04-06 00:39:05,641 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-06 00:39:05,644 - invoice_manager - INFO - Displaying 5 invoices for printing
+2025-04-06 00:39:06,014 - invoice_manager - INFO - Showing items view
+2025-04-06 00:39:06,071 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-06 00:39:06,076 - invoice_manager - INFO - Showing 1 to 4 of 4 items
+2025-04-06 00:39:06,820 - invoice_manager - INFO - Showing payments view
+2025-04-06 00:39:06,948 - invoice_manager - INFO - Loading payments
+2025-04-06 00:39:06,949 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-06 00:39:07,135 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:39:07,184 - invoice_manager - INFO - Loading invoices with date filter: None
+2025-04-06 00:39:07,542 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:39:07,594 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:39:07,599 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:39:07,936 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:39:07,950 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:39:07,950 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:39:09,354 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:39:09,406 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:39:09,412 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:39:11,919 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:39:11,967 - invoice_manager - INFO - Loading invoices with date filter: None
+2025-04-06 00:39:14,133 - invoice_manager - INFO - Loading invoices with date filter: today
+2025-04-06 00:39:15,575 - invoice_manager - INFO - Loading invoices with date filter: past_7_days
+2025-04-06 00:39:17,203 - invoice_manager - INFO - Loading invoices with date filter: past_30_days
+2025-04-06 00:39:18,538 - invoice_manager - INFO - Loading invoices with date filter: None
+2025-04-06 00:39:19,436 - invoice_manager - INFO - Loading invoices with date filter: today
+2025-04-06 00:39:20,620 - invoice_manager - INFO - Loading invoices with date filter: None
+2025-04-06 00:39:40,717 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:39:40,764 - invoice_manager - INFO - Loading invoices with date filter: None
+2025-04-06 00:39:41,177 - invoice_manager - INFO - Showing payments view
+2025-04-06 00:39:41,334 - invoice_manager - INFO - Loading payments
+2025-04-06 00:39:41,335 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-06 00:39:51,837 - invoice_manager - INFO - Showing reports view
+2025-04-06 00:39:52,984 - invoice_manager - INFO - Showing print invoices view
+2025-04-06 00:39:53,020 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-06 00:39:53,022 - invoice_manager - INFO - Displaying 5 invoices for printing
+2025-04-06 00:39:53,883 - invoice_manager - INFO - Showing items view
+2025-04-06 00:39:53,938 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-06 00:39:53,995 - invoice_manager - INFO - Showing 1 to 4 of 4 items
+2025-04-06 00:39:54,672 - invoice_manager - INFO - Showing payments view
+2025-04-06 00:39:54,790 - invoice_manager - INFO - Loading payments
+2025-04-06 00:39:54,791 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-06 00:39:55,155 - invoice_manager - INFO - Showing invoices view
+2025-04-06 00:39:55,206 - invoice_manager - INFO - Loading invoices with date filter: None
+2025-04-06 00:39:56,051 - invoice_manager - INFO - Showing clients view
+2025-04-06 00:39:56,111 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-06 00:39:56,119 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-06 00:39:56,686 - invoice_manager - INFO - Showing dashboard
+2025-04-06 00:39:56,707 - invoice_manager - INFO - Refreshing dashboard data
+2025-04-06 00:39:56,708 - invoice_manager - INFO - Fetching dashboard data
+2025-04-06 00:40:04,534 - invoice_manager - INFO - Application closed

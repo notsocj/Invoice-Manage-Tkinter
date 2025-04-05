@@ -2,7 +2,7 @@ import customtkinter as ctk
 import tkinter as tk
 from tkinter import messagebox
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class InvoiceView(ctk.CTkFrame):
     def __init__(self, parent, controller):
@@ -55,6 +55,27 @@ class InvoiceView(ctk.CTkFrame):
         self.search_var.trace("w", lambda name, index, mode: self._filter_invoices())
         search_entry = ctk.CTkEntry(search_frame, textvariable=self.search_var, width=300)
         search_entry.pack(side="left", padx=10, pady=10)
+        
+        # Date filter dropdown
+        date_label = ctk.CTkLabel(search_frame, text="Date Filter:")
+        date_label.pack(side="right", padx=(10, 0), pady=10)
+        
+        self.date_filter_var = ctk.StringVar(value="All Invoices")
+        date_filter_options = [
+            "All Invoices", 
+            "Today", 
+            "Last 7 Days", 
+            "Last 30 Days"
+        ]
+        
+        date_filter_menu = ctk.CTkOptionMenu(
+            search_frame,
+            values=date_filter_options,
+            variable=self.date_filter_var,
+            command=self._apply_date_filter,
+            width=120
+        )
+        date_filter_menu.pack(side="right", padx=10, pady=10)
         
         # Invoice list frame
         list_frame = ctk.CTkFrame(self)
@@ -214,6 +235,22 @@ class InvoiceView(ctk.CTkFrame):
                         f"₱{invoice['total_amount']:.2f}"
                     )
                 )
+    
+    def _apply_date_filter(self, filter_option):
+        """Apply date filter to invoices"""
+        date_filter = None
+        if filter_option == "Today":
+            date_filter = "today"
+        elif filter_option == "Last 7 Days":
+            date_filter = "past_7_days"
+        elif filter_option == "Last 30 Days":
+            date_filter = "past_30_days"
+        
+        # Reset search text when applying date filter
+        self.search_var.set("")
+        
+        # Call controller with filter
+        self.controller.load_invoices(date_filter=date_filter)
     
     def _sort_by_column(self, column, reset=True):
         """Sort the tree data by column"""

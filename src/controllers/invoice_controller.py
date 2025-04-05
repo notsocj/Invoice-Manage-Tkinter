@@ -1,6 +1,6 @@
 import logging
 import threading
-from datetime import datetime
+from datetime import datetime, timedelta
 from sqlalchemy.exc import SQLAlchemyError
 from src.models.invoice_model import Invoice, InvoiceItem
 from src.models.client_model import Client
@@ -19,16 +19,41 @@ class InvoiceController:
         self.view = InvoiceView(parent_frame, self)
         self.load_invoices()
     
-    def load_invoices(self):
-        """Load all invoices from the database"""
-        self.logger.info("Loading invoices")
+    def load_invoices(self, date_filter=None):
+        """Load invoices from the database with optional date filter"""
+        self.logger.info(f"Loading invoices with date filter: {date_filter}")
         
         # Use a separate thread for database operations
         def fetch_invoices():
             try:
                 session = self.db.get_session()
-                invoices = session.query(Invoice).order_by(Invoice.id.desc()).all()
+                
+                # Base query
+                query = session.query(Invoice)
+                
+                # Apply date filter if provided
+                if date_filter:
+                    today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+                    
+                    if date_filter == "today":
+                        # Invoices from today
+                        query = query.filter(Invoice.date == today.strftime('%Y-%m-%d'))
+                    elif date_filter == "past_7_days":
+                        # Invoices from the past 7 days
+                        seven_days_ago = today - timedelta(days=7)
+                        query = query.filter(Invoice.date >= seven_days_ago.strftime('%Y-%m-%d'))
+                    elif date_filter == "past_30_days":
+                        # Invoices from the past 30 days
+                        thirty_days_ago = today - timedelta(days=30)
+                        query = query.filter(Invoice.date >= thirty_days_ago.strftime('%Y-%m-%d'))
+                
+                # Order by most recent first
+                query = query.order_by(Invoice.date.desc())
+                
+                # Execute query
+                invoices = query.all()
                 invoices_data = [invoice.to_dict() for invoice in invoices]
+                
                 session.close()
                 
                 # Update UI in the main thread

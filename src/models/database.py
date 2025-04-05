@@ -28,6 +28,7 @@ class Database:
             self.session_factory = None
             self.Session = None
             self.initialized = True
+
     
     def initialize(self):
         """Initialize the database connection and create tables if they don't exist"""
