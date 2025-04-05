@@ -11,16 +11,36 @@ class PaymentView(ctk.CTkFrame):
         self.logger = logging.getLogger('invoice_manager')
         self.pack(fill="both", expand=True)
         
-        # Store currently selected payment ID
+        # Store currently selected payment ID and invoice ID
         self.selected_payment_id = None
+        self.selected_invoice_id = None
         
         # Create UI elements
         self._create_widgets()
         
     def _create_widgets(self):
         """Create all UI elements for the payment view"""
+        # Create a notebook (tabbed interface)
+        self.notebook = ctk.CTkTabview(self)
+        self.notebook.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # Create tabs
+        self.notebook.add("Payments")
+        self.notebook.add("Invoices")
+        
+        # Set the default tab
+        self.notebook.set("Payments")
+        
+        # Setup each tab
+        self._setup_payments_tab()
+        self._setup_invoices_tab()
+        
+    def _setup_payments_tab(self):
+        """Setup the Payments tab"""
+        payments_tab = self.notebook.tab("Payments")
+        
         # Title and button frame
-        title_frame = ctk.CTkFrame(self)
+        title_frame = ctk.CTkFrame(payments_tab)
         title_frame.pack(fill="x", padx=10, pady=10)
         
         title_label = ctk.CTkLabel(
@@ -45,15 +65,15 @@ class PaymentView(ctk.CTkFrame):
         refresh_button.pack(side="right", padx=10, pady=10)
         
         # Search frame
-        search_frame = ctk.CTkFrame(self)
+        search_frame = ctk.CTkFrame(payments_tab)
         search_frame.pack(fill="x", padx=10, pady=(0, 10))
         
         search_label = ctk.CTkLabel(search_frame, text="Search:")
         search_label.pack(side="left", padx=10, pady=10)
         
-        self.search_var = ctk.StringVar()
-        self.search_var.trace("w", lambda name, index, mode: self._filter_payments())
-        search_entry = ctk.CTkEntry(search_frame, textvariable=self.search_var, width=300)
+        self.payment_search_var = ctk.StringVar()
+        self.payment_search_var.trace("w", lambda name, index, mode: self._filter_payments())
+        search_entry = ctk.CTkEntry(search_frame, textvariable=self.payment_search_var, width=300)
         search_entry.pack(side="left", padx=10, pady=10)
         
         # Payment method filter
@@ -71,7 +91,7 @@ class PaymentView(ctk.CTkFrame):
         method_menu.pack(side="left", padx=10, pady=10)
         
         # Payment list frame
-        list_frame = ctk.CTkFrame(self)
+        list_frame = ctk.CTkFrame(payments_tab)
         list_frame.pack(fill="both", expand=True, padx=10, pady=10)
         
         # Treeview for payments
@@ -80,7 +100,7 @@ class PaymentView(ctk.CTkFrame):
         treeview_frame.pack(fill="both", expand=True, padx=10, pady=10)
         
         # Use a regular Treeview (ttk) as CustomTkinter doesn't have a Treeview widget
-        self.tree = tk.ttk.Treeview(
+        self.payments_tree = tk.ttk.Treeview(
             treeview_frame, 
             columns=("ID", "Invoice", "Amount", "Date", "Method", "Reference"),
             show="headings",
@@ -99,53 +119,53 @@ class PaymentView(ctk.CTkFrame):
                  foreground=[('selected', 'white')])
         
         # Define column headings
-        self.tree.heading("ID", text="ID")
-        self.tree.heading("Invoice", text="Invoice #")
-        self.tree.heading("Amount", text="Amount")
-        self.tree.heading("Date", text="Payment Date")
-        self.tree.heading("Method", text="Method")
-        self.tree.heading("Reference", text="Reference #")
+        self.payments_tree.heading("ID", text="ID")
+        self.payments_tree.heading("Invoice", text="Invoice #")
+        self.payments_tree.heading("Amount", text="Amount")
+        self.payments_tree.heading("Date", text="Payment Date")
+        self.payments_tree.heading("Method", text="Method")
+        self.payments_tree.heading("Reference", text="Reference #")
         
         # Configure column widths and alignment
-        self.tree.column("ID", width=50)
-        self.tree.column("Invoice", width=150)
-        self.tree.column("Amount", width=100, anchor="e")
-        self.tree.column("Date", width=120)
-        self.tree.column("Method", width=120)
-        self.tree.column("Reference", width=150)
+        self.payments_tree.column("ID", width=50)
+        self.payments_tree.column("Invoice", width=150)
+        self.payments_tree.column("Amount", width=100, anchor="e")
+        self.payments_tree.column("Date", width=120)
+        self.payments_tree.column("Method", width=120)
+        self.payments_tree.column("Reference", width=150)
         
         # Bind select event
-        self.tree.bind("<<TreeviewSelect>>", self._on_payment_select)
+        self.payments_tree.bind("<<TreeviewSelect>>", self._on_payment_select)
         
         # Add scrollbar
-        scrollbar = tk.ttk.Scrollbar(treeview_frame, orient="vertical", command=self.tree.yview)
-        self.tree.configure(yscrollcommand=scrollbar.set)
+        scrollbar = tk.ttk.Scrollbar(treeview_frame, orient="vertical", command=self.payments_tree.yview)
+        self.payments_tree.configure(yscrollcommand=scrollbar.set)
         
         # Pack the treeview and scrollbar
-        self.tree.pack(side="left", fill="both", expand=True)
+        self.payments_tree.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
         
         # Action buttons for the selected payment
-        action_frame = ctk.CTkFrame(self)
+        action_frame = ctk.CTkFrame(payments_tab)
         action_frame.pack(fill="x", padx=10, pady=10)
         
-        self.view_button = ctk.CTkButton(
+        self.view_payment_button = ctk.CTkButton(
             action_frame, 
             text="View Details", 
             state="disabled", 
             command=self._show_view_payment_dialog
         )
-        self.view_button.pack(side="left", padx=10, pady=10)
+        self.view_payment_button.pack(side="left", padx=10, pady=10)
         
-        self.edit_button = ctk.CTkButton(
+        self.edit_payment_button = ctk.CTkButton(
             action_frame, 
             text="Edit Payment", 
             state="disabled", 
             command=self._show_edit_payment_dialog
         )
-        self.edit_button.pack(side="left", padx=10, pady=10)
+        self.edit_payment_button.pack(side="left", padx=10, pady=10)
         
-        self.delete_button = ctk.CTkButton(
+        self.delete_payment_button = ctk.CTkButton(
             action_frame, 
             text="Delete Payment", 
             state="disabled",
@@ -153,16 +173,159 @@ class PaymentView(ctk.CTkFrame):
             hover_color="darkred",
             command=self._confirm_delete_payment
         )
-        self.delete_button.pack(side="right", padx=10, pady=10)
+        self.delete_payment_button.pack(side="right", padx=10, pady=10)
         
         # Store payments data
         self.payments_data = []
         
+    def _setup_invoices_tab(self):
+        """Setup the Invoices tab"""
+        invoices_tab = self.notebook.tab("Invoices")
+        
+        # Title and button frame
+        title_frame = ctk.CTkFrame(invoices_tab)
+        title_frame.pack(fill="x", padx=10, pady=10)
+        
+        title_label = ctk.CTkLabel(
+            title_frame, 
+            text="Invoice Payment Status", 
+            font=ctk.CTkFont(size=24, weight="bold")
+        )
+        title_label.pack(side="left", padx=10, pady=10)
+        
+        refresh_button = ctk.CTkButton(
+            title_frame, 
+            text="Refresh", 
+            command=lambda: self.controller.load_invoices(self.status_filter_var.get())
+        )
+        refresh_button.pack(side="right", padx=10, pady=10)
+        
+        # Search and filter frame
+        search_frame = ctk.CTkFrame(invoices_tab)
+        search_frame.pack(fill="x", padx=10, pady=(0, 10))
+        
+        search_label = ctk.CTkLabel(search_frame, text="Search:")
+        search_label.pack(side="left", padx=10, pady=10)
+        
+        self.invoice_search_var = ctk.StringVar()
+        self.invoice_search_var.trace("w", lambda name, index, mode: self._filter_invoices())
+        search_entry = ctk.CTkEntry(search_frame, textvariable=self.invoice_search_var, width=300)
+        search_entry.pack(side="left", padx=10, pady=10)
+        
+        # Payment status filter
+        status_label = ctk.CTkLabel(search_frame, text="Payment Status:")
+        status_label.pack(side="left", padx=(20, 10), pady=10)
+        
+        self.status_filter_var = ctk.StringVar(value="All")
+        status_options = self.controller.get_payment_statuses()
+        status_menu = ctk.CTkOptionMenu(
+            search_frame,
+            values=status_options,
+            variable=self.status_filter_var,
+            command=self._apply_status_filter
+        )
+        status_menu.pack(side="left", padx=10, pady=10)
+        
+        # Invoice list frame
+        list_frame = ctk.CTkFrame(invoices_tab)
+        list_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # Treeview for invoices
+        treeview_frame = ctk.CTkFrame(list_frame)
+        treeview_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # Use a regular Treeview (ttk)
+        self.invoices_tree = tk.ttk.Treeview(
+            treeview_frame, 
+            columns=("ID", "Number", "Date", "Customer", "Total", "Status"),
+            show="headings",
+            selectmode="browse"
+        )
+        
+        # Define column headings
+        self.invoices_tree.heading("ID", text="ID")
+        self.invoices_tree.heading("Number", text="Invoice #")
+        self.invoices_tree.heading("Date", text="Date")
+        self.invoices_tree.heading("Customer", text="Customer")
+        self.invoices_tree.heading("Total", text="Total")
+        self.invoices_tree.heading("Status", text="Payment Status")
+        
+        # Configure column widths and alignment
+        self.invoices_tree.column("ID", width=50, anchor="center")
+        self.invoices_tree.column("Number", width=120, anchor="center")
+        self.invoices_tree.column("Date", width=100, anchor="center")
+        self.invoices_tree.column("Customer", width=200)
+        self.invoices_tree.column("Total", width=100, anchor="e")
+        self.invoices_tree.column("Status", width=120, anchor="center")
+        
+        # Bind select event
+        self.invoices_tree.bind("<<TreeviewSelect>>", self._on_invoice_select)
+        
+        # Add scrollbar
+        scrollbar = tk.ttk.Scrollbar(treeview_frame, orient="vertical", command=self.invoices_tree.yview)
+        self.invoices_tree.configure(yscrollcommand=scrollbar.set)
+        
+        # Pack the treeview and scrollbar
+        self.invoices_tree.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+        
+        # Action buttons for the selected invoice
+        action_frame = ctk.CTkFrame(invoices_tab)
+        action_frame.pack(fill="x", padx=10, pady=10)
+        
+        self.record_payment_button = ctk.CTkButton(
+            action_frame, 
+            text="Record Payment", 
+            state="disabled", 
+            command=self._show_add_payment_for_invoice
+        )
+        self.record_payment_button.pack(side="left", padx=10, pady=10)
+        
+        # Status update buttons frame
+        status_buttons_frame = ctk.CTkFrame(action_frame)
+        status_buttons_frame.pack(side="right", padx=10, pady=10)
+        
+        ctk.CTkLabel(status_buttons_frame, text="Update Status:").pack(side="left", padx=(0, 10))
+        
+        self.pending_button = ctk.CTkButton(
+            status_buttons_frame, 
+            text="Pending", 
+            state="disabled", 
+            width=100,
+            command=lambda: self._update_invoice_status("pending")
+        )
+        self.pending_button.pack(side="left", padx=5)
+        
+        self.completed_button = ctk.CTkButton(
+            status_buttons_frame, 
+            text="Completed", 
+            state="disabled", 
+            width=100,
+            fg_color="green",
+            hover_color="dark green",
+            command=lambda: self._update_invoice_status("completed")
+        )
+        self.completed_button.pack(side="left", padx=5)
+        
+        self.cancelled_button = ctk.CTkButton(
+            status_buttons_frame, 
+            text="Cancelled", 
+            state="disabled", 
+            width=100,
+            fg_color="red",
+            hover_color="dark red",
+            command=lambda: self._update_invoice_status("cancelled")
+        )
+        self.cancelled_button.pack(side="left", padx=5)
+        
+        # Store invoices data
+        self.invoices_data = []
+    
     def display_payments(self, payments_data):
         """Display the list of payments in the treeview"""
         # Clear existing items
-        for item in self.tree.get_children():
-            self.tree.delete(item)
+        for item in self.payments_tree.get_children():
+            self.payments_tree.delete(item)
         
         # Store the full data for later use
         self.payments_data = payments_data
@@ -178,7 +341,7 @@ class PaymentView(ctk.CTkFrame):
             # Format payment method
             method = payment['payment_method'].replace('_', ' ').title()
             
-            self.tree.insert(
+            self.payments_tree.insert(
                 "", 
                 "end", 
                 values=(
@@ -193,16 +356,60 @@ class PaymentView(ctk.CTkFrame):
             
         # Reset selection
         self.selected_payment_id = None
-        self._update_action_buttons()
+        self._update_payment_action_buttons()
+    
+    def display_invoices(self, invoices_data):
+        """Display the list of invoices in the treeview"""
+        # Clear existing items
+        for item in self.invoices_tree.get_children():
+            self.invoices_tree.delete(item)
         
+        # Store the full data for later use
+        self.invoices_data = invoices_data
+        
+        # Add invoices to the treeview
+        for invoice in invoices_data:
+            # Format amount with peso symbol
+            total = f"₱{invoice['total_amount']:.2f}"
+            
+            # Format payment status (capitalize first letter)
+            status = invoice['payment_status'].capitalize()
+            
+            # Get row tags for color coding
+            tags = (invoice['payment_status'],)
+            
+            self.invoices_tree.insert(
+                "", 
+                "end", 
+                values=(
+                    invoice['id'],
+                    invoice['invoice_number'],
+                    invoice['date'],
+                    invoice['customer_name'],
+                    total,
+                    status
+                ),
+                tags=tags
+            )
+        
+        # Configure tags for color coding
+        self.invoices_tree.tag_configure('pending', background='#d4ca00')
+        self.invoices_tree.tag_configure('completed', background='#029e02')
+        self.invoices_tree.tag_configure('cancelled', background='#b30000')
+        self.invoices_tree.tag_configure('partial', background='#0095de')
+            
+        # Reset selection
+        self.selected_invoice_id = None
+        self._update_invoice_action_buttons()
+    
     def _filter_payments(self, *args):
         """Filter payments based on search text and method"""
-        search_text = self.search_var.get().lower()
+        search_text = self.payment_search_var.get().lower()
         method_filter = self.method_var.get()
         
         # Clear existing items
-        for item in self.tree.get_children():
-            self.tree.delete(item)
+        for item in self.payments_tree.get_children():
+            self.payments_tree.delete(item)
         
         # Add filtered payments to the treeview
         for payment in self.payments_data:
@@ -229,7 +436,7 @@ class PaymentView(ctk.CTkFrame):
             # Format payment method
             method = payment['payment_method'].replace('_', ' ').title()
             
-            self.tree.insert(
+            self.payments_tree.insert(
                 "", 
                 "end", 
                 values=(
@@ -241,30 +448,131 @@ class PaymentView(ctk.CTkFrame):
                     payment['reference_number'] or ""
                 )
             )
+    
+    def _filter_invoices(self, *args):
+        """Filter invoices based on search text"""
+        search_text = self.invoice_search_var.get().lower()
+        
+        # Clear existing items
+        for item in self.invoices_tree.get_children():
+            self.invoices_tree.delete(item)
+        
+        # Add filtered invoices to the treeview
+        for invoice in self.invoices_data:
+            if not (search_text in str(invoice['id']).lower() or
+                   search_text in invoice['invoice_number'].lower() or
+                   search_text in invoice['date'].lower() or
+                   search_text in invoice['customer_name'].lower() or
+                   search_text in invoice['payment_status'].lower()):
+                continue
                 
+            # Format amount with peso symbol
+            total = f"₱{invoice['total_amount']:.2f}"
+            
+            # Format payment status (capitalize first letter)
+            status = invoice['payment_status'].capitalize()
+            
+            # Get row tags for color coding
+            tags = (invoice['payment_status'],)
+            
+            self.invoices_tree.insert(
+                "", 
+                "end", 
+                values=(
+                    invoice['id'],
+                    invoice['invoice_number'],
+                    invoice['date'],
+                    invoice['customer_name'],
+                    total,
+                    status
+                ),
+                tags=tags
+            )
+    
+    def _apply_status_filter(self, status):
+        """Apply payment status filter to invoices"""
+        # Load invoices with the selected filter
+        self.controller.load_invoices(status)
+    
     def _on_payment_select(self, event):
         """Handle payment selection"""
-        selected_items = self.tree.selection()
+        selected_items = self.payments_tree.selection()
         if selected_items:
             item = selected_items[0]
-            self.selected_payment_id = int(self.tree.item(item, "values")[0])
-            self._update_action_buttons()
+            self.selected_payment_id = int(self.payments_tree.item(item, "values")[0])
+            self._update_payment_action_buttons()
         else:
             self.selected_payment_id = None
-            self._update_action_buttons()
-            
-    def _update_action_buttons(self):
-        """Update the state of action buttons based on payment selection"""
-        if self.selected_payment_id:
-            self.view_button.configure(state="normal")
-            self.edit_button.configure(state="normal")
-            self.delete_button.configure(state="normal")
+            self._update_payment_action_buttons()
+    
+    def _on_invoice_select(self, event):
+        """Handle invoice selection"""
+        selected_items = self.invoices_tree.selection()
+        if selected_items:
+            item = selected_items[0]
+            self.selected_invoice_id = int(self.invoices_tree.item(item, "values")[0])
+            self._update_invoice_action_buttons()
         else:
-            self.view_button.configure(state="disabled")
-            self.edit_button.configure(state="disabled")
-            self.delete_button.configure(state="disabled")
+            self.selected_invoice_id = None
+            self._update_invoice_action_buttons()
+    
+    def _update_payment_action_buttons(self):
+        """Update the state of payment action buttons based on selection"""
+        if self.selected_payment_id:
+            self.view_payment_button.configure(state="normal")
+            self.edit_payment_button.configure(state="normal")
+            self.delete_payment_button.configure(state="normal")
+        else:
+            self.view_payment_button.configure(state="disabled")
+            self.edit_payment_button.configure(state="disabled")
+            self.delete_payment_button.configure(state="disabled")
+    
+    def _update_invoice_action_buttons(self):
+        """Update the state of invoice action buttons based on selection"""
+        if self.selected_invoice_id:
+            self.record_payment_button.configure(state="normal")
+            self.pending_button.configure(state="normal")
+            self.completed_button.configure(state="normal")
+            self.cancelled_button.configure(state="normal")
             
-    def _show_add_payment_dialog(self, invoice_id=None):
+            # Find the selected invoice status
+            for invoice in self.invoices_data:
+                if invoice['id'] == self.selected_invoice_id:
+                    current_status = invoice['payment_status'].lower()
+                    
+                    # Disable the button of the current status
+                    if current_status == 'pending':
+                        self.pending_button.configure(state="disabled")
+                    elif current_status == 'completed':
+                        self.completed_button.configure(state="disabled")
+                    elif current_status == 'cancelled':
+                        self.cancelled_button.configure(state="disabled")
+                    break
+        else:
+            self.record_payment_button.configure(state="disabled")
+            self.pending_button.configure(state="disabled")
+            self.completed_button.configure(state="disabled")
+            self.cancelled_button.configure(state="disabled")
+    
+    def _update_invoice_status(self, new_status):
+        """Update the payment status of the selected invoice"""
+        if not self.selected_invoice_id:
+            return
+        
+        # Confirm before changing status
+        message = f"Change payment status to {new_status.capitalize()}?"
+        if new_status == "cancelled":
+            message = "Are you sure you want to mark this invoice as Cancelled?\nThis might affect reports and statistics."
+        
+        if messagebox.askyesno("Confirm Status Change", message):
+            success, error = self.controller.update_payment_status(self.selected_invoice_id, new_status)
+            
+            if success:
+                self.show_info(f"Payment status updated to {new_status.capitalize()}")
+            else:
+                self.show_error(f"Failed to update payment status: {error}")
+    
+    def _show_add_payment_dialog(self):
         """Show dialog to add a new payment"""
         # Get unpaid invoices for dropdown
         invoices = self.controller.get_unpaid_invoices()
@@ -272,7 +580,7 @@ class PaymentView(ctk.CTkFrame):
             self.show_error("No unpaid invoices found")
             return
             
-        dialog = PaymentDialog(self, "Record New Payment", invoices=invoices, selected_invoice_id=invoice_id)
+        dialog = PaymentDialog(self, "Record New Payment", invoices=invoices)
         dialog.grab_set()  # Make it modal
         self.wait_window(dialog)  # Wait until the dialog is closed
         
@@ -283,7 +591,30 @@ class PaymentView(ctk.CTkFrame):
                 self.show_info(f"Payment recorded successfully with ID: {result}")
             else:
                 self.show_error(f"Failed to record payment: {result}")
-                
+    
+    def _show_add_payment_for_invoice(self):
+        """Show dialog to add a payment for the selected invoice"""
+        if not self.selected_invoice_id:
+            return
+            
+        # Get unpaid invoices for dropdown
+        invoices = self.controller.get_unpaid_invoices()
+        if not invoices:
+            self.show_error("No unpaid invoices found")
+            return
+            
+        dialog = PaymentDialog(self, "Record Payment", invoices=invoices, selected_invoice_id=self.selected_invoice_id)
+        dialog.grab_set()  # Make it modal
+        self.wait_window(dialog)  # Wait until the dialog is closed
+        
+        if dialog.result:
+            # Process the form data
+            success, result = self.controller.add_payment(dialog.result)
+            if success:
+                self.show_info(f"Payment recorded successfully with ID: {result}")
+            else:
+                self.show_error(f"Failed to record payment: {result}")
+    
     def _show_edit_payment_dialog(self):
         """Show dialog to edit an existing payment"""
         # Get the payment data
@@ -306,7 +637,7 @@ class PaymentView(ctk.CTkFrame):
                 self.show_info(f"Payment updated successfully")
             else:
                 self.show_error(f"Failed to update payment: {result}")
-                
+    
     def _show_view_payment_dialog(self):
         """Show dialog to view payment details"""
         # Get the payment data
@@ -321,7 +652,7 @@ class PaymentView(ctk.CTkFrame):
         dialog = PaymentDialog(self, "View Payment", payment_data=payment_data, invoices=invoices, readonly=True)
         dialog.grab_set()  # Make it modal
         dialog.wait_window()  # Wait until the dialog is closed
-            
+    
     def _confirm_delete_payment(self):
         """Show confirmation dialog before deleting a payment"""
         if not self.selected_payment_id:

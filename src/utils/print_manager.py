@@ -3,6 +3,7 @@ import tempfile
 import logging
 import subprocess
 import platform
+import time
 from datetime import datetime
 from reportlab.lib.pagesizes import A6
 from reportlab.lib import colors
@@ -11,6 +12,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Tabl
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from PyPDF2 import PdfMerger  # Add this import for merging PDFs
 
 # Register a font that properly supports the peso sign
 try:
@@ -78,6 +80,7 @@ class PrintManager:
                 pass
             
             # Prepare styles
+            
             styles = getSampleStyleSheet()
             
             # Determine if we need to adjust for multiple items
@@ -608,3 +611,262 @@ class PrintManager:
         except Exception as e:
             self.logger.error(f"Error opening PDF: {str(e)}")
             return False
+    
+    def print_pdf(self, pdf_path):
+        """Print the PDF directly to the default printer (without previewing)"""
+        if not os.path.exists(pdf_path):
+            self.logger.error(f"PDF file not found: {pdf_path}")
+            return False
+            
+        try:
+            if platform.system() == 'Windows':
+                # First try: Use SumatraPDF if available (best for thermal printing with custom paper size)
+                sumatra_paths = [
+                    r"C:\Program Files\SumatraPDF\SumatraPDF.exe",
+                    r"C:\Program Files (x86)\SumatraPDF\SumatraPDF.exe"
+                ]
+                
+                for sumatra_path in sumatra_paths:
+                    if os.path.exists(sumatra_path):
+                        try:
+                            # Use shell=True to avoid permission issues
+                            subprocess.run([
+                                sumatra_path, 
+                                "-print-to-default", 
+                                "-print-settings", "paper=Custom.100x150mm",
+                                pdf_path
+                            ], check=True, shell=True)
+                            self.logger.info(f"Printed PDF using SumatraPDF: {pdf_path}")
+                            return True
+                        except subprocess.SubprocessError as e:
+                            self.logger.warning(f"SumatraPDF printing failed: {str(e)}")
+                            # Continue to next fallback option
+                
+                # Second try: Use the default Windows print command
+                try:
+                    # Try to import win32 modules
+                    try:
+                        import win32api
+                        import win32print
+                        
+                        win32api.ShellExecute(0, "print", pdf_path, None, ".", 0)
+                        self.logger.info(f"Printed PDF using win32api: {pdf_path}")
+                        return True
+                    except ImportError:
+                        self.logger.warning("win32api module not available")
+                    
+                    # Third try: Use os.startfile with "print" verb
+                    try:
+                        os.startfile(pdf_path, "print")
+                        self.logger.info(f"Printed PDF using os.startfile: {pdf_path}")
+                        return True
+                    except Exception as e:
+                        self.logger.warning(f"os.startfile printing failed: {str(e)}")
+                    
+                    # Last resort: Just open the PDF - fallback to showing print dialog
+                    self.logger.warning("Direct printing failed, opening PDF for manual printing")
+                    os.startfile(pdf_path)
+                    self.logger.info(f"Opened PDF for manual printing: {pdf_path}")
+                    return True
+                    
+                except Exception as e:
+                    self.logger.error(f"All Windows printing methods failed: {str(e)}")
+                    return False
+                
+            elif platform.system() == 'Darwin':  # macOS
+                try:
+                    # Try with paper size option first
+                    subprocess.run([
+                        'lpr', 
+                        '-o', 'media=Custom.100x150mm',  # Set paper size
+                        pdf_path
+                    ], check=True)
+                    self.logger.info(f"Printed PDF using lpr with custom size: {pdf_path}")
+                    return True
+                except subprocess.SubprocessError:
+                    # Fallback to standard lpr command without paper size
+                    try:
+                        subprocess.run(['lpr', pdf_path], check=True)
+                        self.logger.info(f"Printed PDF using standard lpr: {pdf_path}")
+                        return True
+                    except subprocess.SubprocessError as e:
+                        self.logger.error(f"macOS printing failed: {str(e)}")
+                        # Open PDF as last resort
+                        subprocess.run(['open', pdf_path], check=True)
+                        return False
+                
+            else:  # Linux
+                try:
+                    # Try with paper size option first
+                    subprocess.run([
+                        'lp', 
+                        '-o', 'media=Custom.100x150mm',  
+                        pdf_path
+                    ], check=True)
+                    self.logger.info(f"Printed PDF using lp with custom size: {pdf_path}")
+                    return True
+                except subprocess.SubprocessError:
+                    # Fallback to standard lp command
+                    try:
+                        subprocess.run(['lp', pdf_path], check=True)
+                        self.logger.info(f"Printed PDF using standard lp: {pdf_path}")
+                        return True
+                    except subprocess.SubprocessError as e:
+                        self.logger.error(f"Linux printing failed: {str(e)}")
+                        # Open PDF as last resort
+                        subprocess.run(['xdg-open', pdf_path], check=True)
+                        return False
+                
+        except Exception as e:
+            self.logger.error(f"Error printing PDF: {str(e)}")
+            # As a fallback, just try to open the PDF
+            try:
+                self.open_pdf(pdf_path)
+                self.logger.info(f"Opened PDF after print error: {pdf_path}")
+                return False  # Still return False as direct printing failed
+            except:
+                pass
+            return False
+    
+    def print_direct(self, invoice_data=None, items_data=None, logo_path=None, pdf_path=None):
+        """Print invoice directly using a simple and reliable approach
+        
+        Args:
+            invoice_data: Invoice data dict (can be None if pdf_path provided)
+            items_data: Items data dict (can be None if pdf_path provided)
+            logo_path: Optional path to logo image
+            pdf_path: Optional direct path to PDF (skips PDF generation if provided)
+            
+        Returns:
+            Boolean indicating success/failure
+        """
+        try:
+            # If pdf_path is not provided, generate it
+            if not pdf_path:
+                pdf_path = self.generate_invoice_pdf(invoice_data, items_data, logo_path)
+                
+            if not pdf_path:
+                self.logger.error("Failed to obtain PDF for printing")
+                return False
+            
+            # Use the most reliable method to print on the current OS
+            if platform.system() == 'Windows':
+                # On Windows, use os.startfile with 'print' verb
+                self.logger.info(f"Printing PDF using os.startfile: {pdf_path}")
+                os.startfile(pdf_path, 'print')
+                return True
+                
+            elif platform.system() == 'Darwin':  # macOS
+                # For macOS, use lpr command for direct printing
+                self.logger.info(f"Printing PDF using lpr: {pdf_path}")
+                os.system(f"lpr '{pdf_path}'")
+                return True
+                
+            else:  # Linux
+                # For Linux, use lp command
+                self.logger.info(f"Printing PDF using lp: {pdf_path}")
+                os.system(f"lp '{pdf_path}'")
+                return True
+                
+        except Exception as e:
+            self.logger.error(f"Error in direct printing: {str(e)}")
+            # As a fallback, try to open the PDF regularly
+            try:
+                self.open_pdf(pdf_path)
+                self.logger.info(f"Opened PDF after print error: {pdf_path}")
+                return True  # Consider this a success since at least the user can see the document
+            except Exception as open_error:
+                self.logger.error(f"Error opening PDF: {str(open_error)}")
+                return False
+    
+    def print_multiple_invoices_as_one(self, invoice_data_list, logo_path=None):
+        """Generate a single PDF with multiple invoices and print it
+        
+        Args:
+            invoice_data_list: List of (invoice_data, items_data) tuples
+            logo_path: Optional path to logo image
+            
+        Returns:
+            Boolean indicating success/failure
+        """
+        try:
+            # Generate individual invoice PDFs first
+            pdf_paths = []
+            for invoice_data, items_data in invoice_data_list:
+                pdf_path = self.generate_invoice_pdf(invoice_data, items_data, logo_path)
+                if pdf_path:
+                    pdf_paths.append(pdf_path)
+            
+            if not pdf_paths:
+                self.logger.error("Failed to generate any invoice PDFs for batch printing")
+                return False
+                
+            # If there's only one PDF, print it directly
+            if len(pdf_paths) == 1:
+                return self.print_direct(None, None, pdf_path=pdf_paths[0])
+                
+            # Merge all PDFs into one file
+            merged_pdf_path = self._merge_pdfs(pdf_paths)
+            if not merged_pdf_path:
+                self.logger.error("Failed to merge invoice PDFs")
+                return False
+                
+            # Print the merged PDF
+            return self.print_direct(None, None, pdf_path=merged_pdf_path)
+            
+        except Exception as e:
+            self.logger.error(f"Error in batch printing: {str(e)}")
+            return False
+    
+    def _merge_pdfs(self, pdf_paths):
+        """Merge multiple PDFs into a single file
+        
+        Args:
+            pdf_paths: List of PDF file paths to merge
+            
+        Returns:
+            Path to merged PDF file or None if failed
+        """
+        try:
+            # Create output file path
+            output_path = os.path.join(
+                self.temp_dir, 
+                f"batch_invoices_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+            )
+            
+            # Use PdfMerger to combine PDFs
+            merger = PdfMerger()
+            
+            for pdf_path in pdf_paths:
+                if os.path.exists(pdf_path):
+                    merger.append(pdf_path)
+                
+            # Write to output file
+            merger.write(output_path)
+            merger.close()
+            
+            self.logger.info(f"Successfully merged {len(pdf_paths)} PDFs into: {output_path}")
+            return output_path
+            
+        except Exception as e:
+            self.logger.error(f"Error merging PDFs: {str(e)}")
+            return None
+    
+    def batch_print_invoices(self, pdf_paths):
+        """Print multiple PDFs in sequence"""
+        success_count = 0
+        fail_count = 0
+        
+        for pdf_path in pdf_paths:
+            # Add a small delay between print jobs to avoid printer queue issues
+            if success_count > 0:
+                time.sleep(1)  # 1-second delay between prints
+                
+            result = self.print_pdf(pdf_path)
+            if result:
+                success_count += 1
+            else:
+                fail_count += 1
+        
+        self.logger.info(f"Batch printing completed: {success_count} succeeded, {fail_count} failed")
+        return success_count, fail_count

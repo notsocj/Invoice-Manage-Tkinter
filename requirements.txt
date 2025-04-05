@@ -7,3 +7,5 @@ openpyxl>=3.0.10
 pymysql>=1.0.3
 python-dateutil>=2.8.2
 pytest>=7.0.0
+pywin32>=305; platform_system == "Windows"
+PyPDF2>=3.0.0  # Added for PDF merging functionality

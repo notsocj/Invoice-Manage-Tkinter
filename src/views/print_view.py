@@ -154,9 +154,9 @@ class PrintView(ctk.CTkFrame):
         
         self.print_button = ctk.CTkButton(
             action_frame, 
-            text="Print Invoice", 
+            text="Print Invoice Directly", 
             state="disabled", 
-            command=self._print_invoice,
+            command=self._print_invoice_directly,
             fg_color="#28a745",  # Green color for print button
             hover_color="#218838"  # Darker green on hover
         )
@@ -167,12 +167,24 @@ class PrintView(ctk.CTkFrame):
             action_frame, 
             text="Print Selected Invoices", 
             state="disabled", 
-            command=self._print_selected_invoices,
+            command=self._print_selected_invoices_directly,
             fg_color="#007bff",  # Blue color for multiple selection
             hover_color="#0056b3"  # Darker blue on hover
         )
         self.print_selected_button.pack(side="right", padx=10, pady=10)
         self.print_selected_button.pack_forget()  # Hide initially
+        
+        # Add a processing indicator (initially hidden)
+        self.processing_frame = ctk.CTkFrame(self)
+        self.processing_label = ctk.CTkLabel(
+            self.processing_frame, 
+            text="Processing invoices...",
+            font=ctk.CTkFont(weight="bold")
+        )
+        self.processing_label.pack(pady=10)
+        
+        self.progress_bar = ctk.CTkProgressBar(self.processing_frame, mode="indeterminate")
+        self.progress_bar.pack(fill="x", padx=20, pady=10)
         
         # Store invoices data
         self.invoices_data = []
@@ -382,10 +394,19 @@ class PrintView(ctk.CTkFrame):
         if self.selected_invoice_id:
             self.controller.preview_invoice(self.selected_invoice_id)
     
-    def _print_invoice(self):
-        """Print the selected invoice"""
+    def _print_invoice_directly(self):
+        """Print the selected invoice directly to the printer"""
         if self.selected_invoice_id:
-            self.controller.print_invoice(self.selected_invoice_id)
+            self.controller.print_invoice(self.selected_invoice_id, direct_print=True)
+    
+    def _print_selected_invoices_directly(self):
+        """Print all selected invoices directly to the printer"""
+        if not self.selected_invoices:
+            return
+            
+        # Convert the set to a list for printing
+        invoice_ids = list(self.selected_invoices)
+        self.controller.print_multiple_invoices(invoice_ids)
     
     def _print_selected_invoices(self):
         """Print all selected invoices"""
@@ -407,6 +428,17 @@ class PrintView(ctk.CTkFrame):
             self.show_info(f"Successfully printed {success_count} invoice(s)")
         else:
             self.show_info(f"Printed {success_count} invoice(s). Failed to print {fail_count} invoice(s).")
+    
+    def show_processing_indicator(self, show=True, message=None):
+        """Show or hide the processing indicator during batch printing"""
+        if show:
+            if message:
+                self.processing_label.configure(text=message)
+            self.processing_frame.pack(fill="x", padx=10, pady=10, before=self.tree.master.master)
+            self.progress_bar.start()
+        else:
+            self.progress_bar.stop()
+            self.processing_frame.pack_forget()
     
     def show_error(self, message):
         """Show error message"""

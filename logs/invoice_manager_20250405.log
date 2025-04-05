@@ -422,3 +422,525 @@
 2025-04-05 20:43:48,377 - invoice_manager - INFO - Showing items view
 2025-04-05 20:43:48,458 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
 2025-04-05 20:43:48,468 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-05 21:09:38,002 - invoice_manager - INFO - Showing print invoices view
+2025-04-05 21:09:38,052 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-05 21:09:38,056 - invoice_manager - INFO - Displaying 2 invoices for printing
+2025-04-05 21:09:39,010 - invoice_manager - INFO - Showing items view
+2025-04-05 21:09:39,085 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-05 21:09:39,092 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-05 21:09:40,432 - invoice_manager - INFO - Showing payments view
+2025-04-05 21:09:40,494 - invoice_manager - INFO - Loading payments
+2025-04-05 21:09:41,149 - invoice_manager - INFO - Showing print invoices view
+2025-04-05 21:09:41,197 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-05 21:09:41,202 - invoice_manager - INFO - Displaying 2 invoices for printing
+2025-04-05 21:09:49,021 - invoice_manager - INFO - Previewing invoice with ID: 4
+2025-04-05 21:09:49,039 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_210949.pdf
+2025-04-05 21:09:49,100 - invoice_manager - INFO - Opened PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_210949.pdf
+2025-04-05 21:15:38,100 - invoice_manager - INFO - Application closed
+2025-04-05 21:15:48,192 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 21:15:48,192 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 21:15:48,192 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 21:15:48,203 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 21:15:48,206 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 21:15:48,288 - invoice_manager - INFO - Starting main application loop
+2025-04-05 21:15:48,318 - invoice_manager - INFO - Showing dashboard
+2025-04-05 21:15:49,373 - invoice_manager - INFO - Showing payments view
+2025-04-05 21:15:49,435 - invoice_manager - INFO - Loading payments
+2025-04-05 21:15:50,369 - invoice_manager - INFO - Showing items view
+2025-04-05 21:15:50,436 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-05 21:15:50,446 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-05 21:15:51,715 - invoice_manager - INFO - Showing print invoices view
+2025-04-05 21:15:51,767 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-05 21:15:51,773 - invoice_manager - INFO - Displaying 2 invoices for printing
+2025-04-05 21:15:54,343 - invoice_manager - INFO - Loading invoices for printing with filter: past_7_days
+2025-04-05 21:15:54,348 - invoice_manager - INFO - Displaying 2 invoices for printing
+2025-04-05 21:15:55,160 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-05 21:15:55,164 - invoice_manager - INFO - Displaying 2 invoices for printing
+2025-04-05 21:15:58,852 - invoice_manager - INFO - Printing invoice with ID: 4
+2025-04-05 21:15:58,873 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_211558.pdf
+2025-04-05 21:15:58,874 - invoice_manager - ERROR - Error printing PDF: No module named 'win32'
+2025-04-05 21:16:00,697 - invoice_manager - INFO - Printing invoice with ID: 4
+2025-04-05 21:16:00,709 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_211600.pdf
+2025-04-05 21:16:00,710 - invoice_manager - ERROR - Error printing PDF: No module named 'win32'
+2025-04-05 21:16:03,983 - invoice_manager - INFO - Printing invoice with ID: 4
+2025-04-05 21:16:03,995 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_211603.pdf
+2025-04-05 21:16:04,056 - invoice_manager - INFO - Opened PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_211603.pdf
+2025-04-05 21:16:19,043 - invoice_manager - INFO - Printing invoice with ID: 4
+2025-04-05 21:16:19,058 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_211619.pdf
+2025-04-05 21:16:19,059 - invoice_manager - ERROR - Error printing PDF: No module named 'win32'
+2025-04-05 21:21:38,537 - invoice_manager - INFO - Application closed
+2025-04-05 21:21:40,143 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 21:21:40,144 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 21:21:40,144 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 21:21:40,153 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 21:21:40,155 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 21:21:40,236 - invoice_manager - INFO - Starting main application loop
+2025-04-05 21:21:40,274 - invoice_manager - INFO - Showing dashboard
+2025-04-05 21:21:41,753 - invoice_manager - INFO - Showing payments view
+2025-04-05 21:21:41,814 - invoice_manager - INFO - Loading payments
+2025-04-05 21:21:42,741 - invoice_manager - INFO - Showing print invoices view
+2025-04-05 21:21:42,788 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-05 21:21:42,793 - invoice_manager - INFO - Displaying 2 invoices for printing
+2025-04-05 21:21:43,791 - invoice_manager - INFO - Printing invoice with ID: 4
+2025-04-05 21:21:43,807 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_212143.pdf
+2025-04-05 21:21:43,874 - invoice_manager - INFO - Opened PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_212143.pdf
+2025-04-05 21:21:47,348 - invoice_manager - INFO - Printing invoice with ID: 4
+2025-04-05 21:21:47,365 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_212147.pdf
+2025-04-05 21:21:47,366 - invoice_manager - WARNING - win32api module not available
+2025-04-05 21:21:47,380 - invoice_manager - WARNING - os.startfile printing failed: [WinError 1155] No application is associated with the specified file for this operation: 'C:\\Users\\Cj\\AppData\\Local\\Temp\\invoice_manager\\invoice_INV_001_20250405_212147.pdf'
+2025-04-05 21:21:47,381 - invoice_manager - WARNING - Direct printing failed, opening PDF for manual printing
+2025-04-05 21:21:47,412 - invoice_manager - INFO - Opened PDF for manual printing: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_212147.pdf
+2025-04-05 21:23:29,437 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 21:23:29,438 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 21:23:29,438 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 21:23:29,448 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 21:23:29,451 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 21:23:29,538 - invoice_manager - INFO - Starting main application loop
+2025-04-05 21:23:29,572 - invoice_manager - INFO - Showing dashboard
+2025-04-05 21:23:31,077 - invoice_manager - INFO - Showing payments view
+2025-04-05 21:23:31,138 - invoice_manager - INFO - Loading payments
+2025-04-05 21:23:31,927 - invoice_manager - INFO - Showing print invoices view
+2025-04-05 21:23:31,970 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-05 21:23:31,974 - invoice_manager - INFO - Displaying 2 invoices for printing
+2025-04-05 21:23:33,883 - invoice_manager - INFO - Printing invoice with ID: 5
+2025-04-05 21:23:33,913 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_002_20250405_212333.pdf
+2025-04-05 21:23:34,029 - invoice_manager - ERROR - All Windows printing methods failed: (31, 'ShellExecute', 'A device attached to the system is not functioning.')
+2025-04-05 21:23:36,874 - invoice_manager - INFO - Printing invoice with ID: 4
+2025-04-05 21:23:36,892 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_212336.pdf
+2025-04-05 21:23:36,901 - invoice_manager - ERROR - All Windows printing methods failed: (31, 'ShellExecute', 'A device attached to the system is not functioning.')
+2025-04-05 21:27:10,401 - invoice_manager - INFO - Application closed
+2025-04-05 21:27:12,080 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 21:27:12,080 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 21:27:12,081 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 21:27:12,091 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 21:27:12,094 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 21:27:12,181 - invoice_manager - INFO - Starting main application loop
+2025-04-05 21:27:12,216 - invoice_manager - INFO - Showing dashboard
+2025-04-05 21:27:13,395 - invoice_manager - INFO - Showing items view
+2025-04-05 21:27:13,465 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-05 21:27:13,486 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-05 21:27:17,224 - invoice_manager - INFO - Showing payments view
+2025-04-05 21:27:17,279 - invoice_manager - INFO - Loading payments
+2025-04-05 21:27:18,398 - invoice_manager - INFO - Showing items view
+2025-04-05 21:27:18,458 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-05 21:27:18,464 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-05 21:27:19,637 - invoice_manager - INFO - Showing invoices view
+2025-04-05 21:27:19,655 - invoice_manager - INFO - Loading invoices
+2025-04-05 21:27:21,973 - invoice_manager - INFO - Showing items view
+2025-04-05 21:27:22,043 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-05 21:27:22,052 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-05 21:27:22,345 - invoice_manager - INFO - Showing print invoices view
+2025-04-05 21:27:22,381 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-05 21:27:22,384 - invoice_manager - INFO - Displaying 2 invoices for printing
+2025-04-05 21:27:23,782 - invoice_manager - INFO - Printing invoice with ID: 4
+2025-04-05 21:27:23,799 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_212723.pdf
+2025-04-05 21:27:23,830 - invoice_manager - ERROR - Error in direct printing: [WinError 1155] No application is associated with the specified file for this operation: 'C:\\Users\\Cj\\AppData\\Local\\Temp\\invoice_manager\\invoice_INV_001_20250405_212723.pdf'
+2025-04-05 21:27:25,304 - invoice_manager - INFO - Printing invoice with ID: 4
+2025-04-05 21:27:25,320 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_212725.pdf
+2025-04-05 21:27:25,330 - invoice_manager - ERROR - Error in direct printing: [WinError 1155] No application is associated with the specified file for this operation: 'C:\\Users\\Cj\\AppData\\Local\\Temp\\invoice_manager\\invoice_INV_001_20250405_212725.pdf'
+2025-04-05 21:27:26,767 - invoice_manager - INFO - Printing invoice with ID: 5
+2025-04-05 21:27:26,787 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_002_20250405_212726.pdf
+2025-04-05 21:27:26,832 - invoice_manager - INFO - Opened PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_002_20250405_212726.pdf
+2025-04-05 21:27:31,259 - invoice_manager - INFO - Printing invoice with ID: 5
+2025-04-05 21:27:31,271 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_002_20250405_212731.pdf
+2025-04-05 21:27:31,280 - invoice_manager - ERROR - Error in direct printing: [WinError 1155] No application is associated with the specified file for this operation: 'C:\\Users\\Cj\\AppData\\Local\\Temp\\invoice_manager\\invoice_INV_002_20250405_212731.pdf'
+2025-04-05 21:29:55,418 - invoice_manager - INFO - Application closed
+2025-04-05 21:30:01,969 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 21:30:01,970 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 21:30:01,970 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 21:30:01,981 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 21:30:01,984 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 21:30:02,065 - invoice_manager - INFO - Starting main application loop
+2025-04-05 21:30:02,100 - invoice_manager - INFO - Showing dashboard
+2025-04-05 21:30:03,184 - invoice_manager - INFO - Showing print invoices view
+2025-04-05 21:30:03,244 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-05 21:30:03,266 - invoice_manager - INFO - Displaying 2 invoices for printing
+2025-04-05 21:30:04,984 - invoice_manager - INFO - Printing invoice with ID: 4
+2025-04-05 21:30:05,006 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_213004.pdf
+2025-04-05 21:30:05,006 - invoice_manager - INFO - Attempting Windows direct print verb
+2025-04-05 21:30:05,049 - invoice_manager - WARNING - Print verb failed: [WinError 1155] No application is associated with the specified file for this operation: 'C:\\Users\\Cj\\AppData\\Local\\Temp\\invoice_manager\\invoice_INV_001_20250405_213004.pdf'
+2025-04-05 21:30:05,050 - invoice_manager - INFO - Attempting print via shell command
+2025-04-05 21:34:39,320 - invoice_manager - INFO - Application closed
+2025-04-05 21:34:40,942 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 21:34:40,943 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 21:34:40,943 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 21:34:40,955 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 21:34:40,958 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 21:34:41,095 - invoice_manager - INFO - Starting main application loop
+2025-04-05 21:34:41,145 - invoice_manager - INFO - Showing dashboard
+2025-04-05 21:34:42,673 - invoice_manager - INFO - Showing print invoices view
+2025-04-05 21:34:42,717 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-05 21:34:42,727 - invoice_manager - INFO - Displaying 2 invoices for printing
+2025-04-05 21:34:44,742 - invoice_manager - INFO - Printing invoice with ID: 5
+2025-04-05 21:34:44,761 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_002_20250405_213444.pdf
+2025-04-05 21:34:44,762 - invoice_manager - INFO - Printing PDF using os.startfile: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_002_20250405_213444.pdf
+2025-04-05 21:34:44,791 - invoice_manager - ERROR - Error in direct printing: [WinError 1155] No application is associated with the specified file for this operation: 'C:\\Users\\Cj\\AppData\\Local\\Temp\\invoice_manager\\invoice_INV_002_20250405_213444.pdf'
+2025-04-05 21:34:44,828 - invoice_manager - INFO - Opened PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_002_20250405_213444.pdf
+2025-04-05 21:34:44,829 - invoice_manager - INFO - Opened PDF after print error: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_002_20250405_213444.pdf
+2025-04-05 21:35:03,928 - invoice_manager - INFO - Batch printing 2 invoices
+2025-04-05 21:35:03,929 - invoice_manager - INFO - Printing invoice with ID: 4
+2025-04-05 21:35:03,947 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_213503.pdf
+2025-04-05 21:35:03,947 - invoice_manager - INFO - Printing PDF using os.startfile: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_213503.pdf
+2025-04-05 21:35:03,957 - invoice_manager - ERROR - Error in direct printing: [WinError 1155] No application is associated with the specified file for this operation: 'C:\\Users\\Cj\\AppData\\Local\\Temp\\invoice_manager\\invoice_INV_001_20250405_213503.pdf'
+2025-04-05 21:35:03,985 - invoice_manager - INFO - Opened PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_213503.pdf
+2025-04-05 21:35:03,986 - invoice_manager - INFO - Opened PDF after print error: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_213503.pdf
+2025-04-05 21:35:04,986 - invoice_manager - INFO - Printing invoice with ID: 5
+2025-04-05 21:35:05,006 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_002_20250405_213504.pdf
+2025-04-05 21:35:05,006 - invoice_manager - INFO - Printing PDF using os.startfile: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_002_20250405_213504.pdf
+2025-04-05 21:35:05,020 - invoice_manager - ERROR - Error in direct printing: [WinError 1155] No application is associated with the specified file for this operation: 'C:\\Users\\Cj\\AppData\\Local\\Temp\\invoice_manager\\invoice_INV_002_20250405_213504.pdf'
+2025-04-05 21:35:05,048 - invoice_manager - INFO - Opened PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_002_20250405_213504.pdf
+2025-04-05 21:35:05,048 - invoice_manager - INFO - Opened PDF after print error: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_002_20250405_213504.pdf
+2025-04-05 21:40:17,112 - invoice_manager - INFO - Application closed
+2025-04-05 21:40:31,744 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 21:40:31,745 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 21:40:31,746 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 21:40:31,756 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 21:40:31,759 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 21:40:31,849 - invoice_manager - INFO - Starting main application loop
+2025-04-05 21:40:31,883 - invoice_manager - INFO - Showing dashboard
+2025-04-05 21:40:33,095 - invoice_manager - INFO - Showing print invoices view
+2025-04-05 21:40:33,152 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-05 21:40:33,168 - invoice_manager - INFO - Displaying 2 invoices for printing
+2025-04-05 21:40:38,300 - invoice_manager - INFO - Batch printing 2 invoices as one document
+2025-04-05 21:40:38,336 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_214038.pdf
+2025-04-05 21:40:38,361 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_002_20250405_214038.pdf
+2025-04-05 21:40:38,398 - invoice_manager - INFO - Successfully merged 2 PDFs into: C:\Users\Cj\AppData\Local\Temp\invoice_manager\batch_invoices_20250405_214038.pdf
+2025-04-05 21:40:38,399 - invoice_manager - INFO - Printing PDF using os.startfile: C:\Users\Cj\AppData\Local\Temp\invoice_manager\batch_invoices_20250405_214038.pdf
+2025-04-05 21:40:38,430 - invoice_manager - ERROR - Error in direct printing: [WinError 1155] No application is associated with the specified file for this operation: 'C:\\Users\\Cj\\AppData\\Local\\Temp\\invoice_manager\\batch_invoices_20250405_214038.pdf'
+2025-04-05 21:40:38,468 - invoice_manager - INFO - Opened PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\batch_invoices_20250405_214038.pdf
+2025-04-05 21:40:38,469 - invoice_manager - INFO - Opened PDF after print error: C:\Users\Cj\AppData\Local\Temp\invoice_manager\batch_invoices_20250405_214038.pdf
+2025-04-05 21:40:51,177 - invoice_manager - INFO - Printing invoice with ID: 4
+2025-04-05 21:40:51,190 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_214051.pdf
+2025-04-05 21:40:51,190 - invoice_manager - INFO - Printing PDF using os.startfile: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_214051.pdf
+2025-04-05 21:40:51,200 - invoice_manager - ERROR - Error in direct printing: [WinError 1155] No application is associated with the specified file for this operation: 'C:\\Users\\Cj\\AppData\\Local\\Temp\\invoice_manager\\invoice_INV_001_20250405_214051.pdf'
+2025-04-05 21:40:51,234 - invoice_manager - INFO - Opened PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_214051.pdf
+2025-04-05 21:40:51,235 - invoice_manager - INFO - Opened PDF after print error: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_214051.pdf
+2025-04-05 21:41:09,184 - invoice_manager - INFO - Showing payments view
+2025-04-05 21:41:09,249 - invoice_manager - INFO - Loading payments
+2025-04-05 21:41:10,235 - invoice_manager - INFO - Showing invoices view
+2025-04-05 21:41:10,256 - invoice_manager - INFO - Loading invoices
+2025-04-05 22:12:25,899 - invoice_manager - INFO - Showing payments view
+2025-04-05 22:12:25,957 - invoice_manager - INFO - Loading payments
+2025-04-05 22:19:08,749 - invoice_manager - INFO - Application closed
+2025-04-05 22:19:10,594 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 22:19:10,595 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 22:19:10,595 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 22:19:10,603 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 22:19:10,607 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 22:19:10,694 - invoice_manager - INFO - Starting main application loop
+2025-04-05 22:19:10,732 - invoice_manager - INFO - Showing dashboard
+2025-04-05 22:19:12,068 - invoice_manager - INFO - Showing payments view
+2025-04-05 22:19:12,157 - invoice_manager - INFO - Loading payments
+2025-04-05 22:19:16,879 - invoice_manager - INFO - Loading payments
+2025-04-05 22:19:17,244 - invoice_manager - INFO - Loading payments
+2025-04-05 22:19:17,419 - invoice_manager - INFO - Loading payments
+2025-04-05 22:19:32,022 - invoice_manager - INFO - Showing payments view
+2025-04-05 22:19:32,094 - invoice_manager - INFO - Loading payments
+2025-04-05 22:19:32,569 - invoice_manager - INFO - Showing invoices view
+2025-04-05 22:19:32,586 - invoice_manager - INFO - Loading invoices
+2025-04-05 22:19:52,614 - invoice_manager - INFO - Adding new invoice for customer: testing5
+2025-04-05 22:19:52,629 - invoice_manager - INFO - Invoice added successfully with ID: 6
+2025-04-05 22:19:52,629 - invoice_manager - INFO - Loading invoices
+2025-04-05 22:19:55,191 - invoice_manager - INFO - Showing payments view
+2025-04-05 22:19:55,263 - invoice_manager - INFO - Loading payments
+2025-04-05 22:26:12,948 - invoice_manager - INFO - Application closed
+2025-04-05 22:28:51,594 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 22:28:51,595 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 22:28:51,595 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 22:28:51,603 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 22:28:51,607 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 22:28:51,678 - invoice_manager - INFO - Starting main application loop
+2025-04-05 22:28:51,709 - invoice_manager - INFO - Showing dashboard
+2025-04-05 22:28:54,411 - invoice_manager - INFO - Showing dashboard
+2025-04-05 22:28:54,912 - invoice_manager - INFO - Showing clients view
+2025-04-05 22:28:54,973 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-05 22:28:54,986 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-05 22:28:55,981 - invoice_manager - INFO - Showing invoices view
+2025-04-05 22:28:55,998 - invoice_manager - INFO - Loading invoices
+2025-04-05 22:28:56,474 - invoice_manager - INFO - Showing payments view
+2025-04-05 22:28:56,552 - invoice_manager - INFO - Loading payments
+2025-04-05 22:28:56,556 - invoice_manager - INFO - Displaying 0 payments
+2025-04-05 22:28:56,557 - invoice_manager - INFO - No payments found to display
+2025-04-05 22:28:58,902 - invoice_manager - INFO - Showing payments view
+2025-04-05 22:28:58,975 - invoice_manager - INFO - Loading payments
+2025-04-05 22:28:58,978 - invoice_manager - INFO - Displaying 0 payments
+2025-04-05 22:28:58,978 - invoice_manager - INFO - No payments found to display
+2025-04-05 22:29:20,824 - invoice_manager - INFO - Application closed
+2025-04-05 22:29:22,641 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 22:29:22,642 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 22:29:22,642 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 22:29:22,652 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 22:29:22,656 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 22:29:22,731 - invoice_manager - INFO - Starting main application loop
+2025-04-05 22:29:22,764 - invoice_manager - INFO - Showing dashboard
+2025-04-05 22:29:24,209 - invoice_manager - INFO - Showing payments view
+2025-04-05 22:29:24,259 - invoice_manager - INFO - Loading payments
+2025-04-05 22:34:20,268 - invoice_manager - INFO - Application closed
+2025-04-05 22:34:38,438 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 22:34:38,439 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 22:34:38,439 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 22:34:38,449 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 22:34:38,452 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 22:34:42,801 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 22:34:42,802 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 22:34:42,802 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 22:34:42,813 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 22:34:42,815 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 22:35:35,780 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 22:35:35,781 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 22:35:35,781 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 22:35:35,791 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 22:35:35,794 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 22:35:45,030 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 22:35:45,031 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 22:35:45,031 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 22:35:45,039 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 22:35:45,042 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 22:35:45,113 - invoice_manager - INFO - Starting main application loop
+2025-04-05 22:35:45,144 - invoice_manager - INFO - Showing dashboard
+2025-04-05 22:35:46,352 - invoice_manager - INFO - Showing payments view
+2025-04-05 22:35:46,399 - invoice_manager - INFO - Loading payments
+2025-04-05 22:35:47,900 - invoice_manager - INFO - Application closed
+2025-04-05 22:45:55,518 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 22:45:55,519 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 22:45:55,519 - invoice_manager - INFO - Initializing database with URI: sqlite:///invoice_manager.db
+2025-04-05 22:45:55,530 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 22:45:55,533 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 22:45:55,606 - invoice_manager - INFO - Starting main application loop
+2025-04-05 22:45:55,642 - invoice_manager - INFO - Showing dashboard
+2025-04-05 22:46:02,763 - invoice_manager - INFO - Showing dashboard
+2025-04-05 22:46:03,166 - invoice_manager - INFO - Showing clients view
+2025-04-05 22:46:03,225 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-05 22:46:03,240 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-05 22:46:05,004 - invoice_manager - INFO - Showing invoices view
+2025-04-05 22:46:05,097 - invoice_manager - INFO - Loading invoices with filter: date=None, status=None, search=''
+2025-04-05 22:46:05,100 - invoice_manager - ERROR - Error fetching invoices: (sqlite3.OperationalError) no such column: invoices.created_at
+[SQL: SELECT count(*) AS count_1 
+FROM (SELECT invoices.id AS invoices_id, invoices.invoice_number AS invoices_invoice_number, invoices.date AS invoices_date, invoices.customer_name AS invoices_customer_name, invoices.customer_address AS invoices_customer_address, invoices.total_amount AS invoices_total_amount, invoices.mode_of_payment AS invoices_mode_of_payment, invoices.payment_status AS invoices_payment_status, invoices.created_at AS invoices_created_at, invoices.updated_at AS invoices_updated_at 
+FROM invoices) AS anon_1]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-04-05 22:46:09,628 - invoice_manager - INFO - Loading invoices with filter: date=None, status=None, search=''
+2025-04-05 22:46:09,630 - invoice_manager - ERROR - Error fetching invoices: (sqlite3.OperationalError) no such column: invoices.created_at
+[SQL: SELECT count(*) AS count_1 
+FROM (SELECT invoices.id AS invoices_id, invoices.invoice_number AS invoices_invoice_number, invoices.date AS invoices_date, invoices.customer_name AS invoices_customer_name, invoices.customer_address AS invoices_customer_address, invoices.total_amount AS invoices_total_amount, invoices.mode_of_payment AS invoices_mode_of_payment, invoices.payment_status AS invoices_payment_status, invoices.created_at AS invoices_created_at, invoices.updated_at AS invoices_updated_at 
+FROM invoices) AS anon_1]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-04-05 22:46:11,414 - invoice_manager - INFO - Showing payments view
+2025-04-05 22:46:11,462 - invoice_manager - INFO - Loading payments
+2025-04-05 22:46:11,877 - invoice_manager - INFO - Showing invoices view
+2025-04-05 22:46:11,950 - invoice_manager - INFO - Loading invoices with filter: date=None, status=None, search=''
+2025-04-05 22:46:11,951 - invoice_manager - ERROR - Error fetching invoices: (sqlite3.OperationalError) no such column: invoices.created_at
+[SQL: SELECT count(*) AS count_1 
+FROM (SELECT invoices.id AS invoices_id, invoices.invoice_number AS invoices_invoice_number, invoices.date AS invoices_date, invoices.customer_name AS invoices_customer_name, invoices.customer_address AS invoices_customer_address, invoices.total_amount AS invoices_total_amount, invoices.mode_of_payment AS invoices_mode_of_payment, invoices.payment_status AS invoices_payment_status, invoices.created_at AS invoices_created_at, invoices.updated_at AS invoices_updated_at 
+FROM invoices) AS anon_1]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-04-05 22:46:17,730 - invoice_manager - INFO - Showing payments view
+2025-04-05 22:46:17,777 - invoice_manager - INFO - Loading payments
+2025-04-05 22:46:19,302 - invoice_manager - INFO - Showing items view
+2025-04-05 22:46:19,354 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-05 22:46:19,364 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-05 22:46:20,138 - invoice_manager - INFO - Showing invoices view
+2025-04-05 22:46:20,213 - invoice_manager - INFO - Loading invoices with filter: date=None, status=None, search=''
+2025-04-05 22:46:20,214 - invoice_manager - ERROR - Error fetching invoices: (sqlite3.OperationalError) no such column: invoices.created_at
+[SQL: SELECT count(*) AS count_1 
+FROM (SELECT invoices.id AS invoices_id, invoices.invoice_number AS invoices_invoice_number, invoices.date AS invoices_date, invoices.customer_name AS invoices_customer_name, invoices.customer_address AS invoices_customer_address, invoices.total_amount AS invoices_total_amount, invoices.mode_of_payment AS invoices_mode_of_payment, invoices.payment_status AS invoices_payment_status, invoices.created_at AS invoices_created_at, invoices.updated_at AS invoices_updated_at 
+FROM invoices) AS anon_1]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-04-05 22:46:25,826 - invoice_manager - INFO - Showing payments view
+2025-04-05 22:46:25,871 - invoice_manager - INFO - Loading payments
+2025-04-05 22:46:52,026 - invoice_manager - INFO - Showing payments view
+2025-04-05 22:46:52,078 - invoice_manager - INFO - Loading payments
+2025-04-05 22:46:54,032 - invoice_manager - INFO - Showing invoices view
+2025-04-05 22:46:54,106 - invoice_manager - INFO - Loading invoices with filter: date=None, status=None, search=''
+2025-04-05 22:46:54,107 - invoice_manager - ERROR - Error fetching invoices: (sqlite3.OperationalError) no such column: invoices.created_at
+[SQL: SELECT count(*) AS count_1 
+FROM (SELECT invoices.id AS invoices_id, invoices.invoice_number AS invoices_invoice_number, invoices.date AS invoices_date, invoices.customer_name AS invoices_customer_name, invoices.customer_address AS invoices_customer_address, invoices.total_amount AS invoices_total_amount, invoices.mode_of_payment AS invoices_mode_of_payment, invoices.payment_status AS invoices_payment_status, invoices.created_at AS invoices_created_at, invoices.updated_at AS invoices_updated_at 
+FROM invoices) AS anon_1]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-04-05 23:24:48,336 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 23:24:48,337 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 23:24:48,338 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 23:24:48,346 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 23:24:48,349 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 23:24:48,422 - invoice_manager - INFO - Starting main application loop
+2025-04-05 23:24:48,451 - invoice_manager - INFO - Showing dashboard
+2025-04-05 23:24:49,615 - invoice_manager - INFO - Showing invoices view
+2025-04-05 23:24:49,635 - invoice_manager - INFO - Loading invoices
+2025-04-05 23:24:50,449 - invoice_manager - INFO - Showing payments view
+2025-04-05 23:24:51,979 - invoice_manager - INFO - Application closed
+2025-04-05 23:38:22,173 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 23:38:22,174 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 23:38:22,175 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 23:38:22,185 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 23:38:22,188 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 23:38:22,263 - invoice_manager - INFO - Starting main application loop
+2025-04-05 23:38:22,297 - invoice_manager - INFO - Showing dashboard
+2025-04-05 23:38:24,043 - invoice_manager - INFO - Showing payments view
+2025-04-05 23:38:24,075 - invoice_manager - INFO - Loading payments with filters - status: None, date: None, search: ''
+2025-04-05 23:38:24,081 - invoice_manager - ERROR - Error fetching payment data: Error creating backref 'invoice' on relationship 'Invoice.payments': property of that name exists on mapper 'Mapper[Payment(payments)]'
+2025-04-05 23:38:27,672 - invoice_manager - INFO - Showing invoices view
+2025-04-05 23:38:27,691 - invoice_manager - INFO - Loading invoices
+2025-04-05 23:38:27,691 - invoice_manager - ERROR - Error fetching invoices: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Invoice(invoices)]'. Original exception was: Error creating backref 'invoice' on relationship 'Invoice.payments': property of that name exists on mapper 'Mapper[Payment(payments)]'
+2025-04-05 23:38:30,069 - invoice_manager - INFO - Showing items view
+2025-04-05 23:38:30,123 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-05 23:38:30,124 - invoice_manager - ERROR - Error fetching items: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Invoice(invoices)]'. Original exception was: Error creating backref 'invoice' on relationship 'Invoice.payments': property of that name exists on mapper 'Mapper[Payment(payments)]'
+2025-04-05 23:38:31,741 - invoice_manager - INFO - Showing print invoices view
+2025-04-05 23:38:31,781 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-05 23:38:31,782 - invoice_manager - ERROR - Error fetching invoices for printing: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Invoice(invoices)]'. Original exception was: Error creating backref 'invoice' on relationship 'Invoice.payments': property of that name exists on mapper 'Mapper[Payment(payments)]'
+2025-04-05 23:38:33,970 - invoice_manager - INFO - Showing clients view
+2025-04-05 23:38:34,024 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-05 23:38:34,025 - invoice_manager - ERROR - Error fetching clients: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Invoice(invoices)]'. Original exception was: Error creating backref 'invoice' on relationship 'Invoice.payments': property of that name exists on mapper 'Mapper[Payment(payments)]'
+2025-04-05 23:39:03,621 - invoice_manager - INFO - Application closed
+2025-04-05 23:39:04,636 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 23:39:04,637 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 23:39:04,637 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 23:39:04,646 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 23:39:04,649 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 23:39:04,720 - invoice_manager - INFO - Starting main application loop
+2025-04-05 23:39:04,752 - invoice_manager - INFO - Showing dashboard
+2025-04-05 23:39:07,096 - invoice_manager - INFO - Showing clients view
+2025-04-05 23:39:07,184 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-05 23:39:07,203 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-05 23:39:08,052 - invoice_manager - INFO - Showing invoices view
+2025-04-05 23:39:08,071 - invoice_manager - INFO - Loading invoices
+2025-04-05 23:39:08,487 - invoice_manager - INFO - Showing payments view
+2025-04-05 23:39:08,532 - invoice_manager - INFO - Loading payments
+2025-04-05 23:39:08,966 - invoice_manager - INFO - Showing items view
+2025-04-05 23:39:09,024 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-05 23:39:09,033 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-05 23:39:09,986 - invoice_manager - INFO - Showing print invoices view
+2025-04-05 23:39:10,027 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-05 23:39:10,030 - invoice_manager - INFO - Displaying 3 invoices for printing
+2025-04-05 23:39:12,470 - invoice_manager - INFO - Showing items view
+2025-04-05 23:39:12,529 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-05 23:39:12,536 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-05 23:39:13,796 - invoice_manager - INFO - Showing payments view
+2025-04-05 23:39:13,844 - invoice_manager - INFO - Loading payments
+2025-04-05 23:39:14,785 - invoice_manager - INFO - Showing invoices view
+2025-04-05 23:39:14,819 - invoice_manager - INFO - Loading invoices
+2025-04-05 23:39:16,881 - invoice_manager - INFO - Showing clients view
+2025-04-05 23:39:16,935 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-05 23:39:16,940 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-05 23:39:17,696 - invoice_manager - INFO - Showing invoices view
+2025-04-05 23:39:17,715 - invoice_manager - INFO - Loading invoices
+2025-04-05 23:39:18,419 - invoice_manager - INFO - Showing payments view
+2025-04-05 23:39:18,465 - invoice_manager - INFO - Loading payments
+2025-04-05 23:39:19,010 - invoice_manager - INFO - Showing items view
+2025-04-05 23:39:19,067 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-05 23:39:19,072 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-05 23:39:20,040 - invoice_manager - INFO - Showing print invoices view
+2025-04-05 23:39:20,075 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-05 23:39:20,079 - invoice_manager - INFO - Displaying 3 invoices for printing
+2025-04-05 23:39:21,108 - invoice_manager - INFO - Showing items view
+2025-04-05 23:39:21,167 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-05 23:39:21,172 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-05 23:39:22,042 - invoice_manager - INFO - Showing invoices view
+2025-04-05 23:39:22,060 - invoice_manager - INFO - Loading invoices
+2025-04-05 23:39:23,374 - invoice_manager - INFO - Showing payments view
+2025-04-05 23:39:23,420 - invoice_manager - INFO - Loading payments
+2025-04-05 23:39:25,335 - invoice_manager - INFO - Application closed
+2025-04-05 23:39:26,225 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 23:39:26,226 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 23:39:26,226 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 23:39:26,237 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 23:39:26,242 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 23:39:26,305 - invoice_manager - INFO - Starting main application loop
+2025-04-05 23:39:26,332 - invoice_manager - INFO - Showing dashboard
+2025-04-05 23:39:30,268 - invoice_manager - INFO - Application closed
+2025-04-05 23:51:30,252 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 23:51:30,253 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 23:51:30,253 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 23:51:30,261 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 23:51:30,270 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 23:51:30,348 - invoice_manager - INFO - Starting main application loop
+2025-04-05 23:51:30,385 - invoice_manager - INFO - Showing dashboard
+2025-04-05 23:51:32,133 - invoice_manager - INFO - Showing clients view
+2025-04-05 23:51:32,188 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-05 23:51:32,204 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-05 23:51:33,268 - invoice_manager - INFO - Showing invoices view
+2025-04-05 23:51:33,285 - invoice_manager - INFO - Loading invoices
+2025-04-05 23:51:34,404 - invoice_manager - INFO - Showing items view
+2025-04-05 23:51:34,463 - invoice_manager - INFO - Loading items page 1, per_page 20, search ''
+2025-04-05 23:51:34,470 - invoice_manager - INFO - Showing 1 to 3 of 3 items
+2025-04-05 23:51:35,093 - invoice_manager - INFO - Showing payments view
+2025-04-05 23:51:35,217 - invoice_manager - INFO - Loading payments
+2025-04-05 23:51:35,219 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-05 23:51:36,646 - invoice_manager - INFO - Loading payments
+2025-04-05 23:51:36,808 - invoice_manager - INFO - Loading payments
+2025-04-05 23:51:36,973 - invoice_manager - INFO - Loading payments
+2025-04-05 23:51:55,114 - invoice_manager - INFO - Updating payment status for invoice 4 to completed
+2025-04-05 23:51:55,123 - invoice_manager - INFO - Payment status updated for invoice 4
+2025-04-05 23:51:55,123 - invoice_manager - INFO - Loading invoices with status filter: All
+2025-04-05 23:52:00,092 - invoice_manager - INFO - Changed appearance mode to Dark
+2025-04-05 23:52:02,741 - invoice_manager - INFO - Changed appearance mode to Light
+2025-04-05 23:52:05,832 - invoice_manager - INFO - Changed appearance mode to Dark
+2025-04-05 23:52:33,522 - invoice_manager - INFO - Loading payments
+2025-04-05 23:52:38,014 - invoice_manager - INFO - Loading payments
+2025-04-05 23:52:38,189 - invoice_manager - INFO - Loading payments
+2025-04-05 23:52:40,541 - invoice_manager - INFO - Loading invoices with status filter: All
+2025-04-05 23:52:44,934 - invoice_manager - INFO - Loading invoices with status filter: All
+2025-04-05 23:52:46,202 - invoice_manager - INFO - Loading invoices with status filter: All
+2025-04-05 23:52:47,516 - invoice_manager - INFO - Loading invoices with status filter: All
+2025-04-05 23:56:04,217 - invoice_manager - INFO - Application closed
+2025-04-05 23:56:05,210 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 23:56:05,211 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 23:56:05,211 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 23:56:05,219 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 23:56:05,224 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 23:56:05,289 - invoice_manager - INFO - Starting main application loop
+2025-04-05 23:56:05,318 - invoice_manager - INFO - Showing dashboard
+2025-04-05 23:56:06,567 - invoice_manager - INFO - Showing invoices view
+2025-04-05 23:56:06,587 - invoice_manager - INFO - Loading invoices
+2025-04-05 23:56:08,151 - invoice_manager - INFO - Showing payments view
+2025-04-05 23:56:08,272 - invoice_manager - INFO - Loading payments
+2025-04-05 23:56:08,274 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-05 23:57:34,429 - invoice_manager - INFO - Application closed
+2025-04-05 23:57:38,830 - invoice_manager - INFO - Starting Invoice Manager application
+2025-04-05 23:57:38,831 - invoice_manager - INFO - Configuration loaded from C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\config\config.json
+2025-04-05 23:57:38,831 - invoice_manager - INFO - Initializing database with URI: sqlite:///C:\Users\Cj\Documents\Commissions\Invoice Manager Tkinter\invoice_manager.db
+2025-04-05 23:57:38,839 - invoice_manager - INFO - Checking database schema for updates
+2025-04-05 23:57:38,842 - invoice_manager - INFO - Database initialized successfully
+2025-04-05 23:57:38,913 - invoice_manager - INFO - Starting main application loop
+2025-04-05 23:57:38,946 - invoice_manager - INFO - Showing dashboard
+2025-04-05 23:57:40,181 - invoice_manager - INFO - Showing dashboard
+2025-04-05 23:57:40,672 - invoice_manager - INFO - Showing clients view
+2025-04-05 23:57:40,731 - invoice_manager - INFO - Loading clients page 1, per_page 20, search ''
+2025-04-05 23:57:40,745 - invoice_manager - INFO - Showing 1 to 7 of 7 customers
+2025-04-05 23:57:41,637 - invoice_manager - INFO - Showing invoices view
+2025-04-05 23:57:41,656 - invoice_manager - INFO - Loading invoices
+2025-04-05 23:57:42,229 - invoice_manager - INFO - Showing payments view
+2025-04-05 23:57:42,360 - invoice_manager - INFO - Loading payments
+2025-04-05 23:57:42,362 - invoice_manager - INFO - Loading invoices with status filter: None
+2025-04-05 23:57:52,448 - invoice_manager - INFO - Changed appearance mode to Light
+2025-04-05 23:57:56,774 - invoice_manager - INFO - Changed appearance mode to Dark
+2025-04-05 23:58:43,249 - invoice_manager - INFO - Loading invoices with status filter: All
+2025-04-05 23:58:43,438 - invoice_manager - INFO - Loading invoices with status filter: All
+2025-04-05 23:58:46,264 - invoice_manager - INFO - Loading invoices with status filter: Pending
+2025-04-05 23:58:46,858 - invoice_manager - INFO - Loading invoices with status filter: Pending
+2025-04-05 23:58:47,044 - invoice_manager - INFO - Loading invoices with status filter: Pending
+2025-04-05 23:58:48,326 - invoice_manager - INFO - Loading invoices with status filter: Completed
+2025-04-05 23:58:49,085 - invoice_manager - INFO - Loading invoices with status filter: Completed
+2025-04-05 23:58:50,236 - invoice_manager - INFO - Loading invoices with status filter: All
+2025-04-05 23:58:53,865 - invoice_manager - INFO - Loading payments
+2025-04-05 23:58:55,539 - invoice_manager - INFO - Showing dashboard
+2025-04-05 23:59:00,476 - invoice_manager - INFO - Showing print invoices view
+2025-04-05 23:59:00,514 - invoice_manager - INFO - Loading invoices for printing with filter: None
+2025-04-05 23:59:00,518 - invoice_manager - INFO - Displaying 3 invoices for printing
+2025-04-05 23:59:08,622 - invoice_manager - INFO - Printing invoice with ID: 4
+2025-04-05 23:59:08,645 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_235908.pdf
+2025-04-05 23:59:08,707 - invoice_manager - INFO - Opened PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_235908.pdf
+2025-04-05 23:59:15,028 - invoice_manager - INFO - Batch printing 3 invoices as one document
+2025-04-05 23:59:15,059 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_001_20250405_235915.pdf
+2025-04-05 23:59:15,071 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_002_20250405_235915.pdf
+2025-04-05 23:59:15,086 - invoice_manager - INFO - Generated invoice PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\invoice_INV_003_20250405_235915.pdf
+2025-04-05 23:59:15,129 - invoice_manager - INFO - Successfully merged 3 PDFs into: C:\Users\Cj\AppData\Local\Temp\invoice_manager\batch_invoices_20250405_235915.pdf
+2025-04-05 23:59:15,129 - invoice_manager - INFO - Printing PDF using os.startfile: C:\Users\Cj\AppData\Local\Temp\invoice_manager\batch_invoices_20250405_235915.pdf
+2025-04-05 23:59:15,137 - invoice_manager - ERROR - Error in direct printing: [WinError 1155] No application is associated with the specified file for this operation: 'C:\\Users\\Cj\\AppData\\Local\\Temp\\invoice_manager\\batch_invoices_20250405_235915.pdf'
+2025-04-05 23:59:15,162 - invoice_manager - INFO - Opened PDF: C:\Users\Cj\AppData\Local\Temp\invoice_manager\batch_invoices_20250405_235915.pdf
+2025-04-05 23:59:15,163 - invoice_manager - INFO - Opened PDF after print error: C:\Users\Cj\AppData\Local\Temp\invoice_manager\batch_invoices_20250405_235915.pdf
+2025-04-05 23:59:26,576 - invoice_manager - INFO - Loading invoices for printing with filter: today
+2025-04-05 23:59:26,583 - invoice_manager - INFO - Displaying 3 invoices for printing
+2025-04-05 23:59:29,995 - invoice_manager - INFO - Loading invoices for printing with filter: past_7_days
+2025-04-05 23:59:30,002 - invoice_manager - INFO - Displaying 3 invoices for printing
+2025-04-05 23:59:31,252 - invoice_manager - INFO - Loading invoices for printing with filter: past_7_days
+2025-04-05 23:59:31,255 - invoice_manager - INFO - Displaying 3 invoices for printing

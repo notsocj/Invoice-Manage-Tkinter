@@ -2,6 +2,7 @@ import logging
 import threading
 import os
 import tempfile
+import time  # Add the missing time import
 from datetime import datetime, timedelta
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import and_, or_
@@ -91,8 +92,17 @@ class PrintController:
             self.logger.error(f"Error fetching invoice details for printing: {str(e)}")
             return None, None
     
-    def print_invoice(self, invoice_id, silent=False):
-        """Print the selected invoice"""
+    def print_invoice(self, invoice_id, silent=False, direct_print=True):
+        """Print the selected invoice
+        
+        Args:
+            invoice_id: The ID of the invoice to print
+            silent: If True, suppresses success/error messages
+            direct_print: If True, sends directly to printer instead of preview
+        
+        Returns:
+            Tuple containing (success status, PDF path)
+        """
         self.logger.info(f"Printing invoice with ID: {invoice_id}")
         
         # Get invoice details
@@ -101,7 +111,7 @@ class PrintController:
         if not invoice_data:
             if not silent:
                 self.view.show_error("Failed to load invoice data for printing")
-            return False
+            return False, None
         
         try:
             # Check if there's a logo file in the app directory
@@ -109,63 +119,109 @@ class PrintController:
             if not os.path.exists(logo_path):
                 logo_path = None
             
-            # Generate PDF
-            pdf_path = self.print_manager.generate_invoice_pdf(
-                invoice_data, 
-                items_data, 
-                logo_path=logo_path
-            )
-            
-            # Open PDF for viewing/printing
-            if pdf_path:
+            if direct_print:
+                # Use direct printing method that shows system print dialog
+                success = self.print_manager.print_direct(invoice_data, items_data, logo_path)
+                
+                if success:
+                    if not silent:
+                        self.view.show_info(f"Invoice {invoice_data['invoice_number']} sent to printer")
+                    return True, None
+                else:
+                    if not silent:
+                        self.view.show_error("Failed to send invoice to printer")
+                    return False, None
+            else:
+                # Generate PDF for preview
+                pdf_path = self.print_manager.generate_invoice_pdf(
+                    invoice_data, 
+                    items_data, 
+                    logo_path=logo_path
+                )
+                
+                if not pdf_path:
+                    if not silent:
+                        self.view.show_error("Failed to generate invoice PDF")
+                    return False, None
+                
+                # Open the PDF for viewing
                 self.print_manager.open_pdf(pdf_path)
                 if not silent:
                     self.view.show_info(f"Invoice {invoice_data['invoice_number']} ready for printing")
-                return True
-            else:
-                if not silent:
-                    self.view.show_error("Failed to generate invoice PDF")
-                return False
+                return True, pdf_path
                 
         except Exception as e:
             self.logger.error(f"Error printing invoice: {str(e)}")
             if not silent:
                 self.view.show_error(f"Error printing invoice: {str(e)}")
-            return False
+            return False, None
     
-    def preview_invoice(self, invoice_id):
-        """Generate and display a preview of the invoice"""
-        self.logger.info(f"Previewing invoice with ID: {invoice_id}")
+    def print_multiple_invoices(self, invoice_ids):
+        """Print multiple invoices in batch by combining them into a single PDF
         
-        # Get invoice details
-        invoice_data, items_data = self.get_invoice_details(invoice_id)
+        Args:
+            invoice_ids: List of invoice IDs to print
+            
+        Returns:
+            Tuple containing (success count, fail count)
+        """
+        if not invoice_ids:
+            self.view.show_error("No invoices selected for printing")
+            return 0, 0
+            
+        self.logger.info(f"Batch printing {len(invoice_ids)} invoices as one document")
         
-        if not invoice_data:
-            self.view.show_error("Failed to load invoice data for preview")
-            return False
+        # Show processing indicator in the UI
+        self.view.show_processing_indicator(True, f"Preparing {len(invoice_ids)} invoices for printing...")
         
-        try:
+        # Use a worker thread for batch processing
+        def process_batch():
+            # Collect all invoice data
+            invoice_data_list = []
+            failed_ids = []
+            
+            # Get data for all selected invoices
+            for invoice_id in invoice_ids:
+                invoice_data, items_data = self.get_invoice_details(invoice_id)
+                if invoice_data and items_data:
+                    invoice_data_list.append((invoice_data, items_data))
+                else:
+                    failed_ids.append(invoice_id)
+            
             # Check if there's a logo file in the app directory
             logo_path = os.path.join(os.getcwd(), "logo.jpg")
             if not os.path.exists(logo_path):
                 logo_path = None
             
-            # Generate PDF
-            pdf_path = self.print_manager.generate_invoice_pdf(
-                invoice_data, 
-                items_data, 
-                logo_path=logo_path
-            )
-            
-            # Open PDF for viewing
-            if pdf_path:
-                self.print_manager.open_pdf(pdf_path)
-                return True
+            # Process the batch if we have any valid invoices
+            if invoice_data_list:
+                success = self.print_manager.print_multiple_invoices_as_one(invoice_data_list, logo_path)
+                if success:
+                    success_count = len(invoice_data_list)
+                    fail_count = len(failed_ids)
+                else:
+                    success_count = 0
+                    fail_count = len(invoice_ids)
             else:
-                self.view.show_error("Failed to generate invoice preview")
-                return False
-                
-        except Exception as e:
-            self.logger.error(f"Error previewing invoice: {str(e)}")
-            self.view.show_error(f"Error previewing invoice: {str(e)}")
-            return False
+                success_count = 0
+                fail_count = len(invoice_ids)
+            
+            # Update UI when complete
+            self.view.after(0, lambda: self.view.show_processing_indicator(False))
+            if fail_count == 0:
+                self.view.after(0, lambda: self.view.show_info(f"Successfully sent {success_count} invoice(s) to printer"))
+            else:
+                self.view.after(0, lambda: self.view.show_info(
+                    f"Sent {success_count} invoice(s) to printer. Failed to print {fail_count} invoice(s)."
+                ))
+        
+        # Run the batch processing in a thread
+        thread = threading.Thread(target=process_batch)
+        thread.daemon = True
+        thread.start()
+        
+        return len(invoice_ids), 0  # Return expected processing count
+    
+    def preview_invoice(self, invoice_id):
+        """Generate and display a preview of the invoice"""
+        return self.print_invoice(invoice_id, direct_print=False)[0]
